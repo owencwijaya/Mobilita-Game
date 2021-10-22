@@ -10,7 +10,8 @@ void main(){
 }
 
 /* Fungsi mainMenu */
-int mainMenu(){
+int mainMenu()
+{
     title();
     printf("========MENU========\n");
     printf("1. New Game\n");
@@ -18,21 +19,22 @@ int mainMenu(){
     printf("Masukkan pilihan: \n>>> ");
 
     int option;
+    gameMatrix MainGM;
     scanf("%d", &option);
-    switch(option){
-        case 1:
-            /*printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
+    switch (option)
+    {
+    case 1:
+        /* printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
             char fileName[100];
-            scanf("%s", &fileName);
-            */
-            configInput("placeholder");
-        case 0:
-            return 0;
+            scanf("%s", &fileName);*/
+        MainGM = configInput("placeholder");
+    case 0:
+        return 0;
     }
 }
 
-
-void title(){
+void title()
+{
     printf("  __                         \n");
     printf(" /  )  _ _ _ _      (   //   \n");
     printf("/(_/()/ (-(///)()/) |/|//)(/ \n");
