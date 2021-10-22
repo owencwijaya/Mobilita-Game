@@ -13,7 +13,7 @@ typedef int Index; /* Index baris, kolom */
 typedef int ElType;
 typedef struct
 {
-   ElType contents[ROW_CAP][COL_CAP];
+   char contents[ROW_CAP][COL_CAP];
    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Matrix;

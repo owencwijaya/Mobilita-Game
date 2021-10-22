@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include "matrix.h"
 
-/* 
-    NIM: 13520124
-    Nama: Owen Christian Wijaya
-    Tanggal: Jum'at, 17 September 2021
-    Topik: ADT Matriks
-    Deskripsi: Implementasi ADT Matriks
-*/
-
 void CreateMatrix(int nRow, int nCol, Matrix *m){
     /* Membuat matriks baru sesuai ukuran baris - kolom
     yang diinginkan */
