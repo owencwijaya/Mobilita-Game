@@ -10,7 +10,7 @@
 #define COL_CAP 100
 
 typedef int Index; /* Index baris, kolom */
-typedef int ElType;
+typedef char ElType;
 typedef struct
 {
    char contents[ROW_CAP][COL_CAP];

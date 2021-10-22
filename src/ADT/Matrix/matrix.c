@@ -92,6 +92,61 @@ void displayMatrix(Matrix m){
     }
 }
 
+void displayMap(Matrix m){
+    /* Memberikan keluaran matriks */
+
+    /* Kamus */
+    int i = 0;
+    int j = 0;
+
+    /* Algoritma */
+    for(i = 0; i < ROWS(m); i++){
+        for(j = 0; j < COLS(m); j++){
+            printf("%c ", ELMT(m, i, j));
+            
+            
+            if(j != COLS(m) - 1){
+                printf(" ");
+            }
+        }
+        if (i != ROWS(m) - 1){
+            printf("\n");
+        }
+    }
+}
+
+void displayOrders(Matrix m){
+    /* Memberikan keluaran matriks */
+
+    /* Kamus */
+    int i = 0;
+    int j = 0;
+
+    /* Algoritma */
+    for(i = 0; i < ROWS(m); i++){
+        for(j = 0; j < COLS(m); j++){
+            if (j == 0){
+                printf("%d", ELMT(m, i , j));
+            } else if (j == 4){
+                if (ELMT(m, i, j) != 0){
+                    printf("%d", ELMT(m, i, j));
+                } else {
+                    printf(" ");
+                }
+            } else {
+                printf("%c", ELMT(m, i , j));
+            }
+            if(j != COLS(m) - 1){
+                printf(" ");
+            }
+        }
+        if (i != ROWS(m) - 1){
+            printf("\n");
+        }
+    }
+}
+
+
 Matrix addMatrix(Matrix m1, Matrix m2){
     /* Mengembalikan matriks hasil penjumlahan dua matriks */
 
