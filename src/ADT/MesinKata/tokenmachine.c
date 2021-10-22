@@ -2,20 +2,12 @@
 #include "tokenmachine.h"
 #include "charmachine.h"
 
-/*
-    NIM: 13520124
-    Nama: Owen Christian Wijaya
-    Tanggal: Kamis, 23 September 2021
-    Topik: Mesin Kata
-    Deskripsi: Implementasi Mesin Kata Versi 1
-*/
-
 
 boolean endToken;
 Token currentToken;
 
 void ignoreBlank(){
-    while (currentChar == BLANK){
+    while (currentChar == BLANK || currentChar == ENTER){
         adv();
     }
 } 
@@ -23,7 +15,18 @@ void ignoreBlank(){
 void startToken(){
     start();
     ignoreBlank();
-    if (currentChar == MARK){
+    if (currentChar == MARK || currentChar == ENTER){
+        endToken = true;
+    } else {
+        endToken = false;
+        advToken();
+    }
+}
+
+void startWithPath(char *path){
+    readWithCharMachine(path);
+    ignoreBlank();
+    if (currentChar == MARK || currentChar == ENTER){
         endToken = true;
     } else {
         endToken = false;
@@ -33,7 +36,7 @@ void startToken(){
 
 void advToken(){
     ignoreBlank();
-    if (currentChar == MARK){
+    if (currentChar == MARK || currentChar == ENTER){
         endToken = true;
     } else {
         salinToken();
@@ -48,15 +51,15 @@ void salinToken(){
 
     ignoreBlank();
 
-    if (currentChar == MARK){
+    if (currentChar == MARK || currentChar == ENTER){
         endToken = true;
-    } else if (currentChar == '+' || currentChar == '-' || currentChar == '^' || currentChar == '*' || currentChar == '/'){
+    } else if (currentChar >= 65 && currentChar <= 90){
         currentToken.tkn = currentChar;
         currentToken.val = -1;
         adv();
     } else {
         currentToken.tkn = 'b';
-        while ((currentChar != MARK) && (currentChar != BLANK) && (i < CAPACITY)){
+        while ((currentChar != MARK) && (currentChar != ENTER) && (currentChar != BLANK) && (i < CAPACITY)){
             if (currentChar == '0'){
                 content = 0;
             } else if (currentChar == '1'){

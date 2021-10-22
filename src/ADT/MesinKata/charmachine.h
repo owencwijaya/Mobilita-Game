@@ -7,10 +7,12 @@
 #include "boolean.h"
 
 #define MARK '.'
+#define ENTER '\n'
 /* Char Engine State */
 extern char currentChar;
 extern boolean eot;
 
+void readWithCharMachine(char *path);
 void start();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.

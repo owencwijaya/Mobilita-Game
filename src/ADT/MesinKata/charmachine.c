@@ -10,6 +10,10 @@ boolean eot;
 static FILE * tape;
 static int retval;
 
+void readWithCharMachine(char *path){
+       tape = fopen(path, "r");
+       adv();
+}
 void start() {
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
