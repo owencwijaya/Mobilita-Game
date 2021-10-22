@@ -1,28 +1,85 @@
 #include <stdio.h>
 #include "ADT/Matrix/matrix.c"
-#include "ADT/MesinKata/tokenmachine.c"
 #include "ADT/MesinKata/charmachine.c"
+#include "ADT/MesinKata/tokenmachine.c"
 
 void StringToMatrix(char temp[100]);
 
+typedef struct {
+    Matrix map;
+    Matrix AdjM;
+    Matrix OrderM; 
+} gameMatrix ;
 
-void configInput(char fileName[100]){
-    FILE *file;
-    char temp[255];
-    printf("Nama file: %s\n\n", fileName);
-    file = fopen(".//config/dummyConfig.txt", "r"); // hardcoded dulu sementara, buat ngetes
-    if (file != NULL){ //pake algo mesin kata
-        fscanf(file, "%[^\n]", temp);
-        StringToMatrix(temp);
-    } else {
-        printf("File tidak ditemukan. Kembali ke menu utama....\n");
-        mainMenu();
+//ADT modifikasi matriks untuk return 3 matriks
+
+gameMatrix configInput(char fileName[100]){
+    startWithPath(".//config/dummyConfig.txt");
+    gameMatrix GM;
+
+    // Pembuatan Matriks Peta
+    /* akuisisi ukuran matriks */
+    int rows; int cols; Matrix map;
+    rows = currentToken.val; advToken();
+    cols = currentToken.val; advToken();
+    CreateMatrix(rows, cols, &map);
+
+    /* akuisisi koordinat matriks */
+    int HQX; int HQY;
+    HQX = currentToken.val; advToken();
+    HQY = currentToken.val; advToken();
+    ELMT(map, HQX - 1, HQY - 1) = '8';
+
+    /* akuisisi jumlah query */
+    int query = currentToken.val; advToken();
+    int i = 0; int j = 0; int tempX; int tempY; char CharLocation;
+
+   
+    for (i = 0; i < query; i++){
+        CharLocation = currentToken.tkn; advToken(); 
+        tempX = currentToken.val; advToken();
+        tempY = currentToken.val; advToken();
+        ELMT(map, tempX - 1, tempY - 1) = CharLocation;
     }
-}
 
-void StringToMatrix(char temp[100]){
-    int rows;
-    int cols;
-    startToken(); 
-    printf("%d", currentToken.val);
+    //Matriks adjacency
+    Matrix AdjM;
+    CreateMatrix(query + 1, query + 1, &AdjM);
+    for(i = 0; i < AdjM.rowEff; i++){
+        for(j = 0; j < AdjM.rowEff; j++){
+            ELMT(AdjM, i, j) = currentToken.val;
+            advToken();
+        }
+    }
+
+    //Matriks pesanan
+    Matrix OrderM;
+    int order = currentToken.val; advToken();
+    CreateMatrix(order, 5, &OrderM);
+    for(i = 0; i < order; i++){
+        for(j = 0; j < 5; j++){
+            if (j == 0){
+                ELMT(OrderM, i, j) = currentToken.val;
+                advToken();
+            } else if (j == 4){
+                if (ELMT(OrderM, i, 3) == 'P'){
+                    advToken();
+                    ELMT(OrderM, i, j) = currentToken.val;
+                } else {
+                    ELMT(OrderM, i, j) = 0;
+                }
+                advToken();
+            } else if (j == 3){
+                ELMT(OrderM, i, j) = currentToken.tkn;
+            } else {
+                ELMT(OrderM, i, j) = currentToken.tkn;
+                advToken();
+            }
+        }
+    }
+
+    GM.map = map;
+    GM.AdjM = AdjM;
+    GM.OrderM = OrderM;
+    return GM;
 }
