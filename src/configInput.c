@@ -1,15 +1,9 @@
 #include <stdio.h>
 #include "ADT/Matrix/matrix.c"
-#include "ADT/MesinKata/charmachine.c"
 #include "ADT/MesinKata/tokenmachine.c"
+#include "ADT/gameMatrix.h"
 
 void StringToMatrix(char temp[100]);
-
-typedef struct {
-    Matrix map;
-    Matrix AdjM;
-    Matrix OrderM; 
-} gameMatrix ;
 
 //ADT modifikasi matriks untuk return 3 matriks
 

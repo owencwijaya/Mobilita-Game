@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "configInput.c"
+#include "gameInterface.c"
+
 /* prototype fungsi */
 int mainMenu();
 void title();
@@ -20,7 +22,8 @@ int mainMenu()
 
     int option;
     gameMatrix MainGM;
-    scanf("%d", &option);
+    startToken();
+    option = currentToken.val;
     switch (option)
     {
     case 1:
@@ -28,6 +31,7 @@ int mainMenu()
             char fileName[100];
             scanf("%s", &fileName);*/
         MainGM = configInput("placeholder");
+        gameMenu(&MainGM);
     case 0:
         return 0;
     }
