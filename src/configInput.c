@@ -3,13 +3,11 @@
 #include "ADT/MesinKata/tokenmachine.c"
 #include "ADT/gameMatrix.h"
 
-void StringToMatrix(char temp[100]);
-
 //ADT modifikasi matriks untuk return 3 matriks
 
-gameMatrix configInput(char fileName[100]){
+gameMatrix configInput(char fileName[100]){ //ini nanti sesuaiin sama struct Raden
     startWithPath(".//config/dummyConfig.txt");
-    gameMatrix GM;
+    gameMatrix GM; //ini nanti sesuaiin sama struct Raden
 
     // Pembuatan Matriks Peta
     /* akuisisi ukuran matriks */
@@ -71,7 +69,7 @@ gameMatrix configInput(char fileName[100]){
             }
         }
     }
-
+    //ini nanti sesuaiin sama struct Raden
     GM.map = map;
     GM.AdjM = AdjM;
     GM.OrderM = OrderM;
