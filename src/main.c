@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "configInput.c"
 #include "gameInterface.c"
-
 /* prototype fungsi */
 int mainMenu();
 void title();
@@ -21,19 +20,15 @@ int mainMenu()
     printf("Masukkan pilihan: \n>>> ");
 
     int option;
-    gameMatrix MainGM;
+    gameMatrix MainGM; //ini nanti sesuaiin sama struct Raden
     startToken();
     option = currentToken.val;
-    switch (option)
-    {
-    case 1:
+    if (option == 1){
         /* printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
             char fileName[100];
             scanf("%s", &fileName);*/
         MainGM = configInput("placeholder");
-        gameMenu(&MainGM);
-    case 0:
-        return 0;
+        gameMenu(&MainGM); //ini nanti sesuaiin sama struct Raden
     }
 }
 
@@ -44,3 +39,4 @@ void title()
     printf("/(_/()/ (-(///)()/) |/|//)(/ \n");
     printf("                          /  \n");
 }
+
