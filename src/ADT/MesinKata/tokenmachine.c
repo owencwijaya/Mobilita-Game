@@ -13,6 +13,7 @@ void ignoreBlank(){
 } 
 
 void startToken(){
+    endToken = false;
     start();
     ignoreBlank();
     if (currentChar == MARK || currentChar == ENTER){

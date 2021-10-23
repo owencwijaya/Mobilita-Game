@@ -2,7 +2,7 @@
 #include "wordmachine.h"
 #include "charmachine.h"
 
-boolean endWord;
+boolean endWord = false;
 Word currentWord;
 
 
@@ -13,7 +13,6 @@ void ignoreWBlank(){
 } 
 
 void startWord(){
-    endWord = false;
     start();
     ignoreWBlank();
     if (currentChar == MARK){
