@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "matrix.h"
 
+
+
 void CreateMatrix(int nRow, int nCol, Matrix *m){
     /* Membuat matriks baru sesuai ukuran baris - kolom
     yang diinginkan */

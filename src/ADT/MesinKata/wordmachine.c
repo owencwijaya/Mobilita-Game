@@ -2,28 +2,20 @@
 #include "wordmachine.h"
 #include "charmachine.h"
 
-
-/*
-    NIM: 13520124
-    Nama: Owen Christian Wijaya
-    Tanggal: Kamis, 23 September 2021
-    Topik: Mesin Kata
-    Deskripsi: Implementasi Mesin Kata Versi 1
-*/
-
 boolean endWord;
 Word currentWord;
 
 
-void ignoreBlank(){
+void ignoreWBlank(){
     while (currentChar == BLANK){
         adv();
     }
 } 
 
 void startWord(){
+    endWord = false;
     start();
-    ignoreBlank();
+    ignoreWBlank();
     if (currentChar == MARK){
         endWord = true;
     } else {
@@ -34,12 +26,12 @@ void startWord(){
 }
 
 void advWord(){
-    ignoreBlank();
+    ignoreWBlank();
     if (currentChar == MARK){
         endWord = true;
     } else {
         copyWord();
-        ignoreBlank();
+        ignoreWBlank();
     }
 }
 

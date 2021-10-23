@@ -19,7 +19,7 @@ typedef struct {
 extern boolean endWord;
 extern Word currentWord;
 
-void ignoreBlank();
+void ignoreWBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang 
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
