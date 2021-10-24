@@ -1,0 +1,8 @@
+**.tex
+*.tex
+**.sty
+**/make.bat
+**/Makefile
+**/refman.*
+
+**/html
