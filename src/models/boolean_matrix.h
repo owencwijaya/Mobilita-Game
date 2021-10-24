@@ -1,6 +1,5 @@
 /**
  * @file boolean_matrix.h
- * @author your name (you@domain.com)
  * @brief Header file untuk tipe data BooleanMatrix.
  */
 

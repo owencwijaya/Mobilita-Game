@@ -1,5 +1,5 @@
 /**
- * @file location_matrix.h
+ * @file location_matrix.c
  * @brief Implementasi tipe data LocationMatrix.
  */
 
