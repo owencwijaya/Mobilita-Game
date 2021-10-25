@@ -1,13 +1,14 @@
 /* File: charmachine.h */
 /* Definisi Character Engine */
 
-#ifndef CHAR_ENGINE_H
-#define CHAR_ENGINE_H
+#ifndef CHARENGINE_H
+#define CHARENGINE_H
 
 #include "boolean.h"
 
 #define MARK '.'
 #define ENTER '\n'
+#define USER_ENTER '\0'
 /* Char Engine State */
 extern char currentChar;
 extern boolean eot;

@@ -7,7 +7,7 @@ boolean endToken;
 Token currentToken;
 
 void ignoreBlank(){
-    while (currentChar == BLANK || currentChar == ENTER){
+    while (currentChar == BLANK || currentChar == ENTER || currentChar == USER_ENTER){
         adv();
     }
 } 
@@ -16,7 +16,7 @@ void startToken(){
     endToken = false;
     start();
     ignoreBlank();
-    if (currentChar == MARK || currentChar == ENTER){
+    if (currentChar == MARK || currentChar == ENTER || currentChar == USER_ENTER){
         endToken = true;
     } else {
         endToken = false;
@@ -27,7 +27,7 @@ void startToken(){
 void startWithPath(char *path){
     readWithCharMachine(path);
     ignoreBlank();
-    if (currentChar == MARK || currentChar == ENTER){
+    if (currentChar == MARK || currentChar == ENTER || currentChar == USER_ENTER){
         endToken = true;
     } else {
         endToken = false;
@@ -37,7 +37,7 @@ void startWithPath(char *path){
 
 void advToken(){
     ignoreBlank();
-    if (currentChar == MARK || currentChar == ENTER){
+    if (currentChar == MARK || currentChar == ENTER || currentChar == USER_ENTER){
         endToken = true;
     } else {
         salinToken();
@@ -52,7 +52,7 @@ void salinToken(){
 
     ignoreBlank();
 
-    if (currentChar == MARK || currentChar == ENTER){
+    if (currentChar == MARK || currentChar == ENTER || currentChar == USER_ENTER){
         endToken = true;
     } else if (currentChar >= 65 && currentChar <= 90){
         currentToken.tkn = currentChar;
@@ -60,7 +60,7 @@ void salinToken(){
         adv();
     } else {
         currentToken.tkn = 'b';
-        while ((currentChar != MARK) && (currentChar != ENTER) && (currentChar != BLANK) && (i < CAPACITY)){
+        while ((currentChar != MARK) && (currentChar != ENTER) && (currentChar != BLANK) && (currentChar != USER_ENTER) && (i < CAPACITY)){
             if (currentChar == '0'){
                 content = 0;
             } else if (currentChar == '1'){

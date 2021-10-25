@@ -3,10 +3,10 @@
 #include "charmachine.h"
 
 boolean endWord = false;
-Word currentWord;
+Word currentCWord;
 
 
-void ignoreWBlank(){
+void ignoreCBlank(){
     while (currentChar == BLANK){
         adv();
     }
@@ -14,27 +14,27 @@ void ignoreWBlank(){
 
 void startWord(){
     start();
-    ignoreWBlank();
+    ignoreCBlank();
     if (currentChar == MARK){
         endWord = true;
     } else {
         endWord = false;
-        copyWord();
+        copyCWord();
     }
     
 }
 
 void advWord(){
-    ignoreWBlank();
+    ignoreCBlank();
     if (currentChar == MARK){
         endWord = true;
     } else {
         copyWord();
-        ignoreWBlank();
+        ignoreCBlank();
     }
 }
 
-void copyWord(){
+void copyCWord(){
     int i = 0;
     while ((currentChar != MARK) && (currentChar != BLANK) && (i < CAPACITY)){
         currentWord.contents[i] = currentChar;

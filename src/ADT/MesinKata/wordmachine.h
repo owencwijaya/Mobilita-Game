@@ -1,8 +1,8 @@
 /* File: wordmachine.h */
 /* Definisi Word Engine */
 
-#ifndef WORD_ENGINE_H
-#define WORD_ENGINE_H
+#ifndef WORDENGINE_H
+#define WORDENGINE_H
 
 #include "boolean.h"
 #include "charmachine.h"
@@ -17,7 +17,7 @@ typedef struct {
 
 /* Word Engine State */
 extern boolean endWord;
-extern Word currentWord;
+extern Word currentCWord;
 
 void ignoreWBlank();
 /* Mengabaikan satu atau beberapa BLANK
