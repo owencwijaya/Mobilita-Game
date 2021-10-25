@@ -31,45 +31,29 @@ typedef struct
 } Gadget;
 
 /**
- * @brief Mengambil property id dari sebuah Gadget.
- * @param g Gadget instance.
- */
-#define id(g) (g).id
-/**
- * @brief Mengambil property price dari sebuah Gadget.
- * @param g Gadget instance.
- */
-#define price(g) (g).price
-/**
- * @brief Mengambil property name dari sebuah Gadget.
- * @param g Gadget instance.
- */
-#define name(g) (g).name
-
-/**
  * @brief Instance Gadget "Kain Pembungkus Waktu".
  */
-extern Gadget KAIN_PEMBUNGKUS_WAKTU;
+extern const Gadget KAIN_PEMBUNGKUS_WAKTU;
 /**
  * @brief Instance Gadget "Senter Pembesar".
  */
-extern Gadget SENTER_PEMBESAR;
+extern const Gadget SENTER_PEMBESAR;
 /**
  * @brief Instance Gadget "Pintu Kemana Saja".
  */
-extern Gadget PINTU_KEMANA_SAJA;
+extern const Gadget PINTU_KEMANA_SAJA;
 /**
  * @brief Instance Gadget "Mesin Waktu".
  */
-extern Gadget MESIN_WAKTU;
+extern const Gadget MESIN_WAKTU;
 /**
  * @brief Instance Gadget "Senter Pengecil".
  */
-extern Gadget SENTER_PENGECIL;
+extern const Gadget SENTER_PENGECIL;
 /**
  * @brief Instance Gadget yang tidak terdefinisi.
  */
-extern Gadget NULL_GADGET;
+extern const Gadget NULL_GADGET;
 
 /**
  * @brief Mengecek apakah dua gadget adalah sama.

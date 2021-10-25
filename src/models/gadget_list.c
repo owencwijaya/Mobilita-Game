@@ -8,6 +8,7 @@
 #include "boolean.h"
 #include "gadget.h"
 #include "gadget_list.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat GadgetList baru.

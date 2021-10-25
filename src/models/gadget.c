@@ -5,6 +5,7 @@
 
 #include "boolean.h"
 #include "gadget.h"
+#include "macros.h"
 
 /**
  * @brief Instance Gadget "Kain Pembungkus Waktu".

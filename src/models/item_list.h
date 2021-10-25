@@ -12,13 +12,13 @@
 /**
  * @brief Alias untuk tipe data ItemListNode.
  */
-typedef ItemListNode *ItemList;
+typedef struct node *ItemList;
 
 /**
  * @struct ItemListNode
  * @brief Node dari tipe data linked list ItemList.
  */
-typedef struct
+typedef struct node
 {
     /**
      * @brief Nilai Item pada ItemListNode ini.
@@ -27,19 +27,8 @@ typedef struct
     /**
      * @brief Pointer ke ItemListNode selanjutnya.
      */
-    ItemListNode *next;
+    ItemList next;
 } ItemListNode;
-
-/**
- * @brief Mengambil value dari sebuah ItemListNode.
- * @param node ItemListNode instance.
- */
-#define value(node) (node).value
-/**
- * @brief Mengambil pointer ke next node dari sebuah ItemListNode.
- * @param node ItemListNode instance.
- */
-#define next(node) (node).next
 
 /**
  * @brief Constructor untuk membuat ItemList baru.

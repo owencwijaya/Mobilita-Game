@@ -49,13 +49,11 @@ typedef struct
      * @brief Lokasi player saat ini.
      */
     Location currentLocation;
+    /**
+     * @brief Waktu saat ini.
+     */
+    int time;
 } State;
-
-/**
- * @todo Implementasi State, termasuk fungsi-fungsi
- * yang mengubah State game, save State, dan
- * reevaluasi State setiap player menjalankan command.
- */
 
 /**
  * @brief Constructor untuk membuat instance
@@ -69,17 +67,6 @@ typedef struct
  * @return State 
  */
 State newState(GameMap m, ItemList todo, ItemList inProgress, ItemStack bag, ItemQueue order);
-
-/**
- * @brief Memindahkan Item dalam Todo List ke
- * In Progress List. Hanya dipanggil ketika
- * player melakukan pick up Item.
- * 
- * @param state State saat ini.
- * @param indexTodo Indeks item pada todo yang akan
- *                  dipindahkan.
- */
-void moveItemToProgressList(State *state, int indexTodo);
 
 /**
  * @brief Reevaluasi state setelah player menjalankan

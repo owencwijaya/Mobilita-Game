@@ -32,27 +32,6 @@ typedef struct
 } ItemQueue;
 
 /**
- * @brief Mengambil indeks head pada antrian q.
- * @param q ItemQueue instance.
- */
-#define headIndex(q) (q).headIndex
-/**
- * @brief Mengambil indeks tail pada antrian q.
- * @param q ItemQueue instance.
- */
-#define tailIndex(q) (q).tailIndex
-/**
- * @brief Mengambil head Item pada antrian q.
- * @param q ItemQueue instance.
- */
-#define head(q) (q).buffer[(q).headIndex]
-/**
- * @brief Mengambil tail Item pada antrian q.
- * @param q ItemQueue instance.
- */
-#define tail(q) (q).buffer[(q).tailIndex]
-
-/**
  * @brief Constructor untuk membuat ItemQueue baru.
  * 
  * @return ItemQueue instance baru yang kosong.

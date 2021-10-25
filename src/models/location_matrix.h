@@ -30,25 +30,6 @@ typedef struct
 } LocationMatrix;
 
 /**
- * @brief Mengambil banyak baris matriks l.
- * @param l LocationMatrix instance.
- */
-#define rows(l) (l).rowEff
-/**
- * @brief Mengambil banyak kolom matriks l.
- * @param l LocationMatrix instance.
- */
-#define cols(l) (l).colEff
-/**
- * @brief Mengambil Location pada matrix l pada
- * indeks (i, j).
- * @param l LocationMatrix instance.
- * @param i Indeks baris elemen yang akan diambil.
- * @param j Indeks kolom elemen yang akan diambil.
- */
-#define elem(l, i, j) (l).contents[i][j]
-
-/**
  * @brief Constructor untuk membuat LocationMatrix baru.
  * 
  * @param rows Banyak baris matriks.

@@ -10,11 +10,6 @@
 #include "point.h"
 
 /**
- * @brief Location yang tidak terdefinisi.
- */
-extern Location NULL_LOCATION;
-
-/**
  * @struct Location
  * @brief Struktur tipe data lokasi yang memuat
  * koordinat, simbol, dan id.
@@ -57,20 +52,9 @@ typedef struct
 } Location;
 
 /**
- * @brief Mengambil id lokasi.
- * @param l Location instance.
+ * @brief Location yang tidak terdefinisi.
  */
-#define id(l) (l).id
-/**
- * @brief Mengambil simbol lokasi.
- * @param l Location instance.
- */
-#define symbol(l) (l).symbol
-/**
- * @brief Mengambil koordinat lokasi.
- * @param l Location instance.
- */
-#define coord(l) (l).coordinate
+extern const Location NULL_LOCATION;
 
 /**
  * @brief Constructor untuk membuat Location baru.

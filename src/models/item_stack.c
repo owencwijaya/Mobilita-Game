@@ -7,6 +7,7 @@
 #include "boolean.h"
 #include "item.h"
 #include "item_stack.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemStack baru.

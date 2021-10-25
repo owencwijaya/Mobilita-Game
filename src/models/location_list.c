@@ -11,6 +11,7 @@
 #include "location.h"
 #include "point.h"
 #include "location_list.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat LocationList baru.

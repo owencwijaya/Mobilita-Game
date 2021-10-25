@@ -34,17 +34,6 @@ typedef struct
 Point newPoint(int x, int y);
 
 /**
- * @brief Mengambil absis dari suatu titik.
- * @param p Point instance.
- */
-#define abs(p) (p).x
-/**
- * @brief Mengambil ordinat dari suatu titik.
- * @param p Point instance.
- */
-#define ord(p) (p).y
-
-/**
  * @brief Mengecek apakah dua titik sama atau tidak.
  * 
  * @param p1 Point instance.

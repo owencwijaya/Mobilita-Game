@@ -29,24 +29,6 @@ typedef struct
 } BooleanMatrix;
 
 /**
- * @brief Mengembalikan banyak baris efektif BooleanMatrix \c b.
- * @param b BooleanMatrix instance.
- */
-#define rows(b) (b).rowEff
-/**
- * @brief Mengembalikan banyak kolom efektif BooleanMatrix \c b.
- * @param b BooleanMatrix instance.
- */
-#define cols(b) (b).colEff
-/**
- * @brief Mengembalikan elemen BooleanMatrix \c b pada index (i, j).
- * @param b BooleanMatrix instance.
- * @param i Index baris elemen yang akan diambil.
- * @param j Index kolom elemen yang akan diambil.
- */
-#define elem(b, i, j) (b).contents[i][j]
-
-/**
  * @brief Constructor untuk membuat BooleanMatrix baru.
  * 
  * @param rows Banyak baris efektif (rowEff).

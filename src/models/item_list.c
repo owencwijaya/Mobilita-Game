@@ -8,6 +8,7 @@
 #include "boolean.h"
 #include "item.h"
 #include "item_list.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemList baru.
@@ -162,7 +163,7 @@ void setItem(ItemList *iList, int index, Item item)
  */
 void insertItemFirst(ItemList *iList, Item item)
 {
-    ItemList list = iList;
+    ItemList list = *iList;
     ItemListNode node = newItemListNode(item);
     **iList = node;
     next(**iList) = list;

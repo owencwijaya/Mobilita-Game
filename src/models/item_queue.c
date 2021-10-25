@@ -6,6 +6,7 @@
 
 #include "item.h"
 #include "item_queue.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemQueue baru.

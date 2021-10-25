@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "boolean.h"
 #include "point.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat Point baru.
@@ -20,8 +21,8 @@
 Point newPoint(int x, int y)
 {
     Point p;
-    abs(p) = x;
-    ord(p) = y;
+    x(p) = x;
+    y(p) = y;
 }
 
 /**
@@ -33,7 +34,7 @@ Point newPoint(int x, int y)
  */
 boolean isPointIdentical(Point p1, Point p2)
 {
-    return abs(p1) == abs(p2) && ord(p1) == ord(p2);
+    return x(p1) == x(p2) && y(p1) == y(p2);
 }
 
 /**
@@ -48,7 +49,7 @@ boolean isPointIdentical(Point p1, Point p2)
  */
 boolean isPointBefore(Point p1, Point p2)
 {
-    return abs(p1) < abs(p2) || (abs(p1) == abs(p2) && ord(p1) < ord(p2));
+    return x(p1) < x(p2) || (x(p1) == x(p2) && y(p1) < y(p2));
 }
 
 /**
@@ -58,5 +59,5 @@ boolean isPointBefore(Point p1, Point p2)
  */
 void displayPoint(Point p)
 {
-    printf("(%d, %d)", abs(p), ord(p));
+    printf("(%d, %d)", x(p), y(p));
 }

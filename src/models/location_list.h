@@ -31,28 +31,6 @@ typedef struct
 } LocationList;
 
 /**
- * @brief Mengambil banyak elemen list.
- * @param l LocationList instance.
- */
-#define neff(l) (l).nEff
-/**
- * @brief Mengambil kapasitas elemen list.
- * @param l LocationList instance.
- */
-#define capacity(l) (l).capacity
-/**
- * @brief Mengambil memory list.
- * @param l LocationList instance.
- */
-#define buffer(l) (l).buffer
-/**
- * @brief Mengambil elemen list pada indeks tertentu.
- * @param l LocationList instance.
- * @param i Indeks elemen yang akan diambil.
- */
-#define lElem(l, i) (l).buffer[i]
-
-/**
  * @brief Constructor untuk membuat LocationList baru.
  * 
  * @param capacity Kapasitas list.

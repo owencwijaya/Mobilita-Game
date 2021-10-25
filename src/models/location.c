@@ -11,6 +11,7 @@
 #include "point.h"
 #include "location.h"
 #include "../modules/colorizer/colorizer.h"
+#include "macros.h"
 
 /**
  * @brief Location yang tidak terdefinisi.
@@ -102,7 +103,7 @@ void writeLocationSymbol(Location l)
         {
             changeToGreenColor();
         }
-        printf(symbol(l));
+        printf("%c", symbol(l));
         resetColor();
     }
     else

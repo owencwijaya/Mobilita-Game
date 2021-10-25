@@ -8,6 +8,7 @@
 
 #include "boolean.h"
 #include "boolean_matrix.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat BooleanMatrix baru.

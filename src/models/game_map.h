@@ -34,40 +34,7 @@ typedef struct
  * @param locations List lokasi yang ada.
  * @return GameMap baru yang terdefinisi.
  */
-GameMap newGameMap(int hSize, int vSize, BooleanMatrix adjMatrix, Location *locations);
-
-/**
- * @brief Mengembalikan panjang GameMap \c m.
- * @param m GameMap instance.
- */
-#define mapLength(m) (m).hSize
-/**
- * @brief Mengembalikan lebar GameMap \c m.
- * @param m GameMap instance.
- */
-#define mapWidth(m) (m).vSize
-/**
- * @private
- * @brief Mengembalikan matriks adjacency dari map \c m.
- * @see BooleanMatrix
- * @param m GameMap instance
- */
-#define adjMatrix(m) (m)._adjacency
-/**
- * @private
- * @brief Mengembalikan list lokasi yang ada pada \c m.
- * @see LocationList
- * @param m GameMap instance
- */
-#define locList(m) (m)._locations
-/**
- * @private
- * @brief Mengembalikan matriks lokasi dari map \c m.
- * ! Hanya digunakan untuk menampilkan output map.
- * @see LocationMatrix
- * @param m GameMap instance
- */
-#define locMatrix(m) (m)._locationMatrix
+GameMap newGameMap(int hSize, int vSize, BooleanMatrix adjMatrix, LocationList locations);
 
 /**
  * @brief Menampilkan map game ke console output.
@@ -84,6 +51,16 @@ void displayGameMap(GameMap m);
  * @param currentLocation Lokasi saat ini.
  */
 void displayAdjacentLocation(GameMap m, Location currentLocation);
+
+/**
+ * @brief Mengambil lokasi-lokasi yagn adjacent dengan suatu lokasi.
+ * 
+ * @param lList List lokasi yang ada.
+ * @param currentLocation Lokasi saat ini.
+ * @param adjMatrix Matriks adjacency.
+ * @return List lokasi yang adjacent dengan lokasi saat ini.
+ */
+LocationList getAdjacentLocations(LocationList lList, Location currentLocation, BooleanMatrix adjMatrix);
 
 /**
  * @brief Mengecek apakah suatu lokasi adjacent dengan lokasi lain.

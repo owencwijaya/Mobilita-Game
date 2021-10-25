@@ -9,6 +9,7 @@
 #include "location_list.h"
 #include "location_matrix.h"
 #include "game_map.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat GameMap baru.
@@ -67,21 +68,28 @@ void displayGameMap(GameMap m)
  */
 void displayAdjacentLocation(GameMap m, Location currentLocation)
 {
-    LocationList adjLocs;
-    _getAdjacentLocations(&adjLocs, locList(m), currentLocation, adjMatrix(m));
+    LocationList adjLocs = getAdjacentLocations(locList(m), currentLocation, adjMatrix(m));
+    for (int i = 0; i < length(adjLocs); i++)
+    {
+        printf("%d. %c ", i + 1, symbol(lElem(adjLocs, i)));
+        displayPoint(coord(lElem(adjLocs, i)));
+        printf("\n");
+    }
 }
 
-void _getAdjacentLocations(LocationList *adjLocs, LocationList lList, Location currentLocation, BooleanMatrix adjMatrix)
+LocationList getAdjacentLocations(LocationList lList, Location currentLocation, BooleanMatrix adjMatrix)
 {
+    LocationList adjLocs = newLocationList(26);
     int i = id(currentLocation);
-    *adjLocs = newLocationList(26);
+    adjLocs = newLocationList(26);
     for (int j = 0; j < cols(adjMatrix); j++)
     {
         if (elem(adjMatrix, i, j))
         {
-            insertLast(adjLocs, _getLocationById(lList, j));
+            insertLast(&adjLocs, _getLocationById(lList, j));
         }
     }
+    return adjLocs;
 }
 
 /**

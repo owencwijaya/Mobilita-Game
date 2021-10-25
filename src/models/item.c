@@ -8,6 +8,7 @@
 #include "boolean.h"
 #include "location.h"
 #include "item.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat Item baru.

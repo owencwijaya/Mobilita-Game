@@ -6,6 +6,7 @@
 #include "boolean.h"
 #include "location.h"
 #include "location_matrix.h"
+#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat LocationMatrix baru.

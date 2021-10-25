@@ -30,26 +30,6 @@ typedef struct
 } ItemStack;
 
 /**
- * @brief Kapasitas maksimum ItemStack.
- */
-#define ITEM_STACK_MAX_CAPACITY 100
-/**
- * @brief Mengambil indeks teratas stack s.
- * @param s ItemStack instance.
- */
-#define topIndex(s) (s).topIndex
-/**
- * @brief Mengambil Item teratas pada stack s.
- * @param s ItemStack instance.
- */
-#define top(s) (s).buffer[(s).topIndex]
-/**
- * @brief Mengambil kapasitas stack s.
- * @param s ItemStack instance.
- */
-#define capacity(s) (s).capacity
-
-/**
  * @brief Constructor untuk membuat ItemStack baru.
  * 
  * @param capacity Kapasitas stack.
