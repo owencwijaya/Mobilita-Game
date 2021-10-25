@@ -231,6 +231,7 @@ Location _getLocationBySymbol(LocationList l, char symbol)
         {
             return loc;
         }
+        i++;
     }
     return NULL_LOCATION;
 }
