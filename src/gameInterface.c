@@ -1,49 +1,51 @@
 #include <stdio.h>
 #include <string.h> //sementara string.h aja dulu sampe diconfirm
-#include "ADT/gameMatrix.h"
-#include "ADT/Point/point.c"
-#include "ADT/MesinKata/charmachine.c"
-#include "ADT/MesinKata/wordmachine.c"
+#include "commandMatching.c"
+#include "modules/core/globals.h"
 //Buat Raden: semua yang udah dibikin gabungin di sini aja
+
 void help();
 
-void gameMenu(gameMatrix *GM){ //ganti tipe struct aja
-    /*
+void gameMenu(){ //ganti tipe struct aja
     boolean playing = true;
     while (playing){
-        printf("\nENTER COMMAND (beserta titik): ");
-        startWord();
-        char *command = currentWord.contents;
-        //strcmp
-        //strcat("foo", "bar") = foobar
-        printf("%s", command);
-        if (strcmp(command, "MOVE")){
+        printf("\nENTER COMMAND: ");
+        readConsoleInput();
+        readWord();
+        if (checkWord(currentWord, "MOVE.")){
+            printf("MOVE selected.\n");
             //move(); placeholder buat move
-        } else if (command == "PICK_UP"){
+        } else if (checkWord(currentWord, "PICK_UP.")){
+            printf("PICK_UP selected.\n");
             //pick_up();
-        } else if (command == "DROP_OFF"){
+        } else if (checkWord(currentWord, "DROP_OFF.")){
+            printf("DROP_OFF selected.\n");
             //drop_off();
-        } else if (strcmp(command, "MAP") == 0){
-            displayMap(GM -> map);
-        } else if (command == "TO_DO"){
+        } else if (checkWord(currentWord, "MAP.")){
+            printf("MAP selected.\n");
+        } else if (checkWord(currentWord, "TO_DO.")){
+            printf("TO_DO selected.\n");
             //to_do()
-        } else if (command == "IN_PROGRESS"){
+        } else if (checkWord(currentWord, "IN_PROGRESS.")){
+            printf("IN_PROGRESS selected.\n");
             //in_progress();
-        } else if (command == "BUY"){
+        } else if (checkWord(currentWord, "BUY.")){
+            printf("BUY selected.\n");
             //buy();
-        } else if (command == "INVENTORY"){
+        } else if (checkWord(currentWord, "INVENTORY.")){
+            printf("INVENTORY selected.\n");
             //inventory();
-        } else if (command == "HELP"){
+        } else if (checkWord(currentWord, "HELP.")){
+            printf("HELP selected.\n");
             help();
-        } else if (command == "EXIT"){
+        } else if (checkWord(currentWord, "EXIT.")){
+            printf("EXIT selected.\n");
             playing = false;
         } else {
             printf("Command tidak dikenali!\n");
             printf("Ketik 'HELP.' untuk bantuan.\n");
         }
     }
-    */
-   printf("masih placeholder, nunggu string.h"); 
 }
 
 void help(){
