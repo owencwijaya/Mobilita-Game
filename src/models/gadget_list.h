@@ -72,4 +72,12 @@ void setGadget(GadgetList *gList, int index, Gadget g);
  */
 void displayGadget(GadgetList gList);
 
+/**
+ * @brief Menghitung panjang gadget list
+ * !
+ * 
+ * @param gList GadgetList instance.
+ */
+int gListLength(GadgetList gList);
+
 #endif

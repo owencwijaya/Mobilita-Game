@@ -102,3 +102,17 @@ void displayGadget(GadgetList gList)
         printf("%d. %s\n", i + 1, name(getGadget(gList, i)));
     }
 }
+
+/**
+ * @brief Menghitung panjang gadget list
+ * !
+ * 
+ * @param gList GadgetList instance.
+ */
+int gListLength(GadgetList gList){
+    int length = 0;
+    while (length < 5 && !isGadgetIdentical(getGadget(gList, length), NULL_GADGET)){
+        length++;
+    }
+    return length;
+}
