@@ -1,4 +1,5 @@
 #include <stdio.h>
+/*
 #include "../../models/location.h"
 #include "../../models/location_list.h"
 #include "../../models/point.h"
@@ -10,7 +11,27 @@
 #include "../core/globals.h"
 #include "./machines/wordmachine.h"
 #include "word_utils.h"
+*/
 
+#include "../../models/gadget.c"
+#include "../../models/gadget_list.c"
+#include "../../models/location.c"
+#include "../../models/location_list.c"
+#include "../../models/location_matrix.c"
+#include "../../models/point.c"
+#include "../../models/state.c"
+#include "../../models/boolean_matrix.c"
+#include "../../models/item_queue.c"
+#include "../../models/item.c"
+#include "../../models/item_list.c"
+#include "../../models/item_stack.c"
+#include "../../models/game_map.c"
+#include "../../models/macros.h"
+#include "../core/globals.c"
+#include "./machines/wordmachine.c"
+#include "./machines/charmachine.c"
+#include "../colorizer/colorizer.c"
+#include "word_utils.c"
 void parseConfig(char *path)
 {
     State state;
@@ -125,13 +146,6 @@ void parseConfig(char *path)
     printf("");
     // return state;
 }
-
-int main()
-{
-    parseConfig("../../config/dummyConfig.txt");
-    return 0;
-}
-
 void _dumpConfig()
 {
 }
