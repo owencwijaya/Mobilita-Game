@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "configInput.c"
+#include "modules/io/config_parser.c"
+#include "modules/core/globals.c"
 #include "gameInterface.c"
 /* prototype fungsi */
 int mainMenu();
@@ -20,15 +21,14 @@ int mainMenu()
     printf("Masukkan pilihan: \n>>> ");
 
     int option;
-    gameMatrix MainGM; //ini nanti sesuaiin sama struct Raden
-    startToken();
-    option = currentToken.val;
-    if (option == 1){
+    readConsoleInput();
+    option = currentChar;
+    if (option == '1'){
         /* printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
             char fileName[100];
             scanf("%s", &fileName);*/
-        MainGM = configInput("placeholder");
-        gameMenu(&MainGM); //ini nanti sesuaiin sama struct Raden
+        parseConfig(".//config/dummyConfig.txt");
+        gameMenu(); //struct Raden masukin ke sini
     }
 }
 
