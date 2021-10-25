@@ -23,6 +23,7 @@ Point newPoint(int x, int y)
     Point p;
     x(p) = x;
     y(p) = y;
+    return p;
 }
 
 /**

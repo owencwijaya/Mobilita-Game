@@ -28,6 +28,8 @@ LocationMatrix newLocationMatrix(int rows, int cols)
             elem(locationMatrix, i, j) = NULL_LOCATION;
         }
     }
+
+    return locationMatrix;
 }
 
 /**

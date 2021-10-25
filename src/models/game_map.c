@@ -27,6 +27,16 @@ GameMap newGameMap(int hSize, int vSize, BooleanMatrix adjMatrix, LocationList l
     mapWidth(m) = vSize;
     adjMatrix(m) = adjMatrix;
     locList(m) = locations;
+    LocationMatrix locMatrix = newLocationMatrix(hSize + 1, vSize + 1);
+    for (int i = 0; i < rows(locMatrix); i++)
+    {
+        for (int j = 0; j < cols(locMatrix); j++)
+        {
+            elem(locMatrix, i, j) = _getLocationByCoord(locations, newPoint(i, j));
+        }
+    }
+    locMatrix(m) = locMatrix;
+    return m;
 }
 
 /**
@@ -36,11 +46,11 @@ GameMap newGameMap(int hSize, int vSize, BooleanMatrix adjMatrix, LocationList l
  */
 void displayGameMap(GameMap m)
 {
-    for (int i = -1; i < mapWidth(m) + 1; i++)
+    for (int i = 0; i < rows(locMatrix(m)) + 1; i++)
     {
-        if (i == -1 || i == mapWidth(m))
+        if (i == 0 || i == rows(locMatrix(m)))
         {
-            for (int j = 0; j < mapLength(m) + 2; j++)
+            for (int j = 0; j < cols(locMatrix(m)) + 1; j++)
             {
                 printf("*");
             }
@@ -48,7 +58,7 @@ void displayGameMap(GameMap m)
         else
         {
             printf("*");
-            for (int j = 0; j < mapLength(m); j++)
+            for (int j = 1; j < cols(locMatrix(m)); j++)
             {
                 writeLocationSymbol(elem(locMatrix(m), i, j));
             }

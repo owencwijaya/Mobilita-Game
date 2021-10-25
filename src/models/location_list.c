@@ -261,6 +261,7 @@ Location _getLocationByCoord(LocationList l, Point p)
         {
             return loc;
         }
+        i++;
     }
     return NULL_LOCATION;
 }
