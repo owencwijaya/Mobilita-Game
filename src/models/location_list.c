@@ -23,6 +23,11 @@ LocationList newLocationList(int capacity)
 {
     LocationList l;
     capacity(l) = capacity;
+    /**
+     * @todo Resolve buffer cuma bisa muat 1 Location instance.
+     * Waktu di debug tipe buffer jadi "Pointer to Location",
+     * bukan array of Location.
+     */
     buffer(l) = (Location *)malloc(capacity * sizeof(Location));
     neff(l) = 0;
     return l;
