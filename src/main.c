@@ -23,6 +23,7 @@ int mainMenu()
     int option;
     readConsoleInput();
     option = currentChar;
+    adv();
     if (option == '1'){
         /* printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
             char fileName[100];
