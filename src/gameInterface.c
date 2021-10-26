@@ -1,16 +1,13 @@
 #include <stdio.h>
-#include <string.h> //sementara string.h aja dulu sampe diconfirm
 #include "commandMatching.c"
 #include "modules/core/globals.h"
-//Buat Raden: semua yang udah dibikin gabungin di sini aja
+
 
 void help();
 void buy();
 void inventory();
 
-
-
-void gameMenu(){ //ganti tipe struct aja
+void gameMenu(){ 
     boolean playing = true;
     while (playing){
         printf("\nENTER COMMAND: ");
@@ -92,6 +89,7 @@ void buy(){
             printf("ENTER OPTION: ");
             readConsoleInput();
             option = currentChar;
+            adv();
             if (option == '1'){
                 if (gameState.cash >= 800){
                     gameState.cash -= 800;
@@ -149,8 +147,60 @@ void inventory(){
         int option;
         readConsoleInput();
         option = currentChar;
-
+        adv();
         Gadget tempGadget = getGadget(gameState.inventory, (int)(option - '0') - 1);
         setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+
+        if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU)){
+            //cari perishable item teratas
+            ItemStack tempStack; // untuk penyimpanan sementara
+            newItemStack(&tempStack);
+            Item temp;
+            boolean found = false;
+            while (!isStackEmpty(gameState.bag) && !found){
+                pop(&gameState.bag, &temp);
+                if (type(temp) == PERISHABLE){
+                    found = true;
+                    perishTime(temp) = perishTimeReference(temp);
+                    push(&tempStack, temp);
+                } else {
+                    push(&tempStack, temp);
+                }
+            }
+
+            while (!isStackEmpty(tempStack)){
+                pop(&tempStack, &temp);
+                push(&gameState.bag, temp);
+            }
+        } else if (isGadgetIdentical(tempGadget, SENTER_PEMBESAR)){
+            //algo buat senter pembesar
+            //Senter pembesar dapat digunakan untuk meningkatkan kapasitas tas
+            //sebesar dua kali lipat, namun tidak melebihi batas maksimum kapasitas tas.
+            doubleCapacity(&gameState.bag);
+            printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
+            printf("Kapasitas tas Mobita membesar menjadi dua kali lipat...\n");
+        } else if (isGadgetIdentical(tempGadget, PINTU_KEMANA_SAJA)){
+            //algo buat pintu kemana saja
+            //Pintu Kemana Saja dapat digunakan sekali untuk berpindah ke lokasi yang
+            //diinginkan tanpa menambahkan unit waktu.
+        } else if (isGadgetIdentical(tempGadget, MESIN_WAKTU)){
+            //algo buat mesin waktu
+            //Mesin waktu dapat digunakan untuk mengurangi waktu sebanyak 50 unit.
+            //(jika waktu kurang dari 50 unit, maka waktu menjadi 0 unit).
+            if (gameState.time < 50){
+                gameState.time = 0;
+            } else {
+                gameState.time -= 50;
+            }
+            printf("Gadget 'Mesin Waktu' berhasil dipakai!\n");
+            printf("Waktu berkurang sebanyak 50...\n");
+        } else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL)){
+            //algo buat senter pengecil
+            //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
+            //item jika terdapat pada tumpukan teratas tas. Efek dari senter pengecil ini
+            //akan berlangsung sampai melakukan drop off / return pertama kali setelah
+            //penggunaan gadget ini.
+
+        }
     }
 }
