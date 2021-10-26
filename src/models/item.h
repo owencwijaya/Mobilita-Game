@@ -61,6 +61,10 @@ typedef struct
      * @brief Waktu hangus item.
      */
     int perishTime;
+    /**
+     * @brief Referensi waktu hangus item.
+     */
+    int perishTimeReference;
 } Item;
 
 /**
@@ -71,9 +75,10 @@ typedef struct
  * @param dropOffLocation Lokasi drop off item.
  * @param type Tipe item.
  * @param perishTime Waktu hangus item.
+ * @param perishTimeReference referensi waktu hangus item.
  * @return Item instance baru.
  */
-Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, ItemType type, int perishTime);
+Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, ItemType type, int perishTime, int perishTimeReference);
 
 /**
  * @brief Mengecek apakah dua item sama atau tidak.

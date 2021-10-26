@@ -122,6 +122,11 @@
  */
 #define perishTime(item) (item).perishTime
 /**
+ * @brief Mengambil waktu hangus item sebagai referensi
+ * @param item Item instance.
+ */
+#define perishTimeReference(item) (item).perishTimeReference
+/**
  * @brief Mengambil waktu order item.
  * @param item Item instance.
  */

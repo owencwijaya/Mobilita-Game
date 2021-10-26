@@ -18,9 +18,10 @@
  * @param dropOffLocation Lokasi drop off item.
  * @param type Tipe item.
  * @param perishTime Waktu hangus item.
+ * @param perishTimeReference Referensi untuk waktu hangusnya item (untuk referensi gadget)
  * @return Item instance baru.
  */
-Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, ItemType type, int perishTime)
+Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, ItemType type, int perishTime, int perishTimeReference)
 {
     Item item;
     orderTime(item) = orderTime;
@@ -28,6 +29,7 @@ Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, I
     dropOffLoc(item) = dropOffLocation;
     itemType(item) = type;
     perishTime(item) = perishTime;
+    perishTimeReference(item) = perishTimeReference;
     return item;
 }
 
