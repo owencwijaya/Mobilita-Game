@@ -9,6 +9,7 @@
 #include "item_stack.h"
 #include "gadget_list.h"
 #include "state.h"
+#include "macros.h"
 
 /**
  * @todo Implementasi State, termasuk fungsi-fungsi
@@ -59,11 +60,55 @@ State newState(GameMap m, ItemList todo, ItemList inProgress, ItemStack bag, Ite
 }
 
 /**
- * @brief Reevaluasi state setelah player menjalankan
- * suatu command atau setelah waktu bertambah.
+ * @brief Reevaluasi state setelah waktu bertambah.
  * 
  * @param state State saat ini.
+ * @param diffTime Waktu yang bertambah.
  */
-void reevaluate(State *state)
+void incrementTime(State *state, int diffTime)
 {
+    // Pindahkan order yang masuk
+    // ke todo list
+    ItemQueue orders = state->order;
+    Item item;
+    while (peekHeadTime(orders) <= diffTime && !isEmpty(orders))
+    {
+        dequeue(&orders, &item);
+        insertItemLast(&(state->todoList), item);
+    }
+
+    // Decrement perishTime perishable item atau
+    // hapus jika durasi habis.
+    ItemStack bag = state->bag;
+    ItemStack reversedBag = newItemStack(capacity(bag));
+    while (!isStackEmpty(bag))
+    {
+        pop(&bag, &item);
+        if (isPerishableItem(item))
+        {
+            if (perishTime(item) > diffTime)
+            {
+                perishTime(item) -= diffTime;
+                push(&reversedBag, item);
+            }
+        }
+        else
+        {
+            push(&reversedBag, item);
+        }
+    }
+    while (!isStackEmpty(reversedBag))
+    {
+        pop(&reversedBag, &item);
+        push(&bag, item);
+    }
+    state->bag = bag;
+
+    /**
+     * @todo Hapus efek speedboost jika
+     * waktunya telah habis.
+     */
+
+    // Tambah waktu saat ini
+    state->time += diffTime;
 }

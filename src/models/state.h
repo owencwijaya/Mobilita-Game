@@ -111,11 +111,11 @@ AbilityStruct newAbilityStruct();
 State newState(GameMap m, ItemList todo, ItemList inProgress, ItemStack bag, ItemQueue order);
 
 /**
- * @brief Reevaluasi state setelah player menjalankan
- * suatu command atau setelah waktu bertambah.
+ * @brief Reevaluasi state setelah waktu bertambah.
  * 
  * @param state State saat ini.
+ * @param diffTime Waktu yang bertambah.
  */
-void reevaluate(State *state);
+void incrementTime(State *state, int diffTime);
 
 #endif
