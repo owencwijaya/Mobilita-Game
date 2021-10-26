@@ -17,6 +17,21 @@
  */
 
 /**
+ * @brief Constructor untuk membuat state
+ * boolean untuk ability
+ */
+
+AbilityStruct newAbilityStruct(){
+    AbilityStruct abs;
+    abs.SpeedBoost = false;
+    abs.SpeedBoostCount = 0;
+    abs.IsSenterPengecilOn = false;
+    abs.IsHeavyItemOn = false;
+    abs.HeavyItemStack = 0;
+    abs.IsVIPItemOn = false;
+    return abs;
+}
+/**
  * @brief Constructor untuk membuat instance
  * (termasuk State) game yang baru.
  * 
@@ -39,6 +54,7 @@ State newState(GameMap m, ItemList todo, ItemList inProgress, ItemStack bag, Ite
     state.cash = 0;
     state.inventory = newGadgetList();
     state.currentLocation = getLocationById(m, 0);
+    state.abs = newAbilityStruct();
     return state;
 }
 
