@@ -11,10 +11,39 @@
 #include "item_queue.h"
 #include "item_stack.h"
 #include "gadget_list.h"
-
+#include "boolean.h"
 /**
  * @brief Game state & life cycle.
  */
+
+
+typedef struct{
+    /**
+     * @brief Apakah speedboost aktif
+     */
+    boolean SpeedBoost;
+    /**
+     * @brief Menghitung jumlah speedbost
+     */
+    int SpeedBoostCount;
+    /**
+     * @brief Mengecek apakah senter pengecil digunakan
+     */
+    boolean IsSenterPengecilOn;
+    /**
+     * @brief Mengecek apakah Mobita mempunyai efek heavy item
+     */
+    boolean IsHeavyItemOn;
+    /**
+     * @brief Jumlah heavy item di to do list
+     */
+    int HeavyItemStack;
+    /**
+     * @brief Mengecek apakah Mobita mempunyai efek VIP item
+     */
+    boolean IsVIPItemOn;
+} AbilityStruct;
+
 typedef struct
 {
     /**
@@ -53,7 +82,20 @@ typedef struct
      * @brief Waktu saat ini.
      */
     int time;
+    /**
+     * @brief Ability struct.
+     */
+    AbilityStruct abs;
 } State;
+
+
+
+
+/**
+ * @brief Constructor untuk membuat state
+ * boolean untuk ability
+ */
+AbilityStruct newAbilityStruct();
 
 /**
  * @brief Constructor untuk membuat instance
