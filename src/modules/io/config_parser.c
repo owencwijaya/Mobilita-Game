@@ -90,7 +90,7 @@ void parseConfig(char *path)
     int itemCount;
     readNextWord();
     itemCount = parseInt(stringify(currentWord));
-    int orderTime, perishTime, itemType;
+    int orderTime, perishTime, itemType, perishTimeReference;
     char pickUpLocSymbol, dropOffLocSymbol, type;
     Location pickUpLocation, dropOffLocation;
     ItemQueue order = newItemQueue();
@@ -128,13 +128,15 @@ void parseConfig(char *path)
         {
             readNextWord();
             perishTime = parseInt(stringify(currentWord));
+            perishTimeReference = parseInt(stringify(currentWord));
         }
         else
         {
             perishTime = UNTIMED;
+            perishTimeReference = UNTIMED;
         }
 
-        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime);
+        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
         enqueue(&order, item);
     }
 
