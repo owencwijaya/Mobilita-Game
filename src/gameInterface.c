@@ -183,6 +183,8 @@ void inventory(){
             //algo buat pintu kemana saja
             //Pintu Kemana Saja dapat digunakan sekali untuk berpindah ke lokasi yang
             //diinginkan tanpa menambahkan unit waktu.
+
+            //nanti pake fungsi move, tapi ga nambahin waktu
         } else if (isGadgetIdentical(tempGadget, MESIN_WAKTU)){
             //algo buat mesin waktu
             //Mesin waktu dapat digunakan untuk mengurangi waktu sebanyak 50 unit.
@@ -195,6 +197,7 @@ void inventory(){
             printf("Gadget 'Mesin Waktu' berhasil dipakai!\n");
             printf("Waktu berkurang sebanyak 50...\n");
         } else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL)){
+            gameState.abs.IsSenterPengecilOn = true;
             //algo buat senter pengecil
             //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
             //item jika terdapat pada tumpukan teratas tas. Efek dari senter pengecil ini
