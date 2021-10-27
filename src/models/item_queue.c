@@ -18,6 +18,7 @@ ItemQueue newItemQueue()
     ItemQueue q;
     headIndex(q) = -1;
     tailIndex(q) = -1;
+    return q;
 }
 
 /**
