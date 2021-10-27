@@ -23,7 +23,7 @@ boolean isStringEquals(char *str1, char *str2)
     {
         i++;
     }
-    return str1[i] != NULL_CHAR && str2[i] != NULL_CHAR;
+    return str1[i] == NULL_CHAR && str2[i] == NULL_CHAR;
 }
 
 int parseInt(char *str)
