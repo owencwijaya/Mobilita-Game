@@ -90,5 +90,13 @@ void enqueue(ItemQueue *q, Item item)
 void dequeue(ItemQueue *q, Item *item)
 {
     *item = head(*q);
-    headIndex(*q)++;
+    if (headIndex(*q) != tailIndex(*q))
+    {
+        headIndex(*q)++;
+    }
+    else
+    {
+        headIndex(*q) = -1;
+        tailIndex(*q) = -1;
+    }
 }
