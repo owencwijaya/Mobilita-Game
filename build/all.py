@@ -19,8 +19,6 @@ for file in all_files:
 cmd.append("-o")
 cmd.append("../dist/mobilita")
 
-print(" ".join(cmd))
-
 print("Compiling all files ...")
 status = os.system(" ".join(cmd))
 if (status == 0):
