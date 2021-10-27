@@ -116,8 +116,6 @@ int indexOfItem(ItemList iList, Item item)
  */
 Item getItem(ItemList iList, int index)
 {
-    // if (isItemListIndexValid(iList, index))
-    // {
     ItemList list = iList;
     int i = 0;
     while (i < index)
@@ -126,11 +124,6 @@ Item getItem(ItemList iList, int index)
         i++;
     }
     return value(list);
-    // }
-    // else
-    // {
-    //     return newItem(NULL_LOCATION, NULL_LOCATION, -1, -1);
-    // }
 }
 
 /**
@@ -188,11 +181,13 @@ void insertItemAt(ItemList *iList, int index, Item item)
         {
             int i = 0;
             ItemList subList = *iList;
-            while (i < index)
+            while (i < index - 1)
             {
                 i++;
                 subList = next(subList);
             }
+            next(node) = next(subList);
+            next(subList) = node;
         }
     }
 }
