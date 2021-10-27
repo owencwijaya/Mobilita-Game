@@ -203,3 +203,25 @@ void toggleAsPlayerPlace(Location *l)
 {
     l->isPlayerPlace = !(l->isPlayerPlace);
 }
+
+/**
+ * @private 
+ * @brief Print isi data location ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param l Location instance.
+ */
+void _dumpLocation(Location l)
+{
+    printf("Location {\n");
+    printf("  id : %d\n", id(l));
+    printf("  symbol : %c\n", symbol(l));
+    printf("  coordinate : ");
+    displayPoint(coord(l));
+    printf("\n");
+    printf("  isPlayerPlace : %s\n", l.isPlayerPlace ? "TRUE" : "FALSE");
+    printf("  isPickUpPlace : %s\n", l.isPickUpPlace ? "TRUE" : "FALSE");
+    printf("  isDropOffPlace : %s\n", l.isDropOffPlace ? "TRUE" : "FALSE");
+    printf("  isReachable : %s\n", l.isReachable ? "TRUE" : "FALSE");
+    printf("}\n");
+}
