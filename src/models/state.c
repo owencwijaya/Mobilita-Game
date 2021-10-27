@@ -22,7 +22,8 @@
  * boolean untuk ability
  */
 
-AbilityStruct newAbilityStruct(){
+AbilityStruct newAbilityStruct()
+{
     AbilityStruct abs;
     abs.SpeedBoost = false;
     abs.SpeedBoostCount = 0;
@@ -67,13 +68,15 @@ State newState(GameMap m, ItemList todo, ItemList inProgress, ItemStack bag, Ite
  */
 void incrementTime(State *state, int diffTime)
 {
+    // Tambah waktu saat ini
+    state->time += diffTime;
+
     // Pindahkan order yang masuk
     // ke todo list
-    ItemQueue orders = state->order;
     Item item;
-    while (peekHeadTime(orders) <= diffTime && !isEmpty(orders))
+    while (peekHeadTime(state->order) <= state->time && !isEmpty(state->order))
     {
-        dequeue(&orders, &item);
+        dequeue(&(state->order), &item);
         insertItemLast(&(state->todoList), item);
     }
 
@@ -108,7 +111,4 @@ void incrementTime(State *state, int diffTime)
      * @todo Hapus efek speedboost jika
      * waktunya telah habis.
      */
-
-    // Tambah waktu saat ini
-    state->time += diffTime;
 }

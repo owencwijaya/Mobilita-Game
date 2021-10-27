@@ -43,7 +43,7 @@ ItemList newItemList();
  * @param item Value yang di-hold oleh node ini.
  * @return ItemListNode instance berisi item.
  */
-ItemListNode newItemListNode(Item item);
+ItemList newItemListNode(Item item);
 
 /**
  * @brief Mengecek apakah suatu ItemList kosong atau tidak. 

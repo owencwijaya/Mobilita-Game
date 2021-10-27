@@ -17,9 +17,7 @@
  */
 ItemList newItemList()
 {
-    ItemList list;
-    list = (ItemList)malloc(sizeof(ItemListNode));
-    list = NULL;
+    return (ItemList)NULL;
 }
 
 /**
@@ -28,11 +26,14 @@ ItemList newItemList()
  * @param item Value yang di-hold oleh node ini.
  * @return ItemListNode instance berisi item.
  */
-ItemListNode newItemListNode(Item item)
+ItemList newItemListNode(Item item)
 {
-    ItemListNode node;
-    value(node) = item;
-    next(node) = NULL;
+    ItemList node = (ItemList)malloc(sizeof(ItemListNode));
+    if (node != NULL)
+    {
+        value(node) = item;
+        next(node) = NULL;
+    }
     return node;
 }
 
@@ -68,12 +69,11 @@ boolean isItemListIndexValid(ItemList iList, int index)
  */
 int itemListLength(ItemList iList)
 {
-    ItemList list;
-    list = iList;
+    ItemList list = iList;
     int count = 0;
     while (list != NULL)
     {
-        list = next(*list);
+        list = next(list);
         count++;
     }
     return count;
@@ -89,20 +89,19 @@ int itemListLength(ItemList iList)
  */
 int indexOfItem(ItemList iList, Item item)
 {
-    ItemList list;
-    list = iList;
+    ItemList list = iList;
     int index = 0;
     boolean found = false;
     while (list != NULL && !found)
     {
-        if (isItemIdentical(value(*list), item))
+        if (isItemIdentical(value(list), item))
         {
             found = true;
         }
         else
         {
             index++;
-            list = next(*list);
+            list = next(list);
         }
     }
     return found ? index : -1;
@@ -119,15 +118,14 @@ Item getItem(ItemList iList, int index)
 {
     // if (isItemListIndexValid(iList, index))
     // {
-    ItemList list;
-    list = iList;
+    ItemList list = iList;
     int i = 0;
     while (i < index)
     {
-        list = next(*list);
+        list = next(list);
         i++;
     }
-    return value(*list);
+    return value(list);
     // }
     // else
     // {
@@ -144,15 +142,14 @@ Item getItem(ItemList iList, int index)
  */
 void setItem(ItemList *iList, int index, Item item)
 {
-    ItemList list;
-    list = *iList;
+    ItemList list = *iList;
     int i = 0;
     while (i < index)
     {
-        list = next(*list);
+        list = next(list);
         i++;
     }
-    value(*list) = item;
+    value(list) = item;
 }
 
 /**
@@ -163,10 +160,12 @@ void setItem(ItemList *iList, int index, Item item)
  */
 void insertItemFirst(ItemList *iList, Item item)
 {
-    ItemList list = *iList;
-    ItemListNode node = newItemListNode(item);
-    **iList = node;
-    next(**iList) = list;
+    ItemList node = newItemListNode(item);
+    if (node != NULL)
+    {
+        next(node) = *iList;
+        *iList = node;
+    }
 }
 
 /**
@@ -178,18 +177,24 @@ void insertItemFirst(ItemList *iList, Item item)
  */
 void insertItemAt(ItemList *iList, int index, Item item)
 {
-    ItemList list, nextList;
-    list = *iList;
-    ItemListNode node = newItemListNode(item);
-    int i = 0;
-    while (i < index)
+    if (index == 0)
     {
-        list = next(*list);
-        i++;
+        insertItemFirst(iList, item);
     }
-    nextList = list;
-    next(node) = nextList;
-    next(*list) = &node;
+    else
+    {
+        ItemList node = newItemListNode(item);
+        if (node != NULL)
+        {
+            int i = 0;
+            ItemList subList = *iList;
+            while (i < index)
+            {
+                i++;
+                subList = next(subList);
+            }
+        }
+    }
 }
 
 /**
@@ -200,14 +205,23 @@ void insertItemAt(ItemList *iList, int index, Item item)
  */
 void insertItemLast(ItemList *iList, Item item)
 {
-    ItemList list, nextList;
-    list = *iList;
-    ItemListNode node = newItemListNode(item);
-    while (list != NULL)
+    if (isItemListEmpty(*iList))
     {
-        list = next(*list);
+        insertItemFirst(iList, item);
     }
-    next(*list) = &node;
+    else
+    {
+        ItemList node = newItemListNode(item);
+        if (node != NULL)
+        {
+            ItemList list = *iList;
+            while (next(list) != NULL)
+            {
+                list = next(list);
+            }
+            next(list) = node;
+        }
+    }
 }
 
 /**
@@ -219,8 +233,8 @@ void insertItemLast(ItemList *iList, Item item)
 void deleteItemFirst(ItemList *iList, Item *item)
 {
     ItemList list = *iList;
-    *item = value(*list);
-    *iList = next(*list);
+    *item = value(list);
+    *iList = next(list);
     free(list);
 }
 
@@ -233,18 +247,24 @@ void deleteItemFirst(ItemList *iList, Item *item)
  */
 void deleteItemAt(ItemList *iList, int index, Item *item)
 {
-    ItemList list = *iList;
-    ItemList nextList;
-    int i = 0;
-    while (i < index - 1)
+    if (index == 0)
     {
-        list = next(*list);
-        i++;
+        deleteItemFirst(iList, item);
     }
-    nextList = next(*list);
-    *item = value(*nextList);
-    next(*list) = next(*nextList);
-    free(nextList);
+    else
+    {
+        ItemList node = *iList;
+        int i = 0;
+        while (i < index - 1)
+        {
+            node = next(node);
+            i++;
+        }
+        ItemList nextNode = next(node);
+        *item = value(nextNode);
+        next(node) = next(nextNode);
+        free(nextNode);
+    }
 }
 
 /**
@@ -255,24 +275,21 @@ void deleteItemAt(ItemList *iList, int index, Item *item)
  */
 void deleteItemLast(ItemList *iList, Item *item)
 {
-    ItemList list = *iList;
-    if (next(*list) == NULL)
+    ItemList lastList = *iList;
+    ItemList beforeLastList = NULL;
+    while (next(lastList) != NULL)
     {
-        *item = value(*list);
+        beforeLastList = lastList;
+        lastList = next(lastList);
+    }
+    if (beforeLastList == NULL)
+    {
         *iList = NULL;
-        free(list);
     }
     else
     {
-        ItemList nextList;
-        nextList = next(*list);
-        while (next(*nextList) != NULL)
-        {
-            list = nextList;
-            nextList = next(*nextList);
-        }
-        *item = value(*nextList);
-        next(*list) = NULL;
-        free(nextList);
+        next(beforeLastList) = NULL;
     }
+    *item = value(lastList);
+    free(lastList);
 }
