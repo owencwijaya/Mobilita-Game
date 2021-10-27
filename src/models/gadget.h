@@ -65,4 +65,13 @@ extern const Gadget NULL_GADGET;
  */
 boolean isGadgetIdentical(Gadget gadget1, Gadget gadget2);
 
+/**
+ * @private 
+ * @brief Print isi data gadget ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param g GadgetList instance.
+ */
+void _dumpGadget(Gadget g);
+
 #endif
