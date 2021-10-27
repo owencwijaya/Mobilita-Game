@@ -31,8 +31,10 @@ for (const entry of expandGlobSync("**/*.driver.c", {
   files.push(entry);
   const relativePath = relative(root, entry.path);
   const decoder = new TextDecoder("utf-8");
-  const buffer = decoder.decode(Deno.readFileSync(entry.path));
-  const matches = buffer.matchAll(/\#include\s+"(.*)\"/g);
+
+  // ? Get all dependencies on driver file
+  let buffer = decoder.decode(Deno.readFileSync(entry.path));
+  let matches = buffer.matchAll(/\#include\s+"(.*)\"/g);
   const cmd = ["gcc", relativePath.replaceAll(/\\/g, "/")];
   for (const match of matches) {
     let included = resolve(resolve(entry.path, "../"), match[1]);
@@ -41,6 +43,24 @@ for (const entry of expandGlobSync("**/*.driver.c", {
       cmd.push(included.replaceAll(/\\/g, "/").replace(".h", ".c"));
     }
   }
+
+  // Get all dependencies on model file
+  buffer = decoder.decode(
+    Deno.readFileSync(entry.path.replace(".driver.c", ".c"))
+  );
+  matches = buffer.matchAll(/\#include\s+"(.*)\"/g);
+  for (const match of matches) {
+    let included = resolve(resolve(entry.path, "../"), match[1]);
+    included = relative(root, included);
+    const includedPath = included.replaceAll(/\\/g, "/").replace(".h", ".c");
+    if (
+      !headerOnly.includes(basename(included)) &&
+      !cmd.includes(includedPath)
+    ) {
+      cmd.push(includedPath);
+    }
+  }
+
   const outName =
     "dist/drivers/" + basename(relativePath).replace(".driver.c", "");
   cmd.push("-o");
