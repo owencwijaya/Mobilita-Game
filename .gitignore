@@ -1,8 +1,10 @@
 # IDE
 .vscode
+.venv
 
 # Build scripts
 # **.ts
 
 # Distribution
 dist/**
+**.exe
