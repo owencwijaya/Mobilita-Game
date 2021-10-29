@@ -2,6 +2,7 @@
 #include "modules/io/config_parser.c"
 #include "modules/core/globals.c"
 #include "gameInterface.c"
+
 /* prototype fungsi */
 int mainMenu();
 void title();
@@ -29,7 +30,7 @@ int mainMenu()
             char fileName[100];
             scanf("%s", &fileName);*/
         parseConfig(".//config/dummyConfig.txt");
-        gameMenu(); //struct Raden masukin ke sini
+        gameMenu();
     }
 }
 
