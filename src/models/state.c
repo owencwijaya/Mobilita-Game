@@ -31,6 +31,7 @@ AbilityStruct newAbilityStruct()
     abs.IsHeavyItemOn = false;
     abs.HeavyItemStack = 0;
     abs.IsVIPItemOn = false;
+    abs.PintuKemanaSaja = false;
     return abs;
 }
 /**

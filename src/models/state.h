@@ -42,6 +42,10 @@ typedef struct{
      * @brief Mengecek apakah Mobita mempunyai efek VIP item
      */
     boolean IsVIPItemOn;
+    /**
+     * @brief Mengecek apakah Mobita mempunyai efek pintu kemana saja
+     */
+    boolean PintuKemanaSaja;
 } AbilityStruct;
 
 typedef struct
