@@ -1,12 +1,13 @@
 #include "../modules/core/globals.h"
+#include "../models/macros.h"
 #include "../modules/io/machines/charmachine.h"
 
 void drop_off(){
-    if (isStackEmpty(gameState.bag) || gameState.currentLocation != gameState.bag.buffer[gameState.bag.topIndex].dropOffLocation){
+    if (isStackEmpty(gameState.bag) || (gameState.currentLocation != top(gameState.bag).dropOffLocation)){
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
     } else {
-
-        deleteItemFirst(&gameState.inProgressList);
+        Item dump;
+        deleteItemFirst(&gameState.inProgressList, &dump);
 
         Item temp;
         pop(&gameState.bag, &temp);
@@ -34,7 +35,7 @@ void drop_off(){
             printf("Pesanan Perishable Item berhasil diantarkan!\n");
             gameState.cash += 400;
             printf("Uang yang didapatkan: 400 Yen\n");
-            printf("Kapasitas tas bertambah 1!\n")
+            printf("Kapasitas tas bertambah 1!\n");
             incrementCapacity(&gameState.bag);
 
         } else { // Kalau gak jadi pake bonus VIP item, hapus aja ini (Algoritmanya juga WIP)

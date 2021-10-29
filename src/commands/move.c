@@ -5,7 +5,8 @@
 #include "../modules/io/word_utils.h"
 
 void move()
-{
+{   
+    printf("Lokasi-lokasi yang dapat diakses: \n");
     // terimalokasi awal
     LocationList adjlocation = getAdjacentLocations(locList(gameState.gameMap), gameState.currentLocation, adjMatrix(gameState.gameMap));
     displayAdjacentLocation(gameState.gameMap, gameState.currentLocation);
@@ -15,16 +16,28 @@ void move()
     boolean ChoiceValid = false;
     while (!ChoiceValid)
     {
-        printf("Posisi yang dipilih? (ketik 0 jika ingin kembali)\n\n");
+        printf("Posisi yang dipilih? (ketik 0 jika ingin kembali)\n");
+        if (gameState.abs.PintuKemanaSaja){
+            printf("Gadget 'Pintu Kemana Saja' akan digunakan!\n\n");
+        }
         printf("ENTER COMMAND: ");
         readConsoleInput();
         readWord();
         char *str = stringify(currentWord);
         ChoiceNumber = parseInt(str);
+        int time = 0;
         if ((ChoiceNumber <= length(adjlocation)) && (ChoiceNumber > 0))
         {
             gameState.currentLocation = lElem(adjlocation, (ChoiceNumber - 1));
-            incrementTime(&gameState, 1 + gameState.abs.HeavyItemStack - gameState.abs.IsSenterPengecilOn);
+            if (gameState.abs.IsHeavyItemOn && gameState.abs.HeavyItemStack > 0){
+                time = 2 * gameState.abs.HeavyItemStack;
+            } else if (gameState.abs.PintuKemanaSaja){
+                time = 0;
+                gameState.abs.PintuKemanaSaja = false;
+            } else {
+                time = 1;
+            }
+            incrementTime(&gameState, time);
             ChoiceValid = true;
         }
         else if (ChoiceNumber == 0)

@@ -25,7 +25,7 @@ void inventory(){
                 pop(&gameState.bag, &temp);
                 if (itemType(temp) == PERISHABLE){
                     found = true;
-                    perishTime(temp) = perishTimeReference(temp);
+                    temp.perishTime = perishTimeReference(temp);
                     push(&tempStack, temp);
                 } else {
                     push(&tempStack, temp);
@@ -55,7 +55,9 @@ void inventory(){
             //algo buat pintu kemana saja
             //Pintu Kemana Saja dapat digunakan sekali untuk berpindah ke lokasi yang
             //diinginkan tanpa menambahkan unit waktu.
-
+            gameState.abs.PintuKemanaSaja = true;
+            printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
+            printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\N");
             //nanti pake fungsi move, tapi ga nambahin waktu
         } else if (isGadgetIdentical(tempGadget, MESIN_WAKTU)){
             //algo buat mesin waktu
@@ -71,6 +73,7 @@ void inventory(){
             setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
         } else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL)){
             gameState.abs.IsSenterPengecilOn = true;
+            
             //algo buat senter pengecil
             //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
             //item jika terdapat pada tumpukan teratas tas. Efek dari senter pengecil ini
