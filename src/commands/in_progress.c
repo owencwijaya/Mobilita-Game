@@ -1,22 +1,28 @@
+#include <stdio.h>
 #include "../modules/core/globals.h"
-#include "../modules/io/machines/charmachine.h"
+#include "macros.h"
+
 
 void in_progress(){
-    if (isItemListEmpty(gameState.inProgressList)){
-        printf("Tidak ada pesan yang sedang diantarkan.\n");
-    } else {
-        printf("Pesanan yang sedang diantarkan:\n");
-
-        ItemList tempL = gameState.inProgressList;
-
-        for (int i = 1; i <= itemListLength(gameState.inProgressList); i++){
-            printf("%d. ", i);
-            if (tempL->value.type == NORMAL) printf("Normal Item ");
-            if (tempL->value.type == HEAVY) printf("Heavy Item ");
-            if (tempL->value.type == PERISHABLE) printf("Perishable Item ");
-            if (tempL->value.type == VIP) printf("VIP Item ");
-            printf("Tujuan: %c\n", symbol(tempL->value.dropOffLocation));
-            tempL = tempL->next;
+    ItemList loc = gameState.inProgressList;
+    if(loc == NULL){
+        printf("Tidak ada item di yang diantarkan\n");
+    }else{
+        printf("Pesanan yang sedang diantarkan : \n");
+        int num = 1;
+        while(loc != NULL){
+            if(isNormalItem(value(loc))){
+                printf("%d. Normal Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+            }else if (isHeavyItem(value(loc))){
+                printf("%d. Heavy Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+            }else if (isPerishableItem(value(loc))){
+                printf("%d. Perishable Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+            }else if(isVIPItem(value(loc))){
+                printf("%d. VIP Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+            }
+        num++;
+        loc = next(loc);
         }
+        printf("\n");
     }
 }
