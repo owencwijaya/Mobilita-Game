@@ -1,13 +1,13 @@
 #include "../modules/core/globals.h"
 #include "../models/macros.h"
-#include "../modules/io/machines/charmachine.h"
+
 
 void drop_off(){
     if (isStackEmpty(gameState.bag) || (gameState.currentLocation != top(gameState.bag).dropOffLocation)){
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
     } else {
         Item dump;
-        deleteItemFirst(&gameState.inProgressList, &dump);
+        deleteItemLast(&gameState.inProgressList, &dump);
 
         Item temp;
         pop(&gameState.bag, &temp);
@@ -27,7 +27,7 @@ void drop_off(){
             if (gameState.abs.HeavyItemStack == 0){
                 printf("Speed Boost activated!\n");
                 gameState.abs.IsHeavyItemOn = false;
-                gameState.abs.SpeedBoostCount++; // Bener gak ini +1 doang Speed Boost countnya? wkwkwk
+                gameState.abs.SpeedBoostCount = 10;
                 gameState.abs.SpeedBoost = true;
             }
 
@@ -38,7 +38,7 @@ void drop_off(){
             printf("Kapasitas tas bertambah 1!\n");
             incrementCapacity(&gameState.bag);
 
-        } else { // Kalau gak jadi pake bonus VIP item, hapus aja ini (Algoritmanya juga WIP)
+        } else { // Kalau gak jadi pake bonus VIP item, hapus aja ini (WIP)
             printf("Pesanan VIP Item berhasil diantarkan!\n");
             gameState.cash += 600;
             printf("Uang yang didapatkan: 600 Yen\n");
