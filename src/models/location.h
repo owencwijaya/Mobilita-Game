@@ -168,4 +168,13 @@ void unsetAsPlayerPlace(Location *l);
  */
 void toggleAsPlayerPlace(Location *l);
 
+/**
+ * @private 
+ * @brief Print isi data location ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param l Location instance.
+ */
+void _dumpLocation(Location l);
+
 #endif

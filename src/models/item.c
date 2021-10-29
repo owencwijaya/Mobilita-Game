@@ -5,6 +5,7 @@
  * Todo list dan In Progress list.
  */
 
+#include <stdio.h>
 #include "boolean.h"
 #include "location.h"
 #include "item.h"
@@ -91,4 +92,23 @@ boolean isPerishableItem(Item item)
 boolean isVIPItem(Item item)
 {
     return itemType(item) == VIP;
+}
+
+/**
+ * @private 
+ * @brief Print isi data item ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param item Item instance.
+ */
+void _dumpItem(Item item)
+{
+    printf("Item {\n");
+    printf("  orderTime : %d\n", orderTime(item));
+    printf("  pickUpLocation : Location(id = %d)\n", id(pickUpLoc(item)));
+    printf("  dropOffLocation : Location(id = %d)\n", id(dropOffLoc(item)));
+    printf("  itemType : %d\n", itemType(item));
+    printf("  perishTime : %d\n", perishTime(item));
+    printf("  perishTimeReference : %d\n", perishTimeReference(item));
+    printf("}\n");
 }

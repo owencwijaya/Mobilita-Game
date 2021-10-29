@@ -53,12 +53,12 @@
  * @brief Mengambil value dari sebuah ItemListNode.
  * @param node ItemListNode instance.
  */
-#define value(node) (node).value
+#define value(node) (node)->value
 /**
  * @brief Mengambil pointer ke next node dari sebuah ItemListNode.
  * @param node ItemListNode instance.
  */
-#define next(node) (node).next
+#define next(node) (node)->next
 
 /**
  * @brief Kapasitas maksimum ItemStack.

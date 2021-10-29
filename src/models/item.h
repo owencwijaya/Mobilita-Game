@@ -125,4 +125,13 @@ boolean isPerishableItem(Item item);
  */
 boolean isVIPItem(Item item);
 
+/**
+ * @private 
+ * @brief Print isi data item ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param item Item instance.
+ */
+void _dumpItem(Item item);
+
 #endif

@@ -64,6 +64,18 @@ boolean isGadgetListFull(GadgetList gList)
 }
 
 /**
+ * @brief Mengecek apakah indeks valid untuk sebuah GagdetList.
+ * 
+ * @param index Indeks yang akan dicek.
+ * @return true jika indeks valid untuk GadgetList, false
+ *         selainnya.
+ */
+boolean isGagetListIndexValid(int index)
+{
+    return index >= 0 && index < 5;
+}
+
+/**
  * @brief Mengambil Gadget instance dari gList pada indeks index.
  * Mengembalikan NULL_GADGET jika index berada di luar range
  * yang berlaku (0..4).
@@ -90,6 +102,50 @@ void setGadget(GadgetList *gList, int index, Gadget g)
 }
 
 /**
+ * @brief Menambahkan gadget pada slot yang kosong.
+ * 
+ * @param gList GadgetList instance.
+ * @param g Gadget yang ingin ditambahkan
+ */
+void insertGadget(GadgetList *gList, Gadget g)
+{
+    int i = 0;
+    boolean inserted = false;
+    while (i < 5 && !inserted)
+    {
+        if (isGadgetIdentical(getGadget(*gList, i), NULL_GADGET))
+        {
+            setGadget(gList, i, g);
+            inserted = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+}
+
+/**
+ * @brief Mengambil dan menghapus gadget dari GadgetList.
+ * 
+ * @param gList GadgetList instance.
+ * @param index Indeks gadget yang akan diambil & dihapus.
+ * @param g Gadget yang dihapus.
+ */
+void deleteGadget(GadgetList *gList, int index, Gadget *g)
+{
+    if (isGagetListIndexValid(index))
+    {
+        *g = gList->contents[index];
+        setGadget(gList, index, NULL_GADGET);
+    }
+    else
+    {
+        *g = NULL_GADGET;
+    }
+}
+
+/**
  * @brief Menuliskan list Gadget (inventory) ke console output.
  * ! Hanya digunakan untuk command INVENTORY.
  * 
@@ -109,10 +165,17 @@ void displayGadget(GadgetList gList)
  * 
  * @param gList GadgetList instance.
  */
-int gListLength(GadgetList gList){
+int gListLength(GadgetList gList)
+{
     int length = 0;
-    while (length < 5 && !isGadgetIdentical(getGadget(gList, length), NULL_GADGET)){
-        length++;
+    int i = 0;
+    while (i < 5)
+    {
+        if (!isGadgetIdentical(getGadget(gList, i), NULL_GADGET))
+        {
+            length++;
+        }
+        i++;
     }
     return length;
 }

@@ -212,6 +212,7 @@ Location _getLocationById(LocationList l, int id)
         {
             return loc;
         }
+        i++;
     }
     return NULL_LOCATION;
 }

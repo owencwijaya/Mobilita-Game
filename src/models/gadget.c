@@ -3,6 +3,7 @@
  * @brief Implementasi tipe data Gadget.
  */
 
+#include <stdio.h>
 #include "boolean.h"
 #include "gadget.h"
 #include "macros.h"
@@ -43,4 +44,20 @@ const Gadget NULL_GADGET = {-1, -1, "-"};
 boolean isGadgetIdentical(Gadget gadget1, Gadget gadget2)
 {
     return id(gadget1) == id(gadget2);
+}
+
+/**
+ * @private 
+ * @brief Print isi data gadget ke console.
+ * ! Private! Jangan digunakan di main program.
+ * ! Hanya digunakan untuk driver.
+ * @param g GadgetList instance.
+ */
+void _dumpGadget(Gadget g)
+{
+    printf("Gadget {\n");
+    printf("  id : %d\n", id(g));
+    printf("  price : %d\n", price(g));
+    printf("  name : %s\n", name(g));
+    printf("}\n");
 }

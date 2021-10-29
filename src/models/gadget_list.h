@@ -47,6 +47,15 @@ boolean isGadgetListEmpty(GadgetList gList);
 boolean isGadgetListFull(GadgetList gList);
 
 /**
+ * @brief Mengecek apakah indeks valid untuk sebuah GagdetList.
+ * 
+ * @param index Indeks yang akan dicek.
+ * @return true jika indeks valid untuk GadgetList, false
+ *         selainnya.
+ */
+boolean isGagetListIndexValid(int index);
+
+/**
  * @brief Mengambil Gadget instance dari gList pada indeks index.
  * 
  * @param gList GadgetList instance.
@@ -63,6 +72,23 @@ Gadget getGadget(GadgetList gList, int index);
  * @param g Gadget instance.
  */
 void setGadget(GadgetList *gList, int index, Gadget g);
+
+/**
+ * @brief Menambahkan gadget pada slot yang kosong.
+ * 
+ * @param gList GadgetList instance.
+ * @param g Gadget yang ingin ditambahkan
+ */
+void insertGadget(GadgetList *gList, Gadget g);
+
+/**
+ * @brief Mengambil dan menghapus gadget dari GadgetList.
+ * 
+ * @param gList GadgetList instance.
+ * @param index Indeks gadget yang akan diambil & dihapus.
+ * @param g Gadget yang dihapus.
+ */
+void deleteGadget(GadgetList *gList, int index, Gadget *g);
 
 /**
  * @brief Menuliskan list Gadget (inventory) ke console output.
