@@ -5,8 +5,6 @@
 #include "commands/inventory.c"
 
 void help();
-void buy();
-void inventory();
 
 void gameMenu(){ 
     boolean playing = true;
