@@ -13,13 +13,13 @@ void to_do(){
 
         while (loc != NULL){
             if (isNormalItem(value(loc))){
-                printf("%d. %c -> %c (Normal Item)\n", num, value(loc).pickUpLocation, value(loc).dropOffLocation);
+                printf("%d. %c -> %c (Normal Item)\n", num, value(loc).pickUpLocation.symbol, value(loc).dropOffLocation.symbol);
             } else if (isHeavyItem(value(loc))){
-                printf("%d. %c -> %c (Heavy Item)\n", num, value(loc).pickUpLocation, value(loc).dropOffLocation);
+                printf("%d. %c -> %c (Heavy Item)\n", num, value(loc).pickUpLocation.symbol, value(loc).dropOffLocation.symbol);
             } else if (isPerishableItem(value(loc))){
-                printf("%d. %c -> %c (Perishable Item)\n", num, value(loc).pickUpLocation, value(loc).dropOffLocation);
+                printf("%d. %c -> %c (Perishable Item)\n", num, value(loc).pickUpLocation.symbol, value(loc).dropOffLocation.symbol);
             } else if (isVIPItem(value(loc))){
-                printf("%d. %c -> %c (VIP Item)\n", num, value(loc).pickUpLocation, value(loc).dropOffLocation);
+                printf("%d. %c -> %c (VIP Item)\n", num, value(loc).pickUpLocation.symbol, value(loc).dropOffLocation.symbol);
             }
             num++;
             loc = next(loc);
