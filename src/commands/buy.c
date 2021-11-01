@@ -2,12 +2,14 @@
 #include "../modules/io/machines/charmachine.h"
 
 void buy(){
-    gameState.cash = 99999999;
     if (gameState.cash == 0){
         printf("Anda tidak mempunyai uang!\n");
     } else if (isGadgetListFull(gameState.inventory)){
         printf("Inventory penuh!");
-    } else {
+    } else if (symbol(gameState.currentLocation) != '8'){
+        printf("Anda sedang tidak berada di Headquarters!\n");
+    }
+    else {
         printf("Uang anda sekarang: %d Yen\n", gameState.cash);
         printf("Gadget yang tersedia: \n");
         printf("1. Kain Pembungkus Waktu (800 Yen) \n");
@@ -73,5 +75,4 @@ void buy(){
             }
         }
     }
-    gameState.cash = 0;
 }

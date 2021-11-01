@@ -57,7 +57,7 @@ void inventory(){
             //diinginkan tanpa menambahkan unit waktu.
             gameState.abs.PintuKemanaSaja = true;
             printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
-            printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\N");
+            printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\n");
             //nanti pake fungsi move, tapi ga nambahin waktu
         } else if (isGadgetIdentical(tempGadget, MESIN_WAKTU)){
             //algo buat mesin waktu
