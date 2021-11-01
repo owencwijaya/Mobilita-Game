@@ -20,6 +20,10 @@ void move()
         if (gameState.abs.PintuKemanaSaja){
             printf("Gadget 'Pintu Kemana Saja' akan digunakan!\n\n");
         }
+        if (gameState.abs.SpeedBoost){
+            printf("SPEEDBOOST aktif!\n");
+            printf("Berlaku untuk %d kali pemakaian.", gameState.abs.SpeedBoostStack);
+        }
         printf("ENTER COMMAND: ");
         readConsoleInput();
         readWord();
@@ -54,6 +58,7 @@ void move()
     printf("\n");
     printf("Mobita sekarang berada di titk %c ", symbol(gameState.currentLocation));
     displayPoint(coord(gameState.currentLocation));
+    setAsPlayerPlace(&gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y]);
     printf("!\n");
     printf("Waktu : %d", gameState.time);
 }
