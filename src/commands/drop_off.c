@@ -3,7 +3,8 @@
 
 
 void drop_off(){
-    if (isStackEmpty(gameState.bag) || (gameState.currentLocation != top(gameState.bag).dropOffLocation)){
+    printf("%c", top(gameState.bag).dropOffLocation.symbol);
+    if (isStackEmpty(gameState.bag) || !isLocationIdentical(gameState.currentLocation, top(gameState.bag).dropOffLocation)){
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
     } else {
         Item dump;
@@ -13,7 +14,7 @@ void drop_off(){
         pop(&gameState.bag, &temp);
 
         if (isNormalItem(temp)){
-            printf("Pesanan Normal Item berhasil diantarka!\n");
+            printf("Pesanan Normal Item berhasil diantarkan!\n");
             gameState.cash += 200;
             printf("Uang yang didapatkan: 200 Yen\n");
 
@@ -24,12 +25,12 @@ void drop_off(){
             gameState.abs.HeavyItemStack--;
 
             // Jika tidak membawa HeavyItem lain, Speed Boost akan aktif
-            if (gameState.abs.HeavyItemStack == 0){
-                printf("Speed Boost activated!\n");
-                gameState.abs.IsHeavyItemOn = false;
-                gameState.abs.SpeedBoostCount = 10;
-                gameState.abs.SpeedBoost = true;
-            }
+            
+            printf("Speed Boost activated!\n");
+            gameState.abs.IsHeavyItemOn = false;
+            gameState.abs.SpeedBoostStack = 5;
+            gameState.abs.SpeedBoost = true;
+            
 
         } else if (isPerishableItem(temp)){
             printf("Pesanan Perishable Item berhasil diantarkan!\n");

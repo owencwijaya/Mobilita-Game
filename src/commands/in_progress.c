@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
-#include "macros.h"
+#include "../models/macros.h"
 
 
 void in_progress(){
@@ -12,13 +12,13 @@ void in_progress(){
         int num = 1;
         while(loc != NULL){
             if(isNormalItem(value(loc))){
-                printf("%d. Normal Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+                printf("%d. Normal Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }else if (isHeavyItem(value(loc))){
-                printf("%d. Heavy Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+                printf("%d. Heavy Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }else if (isPerishableItem(value(loc))){
-                printf("%d. Perishable Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+                printf("%d. Perishable Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }else if(isVIPItem(value(loc))){
-                printf("%d. VIP Item (Tujuan : %c)\n", num, value(loc).dropOffLocation);
+                printf("%d. VIP Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }
         num++;
         loc = next(loc);
