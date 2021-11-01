@@ -23,9 +23,13 @@ typedef struct{
      */
     boolean SpeedBoost;
     /**
-     * @brief Menghitung jumlah speedbost
+     * @brief Menghitung jumlah langkah speedboost
      */
     int SpeedBoostCount;
+    /**
+     * @brief Menghitung berapa kali speedboost digunakan
+     */
+    int SpeedBoostStack;
     /**
      * @brief Mengecek apakah senter pengecil digunakan
      */

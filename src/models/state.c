@@ -27,6 +27,7 @@ AbilityStruct newAbilityStruct()
     AbilityStruct abs;
     abs.SpeedBoost = false;
     abs.SpeedBoostCount = 0;
+    abs.SpeedBoostStack = 0;
     abs.IsSenterPengecilOn = false;
     abs.IsHeavyItemOn = false;
     abs.HeavyItemStack = 0;
@@ -79,6 +80,11 @@ void incrementTime(State *state, int diffTime)
     {
         dequeue(&(state->order), &item);
         insertItemLast(&(state->todoList), item);
+
+        Location pickUp =  _getLocationById(state->gameMap._locations, item.pickUpLocation.id);
+        Location dropOff = _getLocationById(state->gameMap._locations, item.dropOffLocation.id);
+        setAsPickUpPlace(&(state->gameMap._locationMatrix.contents[pickUp.coordinate.x][pickUp.coordinate.y]));
+        setAsDropOffPlace(&(state->gameMap._locationMatrix.contents[dropOff.coordinate.x][dropOff.coordinate.y]));
     }
 
     // Decrement perishTime perishable item atau
