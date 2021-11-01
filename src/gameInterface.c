@@ -3,7 +3,12 @@
 #include "modules/core/globals.h"
 #include "commands/buy.c"
 #include "commands/inventory.c"
+#include "commands/to_do.c"
+#include "commands/in_progress.c"
+#include "commands/pick_up.c"
+#include "commands/drop_off.c"
 #include "commands/move.c"
+
 
 void help();
 
@@ -11,8 +16,13 @@ void gameMenu()
 {
     boolean playing = true;
     while (playing)
-    {
-        printf("\nENTER COMMAND: ");
+    {   
+
+        printf("\n\nLokasi Mobita: %c ", symbol(gameState.currentLocation));
+        displayPoint(coord(gameState.currentLocation));printf("\n");
+        printf("Waktu: %d\n", gameState.time);
+        printf("Uang: %d\n", gameState.cash);
+        printf("ENTER COMMAND: ");
         readConsoleInput();
         readWord();
         if (checkWord(currentWord, "MOVE."))
@@ -23,12 +33,12 @@ void gameMenu()
         else if (checkWord(currentWord, "PICK_UP."))
         {
             printf("PICK_UP selected.\n");
-            // pick_up();
+            pick_up();
         }
         else if (checkWord(currentWord, "DROP_OFF."))
         {
             printf("DROP_OFF selected.\n");
-            // drop_off();
+            drop_off();
         }
         else if (checkWord(currentWord, "MAP."))
         {
@@ -38,12 +48,12 @@ void gameMenu()
         else if (checkWord(currentWord, "TO_DO."))
         {
             printf("TO_DO selected.\n");
-            // to_do()
+            to_do();
         }
         else if (checkWord(currentWord, "IN_PROGRESS."))
         {
             printf("IN_PROGRESS selected.\n");
-            // in_progress();
+            in_progress();
         }
         else if (checkWord(currentWord, "BUY."))
         {
