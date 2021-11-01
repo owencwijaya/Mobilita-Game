@@ -26,11 +26,12 @@
 #include "../../models/item_stack.c"
 #include "../../models/game_map.c"
 #include "../../models/macros.h"
-#include "../core/globals.c"
+#include "../core/globals.h"
 #include "./machines/wordmachine.c"
 #include "./machines/charmachine.c"
 #include "../colorizer/colorizer.c"
 #include "word_utils.c"
+
 void parseConfig(char *path)
 {
     readFile(path);
@@ -108,6 +109,9 @@ void parseConfig(char *path)
         readNextWord();
         type = stringify(currentWord)[0];
 
+        setAsPickUpPlace(&pickUpLocation);
+        setAsDropOffPlace(&dropOffLocation);
+
         switch (type)
         {
         case 'N':
@@ -138,6 +142,7 @@ void parseConfig(char *path)
 
         item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
         enqueue(&order, item);
+        
     }
 
     GameMap g = newGameMap(mapLength, mapWidth, adjMatrix, lList);
