@@ -80,7 +80,18 @@ void gameMenu()
             printf("Command tidak dikenali!\n");
             printf("Ketik 'HELP.' untuk bantuan.\n");
         }
+        if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0)){
+            playing = false;
+        }    
+        
     }
+    if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList))){
+        printf("\n\nSelamat! Kamu berhasil membantu Mobilita mengantarkan semua pesanan!");
+        printf("\nWaktu: %d - Uang: %d Yen\n", gameState.cash, gameState.time);
+        printf("now go sleep idontknow");
+    }  
+
+
 }
 
 void help()
