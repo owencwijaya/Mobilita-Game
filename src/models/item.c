@@ -31,6 +31,7 @@ Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, I
     itemType(item) = type;
     perishTime(item) = perishTime;
     perishTimeReference(item) = perishTimeReference;
+    addedBefore(item) = false;
     return item;
 }
 

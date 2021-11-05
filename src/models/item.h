@@ -65,6 +65,10 @@ typedef struct
      * @brief Referensi waktu hangus item.
      */
     int perishTimeReference;
+    /**
+     * @brief Mengecek apakah item sudah ditambahkan sebelumnya
+     */
+    boolean addedBefore;
 } Item;
 
 /**

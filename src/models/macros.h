@@ -127,6 +127,11 @@
  */
 #define perishTimeReference(item) (item).perishTimeReference
 /**
+ * @brief Flag untuk mengetahui item sudah ditambahkan atau belum
+ * @param item Item instance.
+ */
+#define addedBefore(item) (item).addedBefore
+/**
  * @brief Mengambil waktu order item.
  * @param item Item instance.
  */
