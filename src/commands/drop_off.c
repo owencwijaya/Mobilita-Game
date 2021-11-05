@@ -8,7 +8,7 @@ void drop_off(){
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
     } else {
         Item dump;
-        deleteItemLast(&gameState.inProgressList, &dump);
+        deleteItemFirst(&gameState.inProgressList, &dump);
 
         Item temp;
         pop(&gameState.bag, &temp);

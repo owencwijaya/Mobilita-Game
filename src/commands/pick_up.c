@@ -79,6 +79,7 @@ void pick_up(){
     if(idxVIPintodo(gameState.todoList) != -1){
     //Ada VIP Item di To Do list, sehingga Harus diutamakan terlebih dahulu.
         int idx = idxVIPintodo(gameState.todoList);
+        printf("%c", getItem(gameState.todoList, idx).pickUpLocation.symbol);
         if(isLocationIdentical(gameState.currentLocation, getItem(gameState.todoList, idx).pickUpLocation)){
             insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
             push(&gameState.bag, getItem(gameState.todoList, idx));
@@ -88,9 +89,9 @@ void pick_up(){
             Item temp;
             deleteItemAt(&gameState.todoList, idx, &temp); //Menghapus VIP item dari ToDo List
         }else{
-            printf("Pesanan berupa VIP item tidak ditemukan\n\n");
+            printf("Pesanan berupa VIP Item tidak ada di lokasi ini!\n(Pesanan VIP di TO_DO harus didahulukan! Gue bucin!)\n\n");
         }
-    }else{
+    } else {
         if(gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isPickUpPlace){
             int countItem = countItemInLocation(gameState.todoList);
             printf("%d", countItem);

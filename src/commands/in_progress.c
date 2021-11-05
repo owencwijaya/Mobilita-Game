@@ -6,7 +6,7 @@
 void in_progress(){
     ItemList loc = gameState.inProgressList;
     if(loc == NULL){
-        printf("Tidak ada item di yang diantarkan\n");
+        printf("Tidak ada item yang sedang diantarkan!\n");
     }else{
         printf("Pesanan yang sedang diantarkan : \n");
         int num = 1;
@@ -16,7 +16,7 @@ void in_progress(){
             }else if (isHeavyItem(value(loc))){
                 printf("%d. Heavy Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }else if (isPerishableItem(value(loc))){
-                printf("%d. Perishable Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
+                printf("%d. Perishable Item (Tujuan : %c, Waktu Sisa : %d)\n", num, value(loc).dropOffLocation.symbol, value(loc).perishTime);
             }else if(isVIPItem(value(loc))){
                 printf("%d. VIP Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
             }

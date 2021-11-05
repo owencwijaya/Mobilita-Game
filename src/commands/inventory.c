@@ -17,7 +17,7 @@ void inventory(){
         
 
         if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU)){
-            //cari perishable item teratas
+            //cari perishable item teratas, ini buat inprogress?
             ItemStack tempStack = newItemStack(topIndex(gameState.bag));; // untuk penyimpanan sementara
             Item temp;
             boolean found = false;

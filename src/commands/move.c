@@ -8,8 +8,14 @@ void move()
 {   
     printf("Lokasi-lokasi yang dapat diakses: \n");
     // terimalokasi awal
+    unsetAsPlayerPlace(&gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y]);
     LocationList adjlocation = getAdjacentLocations(locList(gameState.gameMap), gameState.currentLocation, adjMatrix(gameState.gameMap));
     displayAdjacentLocation(gameState.gameMap, gameState.currentLocation);
+
+    
+    for (int i = 0; i < length(adjlocation); i++){
+        unsetAsReachable(&gameState.gameMap._locationMatrix.contents[adjlocation.buffer[i].coordinate.x][adjlocation.buffer[i].coordinate.y]);
+    }
 
     // terima input dan cek kevalidan input
     int ChoiceNumber;
@@ -21,8 +27,8 @@ void move()
             printf("Gadget 'Pintu Kemana Saja' akan digunakan!\n\n");
         }
         if (gameState.abs.SpeedBoost){
-            printf("SPEEDBOOST aktif!\n");
-            printf("Berlaku untuk %d kali pemakaian.", gameState.abs.SpeedBoostStack);
+            printf("Speedboost aktif!\n");
+            printf("Berlaku untuk %d kali pemakaian.\n\n", gameState.abs.SpeedBoostStack);
         }
         printf("ENTER COMMAND: ");
         readConsoleInput();
@@ -38,7 +44,19 @@ void move()
             } else if (gameState.abs.PintuKemanaSaja){
                 time = 0;
                 gameState.abs.PintuKemanaSaja = false;
-            } else {
+            } else if (gameState.abs.SpeedBoost) {
+                if (gameState.abs.SpeedBoostCount == 0){
+                    time = 0;
+                    gameState.abs.SpeedBoostCount++;
+                } else if (gameState.abs.SpeedBoostCount == 1){
+                    time = 1;
+                    gameState.abs.SpeedBoostCount--;
+                    gameState.abs.SpeedBoostStack--;
+                    if (gameState.abs.SpeedBoostStack == 0){
+                        gameState.abs.SpeedBoost = false;
+                    }
+                } 
+            } else { 
                 time = 1;
             }
             incrementTime(&gameState, time);
@@ -61,4 +79,9 @@ void move()
     setAsPlayerPlace(&gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y]);
     printf("!\n");
     printf("Waktu : %d", gameState.time);
+
+    LocationList newAdjLoc = getAdjacentLocations(locList(gameState.gameMap), gameState.currentLocation, adjMatrix(gameState.gameMap));
+    for (int i = 0; i < length(newAdjLoc); i++){
+        setAsReachable(&gameState.gameMap._locationMatrix.contents[newAdjLoc.buffer[i].coordinate.x][newAdjLoc.buffer[i].coordinate.y]);
+    }
 }
