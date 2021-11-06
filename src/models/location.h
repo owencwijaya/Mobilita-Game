@@ -49,6 +49,18 @@ typedef struct
      * ini dapat dituju relatif dari lokasi player.
      */
     boolean isReachable;
+    /**
+     * @brief Flag yang menandakan apakah lokasi diwarnai
+     *  merah (apabila lokasi adalah lokasi pickup dari item
+     * di atas bag)
+     */
+    boolean isMarkedPickUp;
+    /**
+     * @brief Flag yang menandakan apakah lokasi diwarnai
+     * biru (apabila lokasi adalah lokasi dropoff dari item
+     * di atas bag)
+     */
+    boolean isMarkedDropOff;
 } Location;
 
 /**
@@ -146,7 +158,26 @@ void setAsReachable(Location *l);
  * @param l Location instance.
  */
 void unsetAsReachable(Location *l);
-
+/**
+ * @brief Set lokasi sebagai lokasi pickup
+ * untuk item di atas bag
+ */
+void setAsMarkedPickUp(Location *l);
+/**
+ * @brief Set lokasi sebagai lokasi dropoff
+ * untuk item di atas bag
+ */
+void setAsMarkedDropOff(Location *l);
+/**
+ * @brief Unset lokasi pickup
+ * di atas bag
+ */
+void unsetAsMarkedPickUp(Location *l);
+/**
+ * @brief Unset lokasi dropoff
+ * di atas bag
+ */
+void unsetAsMarkedDropOff(Location *l);
 /**
  * @brief Set lokasi sebagai lokasi player.
  * 

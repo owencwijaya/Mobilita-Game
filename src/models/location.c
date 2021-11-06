@@ -173,7 +173,34 @@ void unsetAsReachable(Location *l)
 {
     l->isReachable = false;
 }
-
+/**
+ * @brief Set lokasi sebagai lokasi pickup
+ * untuk item di atas bag
+ */
+void setAsMarkedPickUp(Location *l){
+    l->isMarkedPickUp = true;
+}
+/**
+ * @brief Set lokasi sebagai lokasi dropoff
+ * untuk item di atas bag
+ */
+void setAsMarkedDropOff(Location *l){
+    l->isMarkedDropOff = true;
+}
+/**
+ * @brief Unset lokasi pickup
+ * di atas bag
+ */
+void unsetAsMarkedPickUp(Location *l){
+    l->isMarkedPickUp = false;
+}
+/**
+ * @brief Unset lokasi dropoff
+ * di atas bag
+ */
+void unsetAsMarkedDropOff(Location *l){
+    l->isMarkedDropOff = false;
+}
 /**
  * @brief Set lokasi sebagai lokasi player.
  * 
