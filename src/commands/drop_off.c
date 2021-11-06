@@ -16,6 +16,14 @@ void drop_off()
 
         Item temp;
         pop(&gameState.bag, &temp);
+        unsetColors(temp);
+        unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
+        unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+        if (!isStackEmpty(gameState.bag)){
+            setColors(top(gameState.bag));
+            setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
+            setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+        }
 
         if (isNormalItem(temp))
         {
