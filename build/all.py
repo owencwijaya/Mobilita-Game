@@ -1,8 +1,8 @@
 import os
 from os.path import basename
-from compile_file import compile_file
 from get_all_files import get_all_files
 from ensure import ensure_all_outdir
+from exclude import excludes
 
 base = basename(os.getcwd())
 
@@ -12,6 +12,7 @@ if (base != "build"):
 ensure_all_outdir()
 
 all_files = get_all_files()
+all_files = filter(excludes, all_files)
 
 cmd = ["gcc"]
 for file in all_files:

@@ -1,46 +1,30 @@
 #include <stdio.h>
 
-// #include "../../models/location.h"
-// #include "../../models/location_list.h"
-// #include "../../models/point.h"
-// #include "../../models/boolean_matrix.h"
-// #include "../../models/item_queue.h"
-// #include "../../models/item.h"
-// #include "../../models/game_map.h"
-// #include "../../models/macros.h"
-// #include "../core/globals.h"
-// #include "./machines/wordmachine.h"
-// #include "word_utils.h"
-
-#include "../../models/gadget.c"
-#include "../../models/gadget_list.c"
-#include "../../models/location.c"
-#include "../../models/location_list.c"
-#include "../../models/location_matrix.c"
-#include "../../models/point.c"
-#include "../../models/state.c"
-#include "../../models/boolean_matrix.c"
-#include "../../models/item_queue.c"
-#include "../../models/item.c"
-#include "../../models/item_list.c"
-#include "../../models/item_stack.c"
-#include "../../models/game_map.c"
+#include "../../models/location.h"
+#include "../../models/location_list.h"
+#include "../../models/point.h"
+#include "../../models/boolean_matrix.h"
+#include "../../models/item_queue.h"
+#include "../../models/item.h"
+#include "../../models/game_map.h"
 #include "../../models/macros.h"
 #include "../core/globals.h"
-#include "./machines/wordmachine.c"
-#include "./machines/charmachine.c"
-#include "../colorizer/colorizer.c"
-#include "word_utils.c"
+#include "./machines/wordmachine.h"
+#include "word_utils.h"
 
 void parseConfig(char *path)
 {
+    // * Read config file path
     readFile(path);
+
+    // * Set map size
     int mapLength, mapWidth;
     readWord();
     mapLength = parseInt(stringify(currentWord));
     readNextWord();
     mapWidth = parseInt(stringify(currentWord));
 
+    // * Parse HQ location
     Location hq;
     Point hqCoord;
     int hq_abs, hq_ord;
@@ -51,6 +35,7 @@ void parseConfig(char *path)
     hqCoord = newPoint(hq_abs, hq_ord);
     hq = newLocation(0, '8', hqCoord);
 
+    // * Locations list
     int locationCount;
     readNextWord();
     locationCount = parseInt(stringify(currentWord)) + 1;
@@ -76,6 +61,7 @@ void parseConfig(char *path)
         insertLast(&lList, loc);
     }
 
+    // * Adjacency matrix
     BooleanMatrix adjMatrix;
     adjMatrix = newBooleanMatrix(locationCount, locationCount);
 
@@ -88,6 +74,7 @@ void parseConfig(char *path)
         }
     }
 
+    // * Items & Orders
     int itemCount;
     readNextWord();
     itemCount = parseInt(stringify(currentWord));
@@ -142,13 +129,9 @@ void parseConfig(char *path)
 
         item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
         enqueue(&order, item);
-        
     }
 
     GameMap g = newGameMap(mapLength, mapWidth, adjMatrix, lList);
+    setPlayerLocation(&g, hq_abs, hq_ord);
     gameState = newState(g, newItemList(), newItemList(), newItemStack(3), order);
-}
-
-void _dumpConfig()
-{
 }

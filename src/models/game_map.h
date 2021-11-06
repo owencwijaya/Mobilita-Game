@@ -98,4 +98,37 @@ Location getLocationBySymbol(GameMap m, char symbol);
  */
 Location getLocationByCoord(GameMap m, Point p);
 
+/**
+ * @brief Set lokasi player pada koordinat (x, y).
+ * 
+ * @param m GameMap instance.
+ * @param x Absis lokasi player saat ini.
+ * @param y Ordinat lokasi player saat ini.
+ */
+void setPlayerLocation(GameMap *m, int x, int y);
+
+/**
+ * @brief Set lokasi pada koordinat (x, y) sebagai lokasi
+ *        pick up item.
+ * 
+ * @param m GameMap instance.
+ * @param x Absis lokasi yang akan diset sebagai lokasi
+ *          pick up.
+ * @param y Ordinat lokasi yang akan diset sebagai lokasi
+ *          pick up.
+ */
+void setPickUpLocation(GameMap *m, int x, int y);
+
+/**
+ * @brief Set lokasi pada koordinat (x, y) sebagai lokasi
+ *        drop off item.
+ * 
+ * @param m GameMap instance.
+ * @param x Absis lokasi yang akan diset sebagai lokasi
+ *          drop off.
+ * @param y Ordinat lokasi yang akan diset sebagai lokasi
+ *          drop off.
+ */
+void setDropOffLocation(GameMap *m, int x, int y);
+
 #endif
