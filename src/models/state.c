@@ -81,7 +81,7 @@ void incrementTime(State *state, int diffTime)
         dequeue(&(state->order), &item);
         insertItemLast(&(state->todoList), item);
 
-        Location pickUp =  _getLocationById(state->gameMap._locations, item.pickUpLocation.id);
+        Location pickUp = _getLocationById(state->gameMap._locations, item.pickUpLocation.id);
         Location dropOff = _getLocationById(state->gameMap._locations, item.dropOffLocation.id);
         setAsPickUpPlace(&(state->gameMap._locationMatrix.contents[pickUp.coordinate.x][pickUp.coordinate.y]));
         setAsDropOffPlace(&(state->gameMap._locationMatrix.contents[dropOff.coordinate.x][dropOff.coordinate.y]));
@@ -89,6 +89,30 @@ void incrementTime(State *state, int diffTime)
 
     // Decrement perishTime perishable item atau
     // hapus jika durasi habis.
+    // 1. Pada In Progress list
+    ItemList inProgressList = state->inProgressList;
+    int len = itemListLength(inProgressList);
+    int i = 0;
+    while (i < len)
+    {
+        Item item = getItem(inProgressList, i);
+        Item garbage;
+        if (itemType(item) == PERISHABLE)
+        {
+            perishTime(item) -= diffTime;
+            if (perishTime(item) <= 0)
+            {
+                deleteItemAt(&inProgressList, i, &garbage);
+            }
+            else
+            {
+                setItem(&inProgressList, i, item);
+            }
+        }
+        i++;
+    }
+
+    // 2. Pada tas
     ItemStack bag = state->bag;
     ItemStack reversedBag = newItemStack(capacity(bag));
     while (!isStackEmpty(bag))
