@@ -91,11 +91,11 @@ void writeLocationSymbol(Location l)
         {
             changeToOrangeColor();
         }
-        else if (l.isDropOffPlace)
+        else if (l.isDropOffPlace && l.isMarkedDropOff)
         {
             changeToBlueColor();
         }
-        else if (l.isPickUpPlace)
+        else if (l.isPickUpPlace && l.isMarkedPickUp)
         {
             changeToRedColor();
         }
