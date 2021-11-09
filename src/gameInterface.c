@@ -20,6 +20,7 @@ void gameMenu()
         printf("ENTER COMMAND: ");
         readConsoleInput();
         readWord();
+
         char *cmd = stringify(currentWord);
         if (isStringEquals(cmd, "MOVE"))
         {
@@ -79,7 +80,7 @@ void gameMenu()
         else
         {
             printf("Command tidak dikenali!\n");
-            printf("Ketik 'HELP.' untuk bantuan.\n");
+            printf("Ketik 'HELP' untuk bantuan.\n");
         }
         if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
         {
@@ -89,7 +90,7 @@ void gameMenu()
     if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList)))
     {
         printf("\n\nSelamat! Kamu berhasil membantu Mobilita mengantarkan semua pesanan!");
-        printf("\nWaktu: %d - Uang: %d Yen\n", gameState.cash, gameState.time);
+        printf("\nWaktu: %d - Uang: %d Yen\n", gameState.time, gameState.cash);
         printf("now go sleep idontknow");
     }
 }
@@ -105,5 +106,6 @@ void help()
     printf("7. BUY -> Untuk membeli item (hanya bisa dipanggil di HQ)\n");
     printf("8. INVENTORY -> Untuk melihat isi inventory\n");
     printf("9. HELP -> Untuk menampilkan bantuan\n");
-    printf("10. EXIT -> Untuk keluar dari game\n");
+    printf("10. RETURN -> Untuk mengembalikan item ke to-do list (hanya saat efek aktif)\n");
+    printf("11. EXIT -> Untuk keluar dari game\n");
 }
