@@ -66,6 +66,11 @@ void gameMenu()
             printf("HELP selected.\n");
             help();
         }
+        else if (isStringEquals(cmd, "RETURN"))
+        {
+            printf("RETURN selected.\n");
+            returnToSender();
+        }
         else if (isStringEquals(cmd, "EXIT"))
         {
             printf("EXIT selected.\n");
