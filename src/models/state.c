@@ -93,9 +93,8 @@ void incrementTime(State *state, int diffTime)
     // hapus jika durasi habis.
     // 1. Pada In Progress list
     ItemList inProgressList = state->inProgressList;
-    int len = itemListLength(inProgressList);
     int i = 0;
-    while (i < len)
+    while (i < itemListLength(inProgressList))
     {
         Item item = getItem(inProgressList, i);
         Item garbage;
@@ -103,16 +102,33 @@ void incrementTime(State *state, int diffTime)
         {
             perishTime(item) -= diffTime;
             if (perishTime(item) <= 0)
-            {
-                deleteItemAt(&inProgressList, i, &garbage);
+            {   
+                deleteItemAt(&inProgressList, i, &garbage); 
+                ItemStack tempStack = newItemStack(capacity(state->bag));
+                Item tempGarb;
+                while(!isItemIdentical(top(state->bag), garbage) && !isStackEmpty(state->bag)){
+                    pop(&(state->bag), &tempGarb);
+                    push(&tempStack, tempGarb);
+                }
+                if (isItemIdentical(top(state->bag), garbage)){
+                    pop(&(state->bag), &tempGarb);
+                }
+
+                while (!isStackEmpty(tempStack)){
+                    pop(&tempStack, &tempGarb);
+                    push(&(state->bag), tempGarb);
+                }
+                
+                i--;
             }
             else
             {
-                setItem(&inProgressList, i, item);
+                setItem(&inProgressList, i, item);   
             }
         }
         i++;
     }
+    state->inProgressList = inProgressList;
 
     // 2. Pada tas
     ItemStack bag = state->bag;
