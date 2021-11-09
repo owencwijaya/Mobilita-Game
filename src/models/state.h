@@ -50,6 +50,16 @@ typedef struct{
      * @brief Mengecek apakah Mobita mempunyai efek pintu kemana saja
      */
     boolean PintuKemanaSaja;
+    /**
+     * @brief Mengecek apakah item bisa dikembalikan ke 
+     * sender
+     */
+    boolean IsReturnOn;
+    /**
+     * @brief Mengecek banyaknya efek
+     * return to sender
+     */
+    int ReturnStack;
 } AbilityStruct;
 
 typedef struct
@@ -94,6 +104,7 @@ typedef struct
      * @brief Ability struct.
      */
     AbilityStruct abs;
+
 } State;
 
 

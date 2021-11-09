@@ -33,6 +33,8 @@ AbilityStruct newAbilityStruct()
     abs.HeavyItemStack = 0;
     abs.IsVIPItemOn = false;
     abs.PintuKemanaSaja = false;
+    abs.IsReturnOn = false;
+    abs.ReturnStack = 0;
     return abs;
 }
 /**
