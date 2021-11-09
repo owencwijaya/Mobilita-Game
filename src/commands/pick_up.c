@@ -98,7 +98,7 @@ void pick_up(){
                 Item temp;
                 deleteItemAt(&gameState.todoList, idx, &temp); //Menghapus VIP item dari ToDo List
             }else{
-                printf("Pesanan berupa VIP Item tidak ada di lokasi ini!\n(Pesanan VIP di TO_DO harus didahulukan! Gue  bucin!)\n\n");
+                printf("Pesanan berupa VIP Item tidak ada di lokasi ini!\n(Pesanan VIP di TO_DO harus didahulukan!)\n\n");
             }
         }else{
             printf("Tas telah penuh\n\n");

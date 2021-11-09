@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
 #include "../models/macros.h"
-
+void unsetColors();
+void setColors();
 void drop_off()
 {
     printf("%c", top(gameState.bag).dropOffLocation.symbol);
@@ -58,6 +59,9 @@ void drop_off()
             printf("Pesanan VIP Item berhasil diantarkan!\n");
             gameState.cash += 600;
             printf("Uang yang didapatkan: 600 Yen\n");
+            gameState.abs.IsReturnOn = true;
+            gameState.abs.ReturnStack++;
+            printf("Efek 'Return to Sender' bertambah menjadi %d.", gameState.abs.ReturnStack);
         }
     }
 }
