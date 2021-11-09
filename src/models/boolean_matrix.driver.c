@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "boolean_matrix.h"
 #include "boolean.h"
-#include "macros.h"
 
 int main()
 {

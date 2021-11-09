@@ -16,14 +16,52 @@
  * @brief Tipe data berisi ukuran map, matriks
  * adjacency, list lokasi, dan matriks lokasi.
  */
-typedef struct
+struct gamemap
 {
     int hSize;
     int vSize;
     BooleanMatrix _adjacency;
     LocationList _locations;
     LocationMatrix _locationMatrix;
-} GameMap;
+};
+
+/**
+ * @brief Tipe data referensi game map.
+ */
+typedef struct gamemap *GameMap;
+
+/**
+ * @brief Mengembalikan panjang GameMap \c m.
+ * @param m GameMap instance.
+ */
+#define mapLength(m) (m)->hSize
+/**
+ * @brief Mengembalikan lebar GameMap \c m.
+ * @param m GameMap instance.
+ */
+#define mapWidth(m) (m)->vSize
+/**
+ * @private
+ * @brief Mengembalikan matriks adjacency dari map \c m.
+ * @see BooleanMatrix
+ * @param m GameMap instance
+ */
+#define adjMatrix(m) (m)->_adjacency
+/**
+ * @private
+ * @brief Mengembalikan list lokasi yang ada pada \c m.
+ * @see LocationList
+ * @param m GameMap instance
+ */
+#define locList(m) (m)->_locations
+/**
+ * @private
+ * @brief Mengembalikan matriks lokasi dari map \c m.
+ * ! Hanya digunakan untuk menampilkan output map.
+ * @see LocationMatrix
+ * @param m GameMap instance
+ */
+#define locMatrix(m) (m)->_locationMatrix
 
 /**
  * @brief Constructor untuk membuat GameMap baru.
@@ -105,7 +143,7 @@ Location getLocationByCoord(GameMap m, Point p);
  * @param x Absis lokasi player saat ini.
  * @param y Ordinat lokasi player saat ini.
  */
-void setPlayerLocation(GameMap *m, int x, int y);
+void setPlayerLocation(GameMap m, int x, int y);
 
 /**
  * @brief Set lokasi pada koordinat (x, y) sebagai lokasi
@@ -117,7 +155,7 @@ void setPlayerLocation(GameMap *m, int x, int y);
  * @param y Ordinat lokasi yang akan diset sebagai lokasi
  *          pick up.
  */
-void setPickUpLocation(GameMap *m, int x, int y);
+void setPickUpLocation(GameMap m, int x, int y);
 
 /**
  * @brief Set lokasi pada koordinat (x, y) sebagai lokasi
@@ -129,6 +167,6 @@ void setPickUpLocation(GameMap *m, int x, int y);
  * @param y Ordinat lokasi yang akan diset sebagai lokasi
  *          drop off.
  */
-void setDropOffLocation(GameMap *m, int x, int y);
+void setDropOffLocation(GameMap m, int x, int y);
 
 #endif

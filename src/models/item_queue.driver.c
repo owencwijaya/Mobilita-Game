@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "item_queue.h"
 #include "item.h"
-#include "macros.h"
 
 int main()
 {
@@ -17,20 +16,20 @@ int main()
 
     printf("queue = ItemQueue[0]\n");
     printf("enqueue x ...\n");
-    enqueue(&queue, x);
+    enqueue(queue, x);
     printf("head order time : %d\n", peekHeadTime(queue));
     printf("enqueue y ...\n");
-    enqueue(&queue, y);
+    enqueue(queue, y);
     printf("head order time : %d\n", peekHeadTime(queue));
     printf("queue = ItemQueue[y, x]\n");
 
     Item z;
-    dequeue(&queue, &z);
+    z = dequeue(queue);
     printf("dequeue queue\n");
-    printf("Item == x ? %s\n", isItemIdentical(z, x) ? "TRUE" : "FALSE");
-    printf("Item == y ? %s\n", isItemIdentical(z, y) ? "TRUE" : "FALSE");
-    dequeue(&queue, &z);
+    printf("Item == x ? %s\n", z == x ? "TRUE" : "FALSE");
+    printf("Item == y ? %s\n", z == y ? "TRUE" : "FALSE");
+    z = dequeue(queue);
     printf("dequeue queue\n");
-    printf("Item == x ? %s\n", isItemIdentical(z, x) ? "TRUE" : "FALSE");
-    printf("Item == y ? %s\n", isItemIdentical(z, y) ? "TRUE" : "FALSE");
+    printf("Item == x ? %s\n", z == x ? "TRUE" : "FALSE");
+    printf("Item == y ? %s\n", z == y ? "TRUE" : "FALSE");
 }

@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include "../models/gadget.h"
 #include "../modules/core/globals.h"
 #include "../modules/io/machines/charmachine.h"
-#include "../models/macros.h"
+#include "../modules/io/machines/wordmachine.h"
+#include "../modules/io/word_utils.h"
 
 void buy()
 {
@@ -39,67 +41,17 @@ void buy()
         {
             printf("ENTER OPTION: ");
             readConsoleInput();
-            option = currentChar;
-            adv();
-            if (option == '1')
+            readWord();
+            option = parseInt(stringify(currentWord));
+            if (option > 0 && option < 6)
             {
-                if (gameState.cash >= 800)
+                Gadget gadget = GADGETS[option - 1];
+                int price = price(gadget);
+                if (gameState.cash >= price)
                 {
-                    gameState.cash -= 800;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), KAIN_PEMBUNGKUS_WAKTU);
-                    printf("Gadget 'Kain Pembungkus Waktu' berhasil dibeli!\n");
-                }
-                else
-                {
-                    printf("Uang tidak cukup untuk membeli gadget!\n");
-                }
-            }
-            else if (option == '2')
-            {
-                if (gameState.cash >= 1200)
-                {
-                    gameState.cash -= 1200;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), SENTER_PEMBESAR);
-                    printf("Gadget 'Senter Pembesar' berhasil dibeli!\n");
-                }
-                else
-                {
-                    printf("Uang tidak cukup untuk membeli gadget!\n");
-                }
-            }
-            else if (option == '3')
-            {
-                if (gameState.cash >= 1500)
-                {
-                    gameState.cash -= 1500;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), PINTU_KEMANA_SAJA);
-                    printf("Gadget 'Pintu Kemana Saja' berhasil dibeli!\n");
-                }
-                else
-                {
-                    printf("Uang tidak cukup untuk membeli gadget!\n");
-                }
-            }
-            else if (option == '4')
-            {
-                if (gameState.cash >= 3000)
-                {
-                    gameState.cash -= 3000;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), MESIN_WAKTU);
-                    printf("Gadget 'Mesin Waktu' berhasil dibeli!\n");
-                }
-                else
-                {
-                    printf("Uang tidak cukup untuk membeli gadget!\n");
-                }
-            }
-            else if (option == '5')
-            {
-                if (gameState.cash >= 800)
-                {
-                    gameState.cash -= 800;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), SENTER_PENGECIL);
-                    printf("Gadget 'Senter Pengecil' berhasil dibeli!\n");
+                    gameState.cash -= price;
+                    insertGadget(gameState.inventory, gadget);
+                    printf("Gadget '%s' berhasil dibeli!\n", name(gadget));
                 }
                 else
                 {

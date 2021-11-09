@@ -6,9 +6,9 @@
  * @see GameMap
  */
 
+#include <stdlib.h>
 #include "boolean.h"
 #include "boolean_matrix.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat BooleanMatrix baru.
@@ -19,7 +19,7 @@
  */
 BooleanMatrix newBooleanMatrix(int rows, int cols)
 {
-    BooleanMatrix b;
+    BooleanMatrix b = (BooleanMatrix)malloc(sizeof(struct booleanmatrix));
     rows(b) = rows;
     cols(b) = cols;
 

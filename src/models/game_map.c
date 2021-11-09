@@ -3,13 +3,13 @@
  * @brief Implementasi tipe data GameMap.
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "location.h"
 #include "boolean_matrix.h"
 #include "location_list.h"
 #include "location_matrix.h"
 #include "game_map.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat GameMap baru.
@@ -22,7 +22,7 @@
  */
 GameMap newGameMap(int hSize, int vSize, BooleanMatrix adjMatrix, LocationList locations)
 {
-    GameMap m;
+    GameMap m = (GameMap)malloc(sizeof(struct gamemap));
     mapLength(m) = hSize;
     mapWidth(m) = vSize;
     adjMatrix(m) = adjMatrix;
@@ -96,7 +96,7 @@ LocationList getAdjacentLocations(LocationList lList, Location currentLocation, 
     {
         if (elem(adjMatrix, i, j))
         {
-            insertLast(&adjLocs, _getLocationById(lList, j));
+            insertLast(adjLocs, _getLocationById(lList, j));
         }
     }
     return adjLocs;
@@ -159,9 +159,9 @@ Location getLocationByCoord(GameMap m, Point p)
  * @param x Absis lokasi player saat ini.
  * @param y Ordinat lokasi player saat ini.
  */
-void setPlayerLocation(GameMap *m, int x, int y)
+void setPlayerLocation(GameMap m, int x, int y)
 {
-    setAsPlayerPlace(&elem(locMatrix(*m), x, y));
+    setAsPlayerPlace(elem(locMatrix(m), x, y));
 }
 
 /**
@@ -174,9 +174,9 @@ void setPlayerLocation(GameMap *m, int x, int y)
  * @param y Ordinat lokasi yang akan diset sebagai lokasi
  *          pick up.
  */
-void setPickUpLocation(GameMap *m, int x, int y)
+void setPickUpLocation(GameMap m, int x, int y)
 {
-    setAsPickUpPlace(&elem(locMatrix(*m), x, y));
+    setAsPickUpPlace(elem(locMatrix(m), x, y));
 }
 
 /**
@@ -189,7 +189,7 @@ void setPickUpLocation(GameMap *m, int x, int y)
  * @param y Ordinat lokasi yang akan diset sebagai lokasi
  *          drop off.
  */
-void setDropOffLocation(GameMap *m, int x, int y)
+void setDropOffLocation(GameMap m, int x, int y)
 {
-    setAsDropOffPlace(&elem(locMatrix(*m), x, y));
+    setAsDropOffPlace(elem(locMatrix(m), x, y));
 }

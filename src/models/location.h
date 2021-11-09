@@ -14,7 +14,7 @@
  * @brief Struktur tipe data lokasi yang memuat
  * koordinat, simbol, dan id.
  */
-typedef struct
+struct location
 {
     /**
      * @brief Identifier lokasi.
@@ -61,12 +61,12 @@ typedef struct
      * di atas bag)
      */
     boolean isMarkedDropOff;
-} Location;
+};
 
 /**
- * @brief Location yang tidak terdefinisi.
+ * @brief Tipe data referensi lokasi.
  */
-extern const Location NULL_LOCATION;
+typedef struct location *Location;
 
 /**
  * @brief Constructor untuk membuat Location baru.
@@ -77,6 +77,22 @@ extern const Location NULL_LOCATION;
  * @return Location instance baru.
  */
 Location newLocation(int id, char symbol, Point coordinate);
+
+/**
+ * @brief Mengambil id dari suatu data.
+ * @param l Suatu data.
+ */
+#define id(l) (l)->id
+/**
+ * @brief Mengambil simbol lokasi.
+ * @param l Location instance.
+ */
+#define symbol(l) (l)->symbol
+/**
+ * @brief Mengambil koordinat lokasi.
+ * @param l Location instance.
+ */
+#define coord(l) (l)->coordinate
 
 /**
  * @brief Mengecek apakah suatu lokasi berada pada
@@ -99,15 +115,6 @@ boolean isAt(Location l, Point p);
 boolean isLocationIdentical(Location l1, Location l2);
 
 /**
- * @brief Mengecek apakah suatu lokasi terdefinisi
- * atau tidak.
- * 
- * @param l Location instance.
- * @return true jika l terdefinisi, false selainnya.
- */
-boolean isLocationDefined(Location l);
-
-/**
  * @brief Menuliskan simbol lokasi ke console output
  * dengan formatting (warna) yang sesuai.
  * 
@@ -120,28 +127,28 @@ void writeLocationSymbol(Location l);
  * 
  * @param l Location instance.
  */
-void setAsPickUpPlace(Location *l);
+void setAsPickUpPlace(Location l);
 
 /**
  * @brief Unset lokasi sebagai tempat pick up Item.
  * 
  * @param l Location instance.
  */
-void unsetAsPickUpPlace(Location *l);
+void unsetAsPickUpPlace(Location l);
 
 /**
  * @brief Set lokasi sebagai tempat drop off Item.
  * 
  * @param l Location instance.
  */
-void setAsDropOffPlace(Location *l);
+void setAsDropOffPlace(Location l);
 
 /**
  * @brief Unset lokasi sebagai tempat drop off Item.
  * 
  * @param l Location instance.
  */
-void unsetAsDropOffPlace(Location *l);
+void unsetAsDropOffPlace(Location l);
 
 /**
  * @brief Set lokasi sebagai tempat yang dapat
@@ -149,7 +156,7 @@ void unsetAsDropOffPlace(Location *l);
  * 
  * @param l Location instance.
  */
-void setAsReachable(Location *l);
+void setAsReachable(Location l);
 
 /**
  * @brief Unset lokasi sebagai tempat yang dapat
@@ -157,47 +164,47 @@ void setAsReachable(Location *l);
  * 
  * @param l Location instance.
  */
-void unsetAsReachable(Location *l);
+void unsetAsReachable(Location l);
 /**
  * @brief Set lokasi sebagai lokasi pickup
  * untuk item di atas bag
  */
-void setAsMarkedPickUp(Location *l);
+void setAsMarkedPickUp(Location l);
 /**
  * @brief Set lokasi sebagai lokasi dropoff
  * untuk item di atas bag
  */
-void setAsMarkedDropOff(Location *l);
+void setAsMarkedDropOff(Location l);
 /**
  * @brief Unset lokasi pickup
  * di atas bag
  */
-void unsetAsMarkedPickUp(Location *l);
+void unsetAsMarkedPickUp(Location l);
 /**
  * @brief Unset lokasi dropoff
  * di atas bag
  */
-void unsetAsMarkedDropOff(Location *l);
+void unsetAsMarkedDropOff(Location l);
 /**
  * @brief Set lokasi sebagai lokasi player.
  * 
  * @param l Location instance.
  */
-void setAsPlayerPlace(Location *l);
+void setAsPlayerPlace(Location l);
 
 /**
  * @brief Unset lokasi sebagai lokasi player.
  * 
  * @param l Location instance.
  */
-void unsetAsPlayerPlace(Location *l);
+void unsetAsPlayerPlace(Location l);
 
 /**
  * @brief Toggle lokasi sebagai lokasi player.
  * 
  * @param l Location instance.
  */
-void toggleAsPlayerPlace(Location *l);
+void toggleAsPlayerPlace(Location l);
 
 /**
  * @private 

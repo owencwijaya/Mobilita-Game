@@ -4,11 +4,11 @@
  * Tipe data ini digunakan untuk inventory pada game.
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "boolean.h"
 #include "gadget.h"
 #include "gadget_list.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat GadgetList baru.
@@ -17,10 +17,10 @@
  */
 GadgetList newGadgetList()
 {
-    GadgetList gList;
+    GadgetList gList = (GadgetList)malloc(sizeof(struct gadgetlist));
     for (int i = 0; i < 5; i++)
     {
-        setGadget(&gList, i, NULL_GADGET);
+        setGadget(gList, i, NULL);
     }
     return gList;
 }
@@ -36,7 +36,7 @@ boolean isGadgetListEmpty(GadgetList gList)
 {
     for (int i = 0; i < 5; i++)
     {
-        if (!isGadgetIdentical(getGadget(gList, i), NULL_GADGET))
+        if (getGadget(gList, i) != NULL)
         {
             return false;
         }
@@ -55,7 +55,7 @@ boolean isGadgetListFull(GadgetList gList)
 {
     for (int i = 0; i < 5; i++)
     {
-        if (isGadgetIdentical(getGadget(gList, i), NULL_GADGET))
+        if (getGadget(gList, i) == NULL)
         {
             return false;
         }
@@ -86,7 +86,7 @@ boolean isGagetListIndexValid(int index)
  */
 Gadget getGadget(GadgetList gList, int index)
 {
-    return (index >= 0 && index < 5) ? gList.contents[index] : NULL_GADGET;
+    return (index >= 0 && index < 5) ? gList->contents[index] : NULL;
 }
 
 /**
@@ -96,7 +96,7 @@ Gadget getGadget(GadgetList gList, int index)
  * @param index Indeks gList yang akan di-set.
  * @param g Gadget instance.
  */
-void setGadget(GadgetList *gList, int index, Gadget g)
+void setGadget(GadgetList gList, int index, Gadget g)
 {
     gList->contents[index] = g;
 }
@@ -107,13 +107,13 @@ void setGadget(GadgetList *gList, int index, Gadget g)
  * @param gList GadgetList instance.
  * @param g Gadget yang ingin ditambahkan
  */
-void insertGadget(GadgetList *gList, Gadget g)
+void insertGadget(GadgetList gList, Gadget g)
 {
     int i = 0;
     boolean inserted = false;
     while (i < 5 && !inserted)
     {
-        if (isGadgetIdentical(getGadget(*gList, i), NULL_GADGET))
+        if (getGadget(gList, i) == NULL)
         {
             setGadget(gList, i, g);
             inserted = true;
@@ -130,19 +130,21 @@ void insertGadget(GadgetList *gList, Gadget g)
  * 
  * @param gList GadgetList instance.
  * @param index Indeks gadget yang akan diambil & dihapus.
- * @param g Gadget yang dihapus.
+ * @return Gadget yang dihapus.
  */
-void deleteGadget(GadgetList *gList, int index, Gadget *g)
+Gadget deleteGadget(GadgetList gList, int index)
 {
+    Gadget g;
     if (isGagetListIndexValid(index))
     {
-        *g = gList->contents[index];
-        setGadget(gList, index, NULL_GADGET);
+        g = gList->contents[index];
+        setGadget(gList, index, NULL);
     }
     else
     {
-        *g = NULL_GADGET;
+        g = NULL;
     }
+    return g;
 }
 
 /**
@@ -155,7 +157,8 @@ void displayGadget(GadgetList gList)
 {
     for (int i = 0; i < 5; i++)
     {
-        printf("%d. %s\n", i + 1, name(getGadget(gList, i)));
+        Gadget gadget = getGadget(gList, i);
+        printf("%d. %s\n", i + 1, gadget == NULL ? "-" : name(gadget));
     }
 }
 
@@ -171,7 +174,7 @@ int gListLength(GadgetList gList)
     int i = 0;
     while (i < 5)
     {
-        if (!isGadgetIdentical(getGadget(gList, i), NULL_GADGET))
+        if (getGadget(gList, i) != NULL)
         {
             length++;
         }

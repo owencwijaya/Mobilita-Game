@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
 #include "../modules/io/machines/charmachine.h"
-#include "../models/macros.h"
 
 void inventory()
 {
@@ -21,7 +20,7 @@ void inventory()
         adv();
         Gadget tempGadget = getGadget(gameState.inventory, (int)(option - '0') - 1);
 
-        if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU))
+        if (tempGadget == KAIN_PEMBUNGKUS_WAKTU)
         {
             //cari perishable item teratas, ini buat inprogress?
             ItemStack tempStack = newItemStack(topIndex(gameState.bag));
@@ -30,46 +29,46 @@ void inventory()
             boolean found = false;
             while (!isStackEmpty(gameState.bag) && !found)
             {
-                pop(&gameState.bag, &temp);
+                temp = pop(gameState.bag);
                 if (itemType(temp) == PERISHABLE)
                 {
                     found = true;
-                    temp.perishTime = perishTimeReference(temp);
-                    push(&tempStack, temp);
+                    perishTime(temp) = perishTimeReference(temp);
+                    push(tempStack, temp);
                 }
                 else
                 {
-                    push(&tempStack, temp);
+                    push(tempStack, temp);
                 }
             }
 
             while (!isStackEmpty(tempStack))
             {
-                pop(&tempStack, &temp);
-                push(&gameState.bag, temp);
+                temp = pop(tempStack);
+                push(gameState.bag, temp);
             }
 
             if (found)
             {
                 printf("Gadget 'Kain Pembungkus Waktu' berhasil digunakan!\n");
-                setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+                setGadget(gameState.inventory, (int)(option - '0') - 1, NULL);
             }
             else
             {
                 printf("Perishable item tidak ditemukan!\n");
             }
         }
-        else if (isGadgetIdentical(tempGadget, SENTER_PEMBESAR))
+        else if (tempGadget == SENTER_PEMBESAR)
         {
             //algo buat senter pembesar
             //Senter pembesar dapat digunakan untuk meningkatkan kapasitas tas
             //sebesar dua kali lipat, namun tidak melebihi batas maksimum kapasitas tas.
-            doubleCapacity(&gameState.bag);
+            doubleCapacity(gameState.bag);
             printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
             printf("Kapasitas tas Mobita membesar menjadi dua kali lipat...\n");
-            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+            setGadget(gameState.inventory, (int)(option - '0') - 1, NULL);
         }
-        else if (isGadgetIdentical(tempGadget, PINTU_KEMANA_SAJA))
+        else if (tempGadget == PINTU_KEMANA_SAJA)
         {
             //algo buat pintu kemana saja
             //Pintu Kemana Saja dapat digunakan sekali untuk berpindah ke lokasi yang
@@ -79,7 +78,7 @@ void inventory()
             printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\n");
             //nanti pake fungsi move, tapi ga nambahin waktu
         }
-        else if (isGadgetIdentical(tempGadget, MESIN_WAKTU))
+        else if (tempGadget == MESIN_WAKTU)
         {
             //algo buat mesin waktu
             //Mesin waktu dapat digunakan untuk mengurangi waktu sebanyak 50 unit.
@@ -94,9 +93,9 @@ void inventory()
             }
             printf("Gadget 'Mesin Waktu' berhasil dipakai!\n");
             printf("Waktu berkurang sebanyak 50...\n");
-            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+            setGadget(gameState.inventory, (int)(option - '0') - 1, NULL);
         }
-        else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL))
+        else if (tempGadget == SENTER_PENGECIL)
         {
             gameState.abs.IsSenterPengecilOn = true;
 

@@ -3,13 +3,13 @@
  * @brief Implementasi State pada game.
  */
 
+#include <stdlib.h>
 #include "game_map.h"
 #include "item_list.h"
 #include "item_queue.h"
 #include "item_stack.h"
 #include "gadget_list.h"
 #include "state.h"
-#include "macros.h"
 
 /**
  * @todo Implementasi State, termasuk fungsi-fungsi
@@ -76,15 +76,14 @@ void incrementTime(State *state, int diffTime)
     // Pindahkan order yang masuk
     // ke todo list
     Item item;
-    while (peekHeadTime(state->order) <= state->time && !isEmpty(state->order))
+    ItemQueue order = state->order;
+    ItemList todo = state->todoList;
+    while (peekHeadTime(order) <= state->time && !isEmpty(order))
     {
-        dequeue(&(state->order), &item);
-        insertItemLast(&(state->todoList), item);
-
-        Location pickUp = _getLocationById(state->gameMap._locations, item.pickUpLocation.id);
-        Location dropOff = _getLocationById(state->gameMap._locations, item.dropOffLocation.id);
-        setAsPickUpPlace(&(state->gameMap._locationMatrix.contents[pickUp.coordinate.x][pickUp.coordinate.y]));
-        setAsDropOffPlace(&(state->gameMap._locationMatrix.contents[dropOff.coordinate.x][dropOff.coordinate.y]));
+        item = dequeue(order);
+        insertItemLast(todo, item);
+        setAsPickUpPlace(pickUpLoc(item));
+        setAsDropOffPlace(dropOffLoc(item));
     }
 
     // Decrement perishTime perishable item atau
@@ -102,11 +101,11 @@ void incrementTime(State *state, int diffTime)
             perishTime(item) -= diffTime;
             if (perishTime(item) <= 0)
             {
-                deleteItemAt(&inProgressList, i, &garbage);
+                deleteItemAt(inProgressList, i);
             }
             else
             {
-                setItem(&inProgressList, i, item);
+                setItem(inProgressList, i, item);
             }
         }
         i++;
@@ -117,26 +116,26 @@ void incrementTime(State *state, int diffTime)
     ItemStack reversedBag = newItemStack(capacity(bag));
     while (!isStackEmpty(bag))
     {
-        pop(&bag, &item);
+        item = pop(bag);
         if (isPerishableItem(item))
         {
             if (perishTime(item) > diffTime)
             {
                 perishTime(item) -= diffTime;
-                push(&reversedBag, item);
+                push(reversedBag, item);
             }
         }
         else
         {
-            push(&reversedBag, item);
+            push(reversedBag, item);
         }
     }
     while (!isStackEmpty(reversedBag))
     {
-        pop(&reversedBag, &item);
-        push(&bag, item);
+        item = pop(reversedBag);
+        push(bag, item);
     }
-    state->bag = bag;
+    free(reversedBag);
 
     /**
      * @todo Hapus efek speedboost jika

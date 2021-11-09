@@ -1,37 +1,36 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
-#include "../models/macros.h"
 
 void drop_off()
 {
-    printf("%c", top(gameState.bag).dropOffLocation.symbol);
-    if (isStackEmpty(gameState.bag) || !isLocationIdentical(gameState.currentLocation, top(gameState.bag).dropOffLocation))
+    printf("%c", symbol(dropOffLoc(top(gameState.bag))));
+    if (isStackEmpty(gameState.bag) || gameState.currentLocation != dropOffLoc(top(gameState.bag)))
     {
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
     }
     else
     {
-        Item dump;
-        deleteItemFirst(&gameState.inProgressList, &dump);
+        deleteItemFirst(gameState.inProgressList);
 
-        Item temp;
-        pop(&gameState.bag, &temp);
-        unsetColors(temp);
-        unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-        unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
-        if (!isStackEmpty(gameState.bag)){
-            setColors(top(gameState.bag));
-            setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-            setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+        Item item = pop(gameState.bag);
+        // unsetColors(temp);
+        unsetAsDropOffPlace(dropOffLoc(item));
+        unsetAsPickUpPlace(pickUpLoc(item));
+        if (!isStackEmpty(gameState.bag))
+        {
+            Item topItem = top(gameState.bag);
+            // setColors(top(gameState.bag));
+            setAsDropOffPlace(dropOffLoc(topItem));
+            setAsPickUpPlace(pickUpLoc(topItem));
         }
 
-        if (isNormalItem(temp))
+        if (isNormalItem(item))
         {
             printf("Pesanan Normal Item berhasil diantarkan!\n");
             gameState.cash += 200;
             printf("Uang yang didapatkan: 200 Yen\n");
         }
-        else if (isHeavyItem(temp))
+        else if (isHeavyItem(item))
         {
             printf("Pesanan Heavy Item berhasil diantarkan!\n");
             gameState.cash += 400;
@@ -45,13 +44,13 @@ void drop_off()
             gameState.abs.SpeedBoostStack = 5;
             gameState.abs.SpeedBoost = true;
         }
-        else if (isPerishableItem(temp))
+        else if (isPerishableItem(item))
         {
             printf("Pesanan Perishable Item berhasil diantarkan!\n");
             gameState.cash += 400;
             printf("Uang yang didapatkan: 400 Yen\n");
             printf("Kapasitas tas bertambah 1!\n");
-            incrementCapacity(&gameState.bag);
+            incrementCapacity(gameState.bag);
         }
         else
         { // Kalau gak jadi pake bonus VIP item, hapus aja ini (WIP)

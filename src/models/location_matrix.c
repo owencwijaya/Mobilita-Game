@@ -3,10 +3,10 @@
  * @brief Implementasi tipe data LocationMatrix.
  */
 
+#include <stdlib.h>
 #include "boolean.h"
 #include "location.h"
 #include "location_matrix.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat LocationMatrix baru.
@@ -17,7 +17,7 @@
  */
 LocationMatrix newLocationMatrix(int rows, int cols)
 {
-    LocationMatrix locationMatrix;
+    LocationMatrix locationMatrix = (LocationMatrix)malloc(sizeof(struct locationmatrix));
     rows(locationMatrix) = rows;
     cols(locationMatrix) = cols;
 
@@ -25,7 +25,7 @@ LocationMatrix newLocationMatrix(int rows, int cols)
     {
         for (int j = 0; j < cols(locationMatrix); j++)
         {
-            elem(locationMatrix, i, j) = NULL_LOCATION;
+            elem(locationMatrix, i, j) = NULL;
         }
     }
 
@@ -41,7 +41,7 @@ LocationMatrix newLocationMatrix(int rows, int cols)
  * @param colIndex Indeks kolom yang akan di-set.
  * @param value Location instance.
  */
-void lSetElem(LocationMatrix *locationMatrix, int rowIndex, int colIndex, Location location)
+void lSetElem(LocationMatrix locationMatrix, int rowIndex, int colIndex, Location location)
 {
-    elem(*locationMatrix, rowIndex, colIndex) = location;
+    elem(locationMatrix, rowIndex, colIndex) = location;
 }

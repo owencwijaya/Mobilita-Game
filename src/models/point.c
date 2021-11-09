@@ -6,10 +6,10 @@
  * @see Location
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "boolean.h"
 #include "point.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat Point baru.
@@ -20,7 +20,7 @@
  */
 Point newPoint(int x, int y)
 {
-    Point p;
+    Point p = (Point)malloc(sizeof(struct point));
     x(p) = x;
     y(p) = y;
     return p;

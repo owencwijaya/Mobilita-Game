@@ -7,13 +7,14 @@
 #include "../../models/item_queue.h"
 #include "../../models/item.h"
 #include "../../models/game_map.h"
-#include "../../models/macros.h"
 #include "../core/globals.h"
 #include "./machines/wordmachine.h"
 #include "word_utils.h"
 
 void parseConfig(char *path)
 {
+    initGadget();
+
     // * Read config file path
     readFile(path);
 
@@ -34,6 +35,7 @@ void parseConfig(char *path)
     hq_ord = parseInt(stringify(currentWord));
     hqCoord = newPoint(hq_abs, hq_ord);
     hq = newLocation(0, '8', hqCoord);
+    setAsPlayerPlace(hq);
 
     // * Locations list
     int locationCount;
@@ -41,7 +43,7 @@ void parseConfig(char *path)
     locationCount = parseInt(stringify(currentWord)) + 1;
 
     LocationList lList = newLocationList(locationCount);
-    insertLast(&lList, hq);
+    insertLast(lList, hq);
     Location loc;
     Point coord;
     int location_abs, location_ord;
@@ -58,7 +60,7 @@ void parseConfig(char *path)
         coord = newPoint(location_abs, location_ord);
         loc = newLocation(i, symbol, coord);
 
-        insertLast(&lList, loc);
+        insertLast(lList, loc);
     }
 
     // * Adjacency matrix
@@ -96,9 +98,6 @@ void parseConfig(char *path)
         readNextWord();
         type = stringify(currentWord)[0];
 
-        setAsPickUpPlace(&pickUpLocation);
-        setAsDropOffPlace(&dropOffLocation);
-
         switch (type)
         {
         case 'N':
@@ -128,10 +127,16 @@ void parseConfig(char *path)
         }
 
         item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
-        enqueue(&order, item);
+        enqueue(order, item);
     }
 
     GameMap g = newGameMap(mapLength, mapWidth, adjMatrix, lList);
-    setPlayerLocation(&g, hq_abs, hq_ord);
     gameState = newState(g, newItemList(), newItemList(), newItemStack(3), order);
+
+    LocationList adjLocations = getAdjacentLocations(lList, gameState.currentLocation, adjMatrix(gameState.gameMap));
+    int l = length(adjLocations);
+    for (int i = 0; i < l; i++)
+    {
+        setAsReachable(lElem(adjLocations, i));
+    }
 }

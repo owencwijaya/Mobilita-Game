@@ -12,7 +12,7 @@
  * @struct Point
  * @brief Struktur tipe data titik.
  */
-typedef struct
+struct point
 {
     /**
      * @brief Absis suatu titik.
@@ -22,7 +22,23 @@ typedef struct
      * @brief Ordinat suatu titik.
      */
     int y;
-} Point;
+};
+
+/**
+ * @brief Tipe data referensi titik.
+ */
+typedef struct point *Point;
+
+/**
+ * @brief Mengambil absis dari suatu titik.
+ * @param p Point instance.
+ */
+#define x(p) (p)->x
+/**
+ * @brief Mengambil ordinat dari suatu titik.
+ * @param p Point instance.
+ */
+#define y(p) (p)->y
 
 /**
  * @brief Constructor untuk membuat Point baru.

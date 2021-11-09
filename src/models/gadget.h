@@ -14,12 +14,8 @@
  * Tipe data ini tidak memiliki constructor karena Gadget yang ada
  * selalu sama (tidak ada konstruksi instance gadget pada runtime).
  */
-typedef struct
+struct gadget
 {
-    /**
-     * @brief Identifier gadget yang unik untuk setiap gadget.
-     */
-    int id;
     /**
      * @brief Harga gadget.
      */
@@ -28,32 +24,56 @@ typedef struct
      * @brief Nama gadget.
      */
     char *name;
-} Gadget;
+};
+
+/**
+ * @brief Tipe data referensi gadget.
+ * 
+ */
+typedef struct gadget *Gadget;
 
 /**
  * @brief Instance Gadget "Kain Pembungkus Waktu".
  */
-extern const Gadget KAIN_PEMBUNGKUS_WAKTU;
+extern Gadget KAIN_PEMBUNGKUS_WAKTU;
 /**
  * @brief Instance Gadget "Senter Pembesar".
  */
-extern const Gadget SENTER_PEMBESAR;
+extern Gadget SENTER_PEMBESAR;
 /**
  * @brief Instance Gadget "Pintu Kemana Saja".
  */
-extern const Gadget PINTU_KEMANA_SAJA;
+extern Gadget PINTU_KEMANA_SAJA;
 /**
  * @brief Instance Gadget "Mesin Waktu".
  */
-extern const Gadget MESIN_WAKTU;
+extern Gadget MESIN_WAKTU;
 /**
  * @brief Instance Gadget "Senter Pengecil".
  */
-extern const Gadget SENTER_PENGECIL;
+extern Gadget SENTER_PENGECIL;
+
 /**
- * @brief Instance Gadget yang tidak terdefinisi.
+ * @brief List semua gadget yang ada dalam game.
  */
-extern const Gadget NULL_GADGET;
+extern Gadget GADGETS[5];
+
+/**
+ * @brief Mengambil property price dari sebuah Gadget.
+ * @param g Gadget instance.
+ */
+#define price(g) (g)->price
+/**
+ * @brief Mengambil property name dari sebuah Gadget.
+ * @param g Gadget instance.
+ */
+#define name(g) (g)->name
+
+/**
+ * @brief Menginisialisasi nilai semua gadget yang ada.
+ * 
+ */
+void initGadget();
 
 /**
  * @brief Mengecek apakah dua gadget adalah sama.

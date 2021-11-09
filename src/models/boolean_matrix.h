@@ -12,7 +12,7 @@
  * @struct BooleanMatrix
  * @brief Matriks bernilai boolean.
  */
-typedef struct
+struct booleanmatrix
 {
     /**
      * @brief 2D array untuk menyimpan elemen matriks.
@@ -26,7 +26,36 @@ typedef struct
      * @brief Banyak kolom matriks.
      */
     int colEff;
-} BooleanMatrix;
+};
+
+/**
+ * @brief Tipe data referensi boolean matrix.
+ * 
+ */
+typedef struct booleanmatrix *BooleanMatrix;
+
+#ifndef MATRIX_MACRO
+#define MATRIX_MACRO
+
+/**
+ * @brief Mengembalikan banyak baris efektif BooleanMatrix \c b.
+ * @param b BooleanMatrix instance.
+ */
+#define rows(b) (b)->rowEff
+/**
+ * @brief Mengembalikan banyak kolom efektif BooleanMatrix \c b.
+ * @param b BooleanMatrix instance.
+ */
+#define cols(b) (b)->colEff
+/**
+ * @brief Mengembalikan elemen matriks pada index (i, j).
+ * @param b BooleanMatrix instance.
+ * @param i Index baris elemen yang akan diambil.
+ * @param j Index kolom elemen yang akan diambil.
+ */
+#define elem(b, i, j) (b)->contents[i][j]
+
+#endif
 
 /**
  * @brief Constructor untuk membuat BooleanMatrix baru.

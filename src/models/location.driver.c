@@ -23,9 +23,6 @@ int main()
     printf("d = ");
     _dumpLocation(d);
     printf("\n");
-    printf("NULL_LOCATION = ");
-    _dumpLocation(NULL_LOCATION);
-    printf("\n");
 
     printf("a is at (1, 2) ? %s\n", isAt(a, p) ? "TRUE" : "FALSE");
     printf("b is at (1, 2) ? %s\n", isAt(b, p) ? "TRUE" : "FALSE");
@@ -35,40 +32,39 @@ int main()
     printf("b == A ? %s\n", isLocationIdentical(b, a) ? "TRUE" : "FALSE");
     printf("c == A ? %s\n", isLocationIdentical(c, a) ? "TRUE" : "FALSE");
     printf("d == A ? %s\n", isLocationIdentical(d, a) ? "TRUE" : "FALSE");
-    printf("a is defined ? %s\n", isLocationDefined(a) ? "TRUE" : "FALSE");
-    printf("b is defined ? %s\n", isLocationDefined(b) ? "TRUE" : "FALSE");
-    printf("c is defined ? %s\n", isLocationDefined(c) ? "TRUE" : "FALSE");
-    printf("d is defined ? %s\n", isLocationDefined(d) ? "TRUE" : "FALSE");
-    printf("NULL_LOCATION is defined ? %s\n\n", isLocationDefined(NULL_LOCATION) ? "TRUE" : "FALSE");
+    // printf("a is defined ? %s\n", isLocationDefined(a) ? "TRUE" : "FALSE");
+    // printf("b is defined ? %s\n", isLocationDefined(b) ? "TRUE" : "FALSE");
+    // printf("c is defined ? %s\n", isLocationDefined(c) ? "TRUE" : "FALSE");
+    // printf("d is defined ? %s\n", isLocationDefined(d) ? "TRUE" : "FALSE");
 
     printf("\033[38;5;14mSECTION 2 : set/unset\033[0m\n");
-    setAsPlayerPlace(&a);
-    setAsPickUpPlace(&a);
-    setAsDropOffPlace(&a);
-    setAsReachable(&a);
+    setAsPlayerPlace(a);
+    setAsPickUpPlace(a);
+    setAsDropOffPlace(a);
+    setAsReachable(a);
     _dumpLocation(a);
     printf("\n");
-    unsetAsPlayerPlace(&a);
-    unsetAsPickUpPlace(&a);
-    unsetAsDropOffPlace(&a);
-    unsetAsReachable(&a);
+    unsetAsPlayerPlace(a);
+    unsetAsPickUpPlace(a);
+    unsetAsDropOffPlace(a);
+    unsetAsReachable(a);
     _dumpLocation(a);
     printf("\n\n");
 
     printf("\033[38;5;14mSECTION 3 : writeLocationSymbol\033[0m\n");
-    setAsPlayerPlace(&a);
-    setAsPickUpPlace(&a);
-    setAsDropOffPlace(&a);
-    setAsReachable(&a);
+    setAsPlayerPlace(a);
+    setAsPickUpPlace(a);
+    setAsDropOffPlace(a);
+    setAsReachable(a);
 
-    setAsPickUpPlace(&b);
-    setAsDropOffPlace(&b);
-    setAsReachable(&b);
+    setAsPickUpPlace(b);
+    setAsDropOffPlace(b);
+    setAsReachable(b);
 
-    setAsPickUpPlace(&c);
-    setAsReachable(&c);
+    setAsPickUpPlace(c);
+    setAsReachable(c);
 
-    setAsReachable(&d);
+    setAsReachable(d);
 
     _dumpLocation(a);
     writeLocationSymbol(a);
@@ -87,7 +83,7 @@ int main()
     printf("\n");
     printf("\n");
 
-    unsetAsReachable(&d);
+    unsetAsReachable(d);
     _dumpLocation(d);
     writeLocationSymbol(d);
     printf("\n");

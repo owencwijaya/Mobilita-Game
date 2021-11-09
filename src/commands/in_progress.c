@@ -1,27 +1,40 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
-#include "../models/macros.h"
 
-
-void in_progress(){
-    ItemList loc = gameState.inProgressList;
-    if(loc == NULL){
+void in_progress()
+{
+    ItemList inProgressList = gameState.inProgressList;
+    if (isItemListEmpty(inProgressList))
+    {
         printf("Tidak ada item yang sedang diantarkan!\n");
-    }else{
+    }
+    else
+    {
         printf("Pesanan yang sedang diantarkan : \n");
         int num = 1;
-        while(loc != NULL){
-            if(isNormalItem(value(loc))){
-                printf("%d. Normal Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
-            }else if (isHeavyItem(value(loc))){
-                printf("%d. Heavy Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
-            }else if (isPerishableItem(value(loc))){
-                printf("%d. Perishable Item (Tujuan : %c, Waktu Sisa : %d)\n", num, value(loc).dropOffLocation.symbol, value(loc).perishTime);
-            }else if(isVIPItem(value(loc))){
-                printf("%d. VIP Item (Tujuan : %c)\n", num, value(loc).dropOffLocation.symbol);
+        ItemListNode node = *inProgressList;
+        while (node != NULL)
+        {
+            Item item = value(node);
+            char symbol = symbol(dropOffLoc(item));
+            if (isNormalItem(item))
+            {
+                printf("%d. Normal Item (Tujuan : %c)\n", num, symbol);
             }
-        num++;
-        loc = next(loc);
+            else if (isHeavyItem(item))
+            {
+                printf("%d. Heavy Item (Tujuan : %c)\n", num, symbol);
+            }
+            else if (isPerishableItem(item))
+            {
+                printf("%d. Perishable Item (Tujuan : %c, Waktu Sisa : %d)\n", num, symbol, perishTime(item));
+            }
+            else if (isVIPItem(item))
+            {
+                printf("%d. VIP Item (Tujuan : %c)\n", num, symbol);
+            }
+            num++;
+            node = next(node);
         }
         printf("\n");
     }

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "item_stack.h"
 #include "item.h"
-#include "macros.h"
 
 int main()
 {
@@ -17,46 +16,46 @@ int main()
     printf("\n");
 
     printf("Insert 1 item ...\n");
-    push(&stack, x);
+    push(stack, x);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("stack is empty ? %s\n", isStackEmpty(stack) ? "TRUE" : "FALSE");
     printf("stack is full ? %s\n", isStackFull(stack) ? "TRUE" : "FALSE");
     printf("\n");
 
     printf("Insert 1 item ...\n");
-    push(&stack, y);
+    push(stack, y);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("stack is empty ? %s\n", isStackEmpty(stack) ? "TRUE" : "FALSE");
     printf("stack is full ? %s\n", isStackFull(stack) ? "TRUE" : "FALSE");
     printf("\n");
 
     printf("Increment stack capacity ...\n");
-    incrementCapacity(&stack);
+    incrementCapacity(stack);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("stack is empty ? %s\n", isStackEmpty(stack) ? "TRUE" : "FALSE");
     printf("stack is full ? %s\n", isStackFull(stack) ? "TRUE" : "FALSE");
 
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("stack is empty ? %s\n", isStackEmpty(stack) ? "TRUE" : "FALSE");
     printf("stack is full ? %s\n", isStackFull(stack) ? "TRUE" : "FALSE");
     printf("\n");
 
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("Double stack capacity ...\n");
-    doubleCapacity(&stack);
+    doubleCapacity(stack);
     printf("capacity(stack) = %d\n", capacity(stack));
     printf("Increment stack capacity ...\n");
-    incrementCapacity(&stack);
+    incrementCapacity(stack);
     printf("capacity(stack) = %d\n", capacity(stack));
 
     return 0;

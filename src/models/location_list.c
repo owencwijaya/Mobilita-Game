@@ -11,7 +11,6 @@
 #include "location.h"
 #include "point.h"
 #include "location_list.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat LocationList baru.
@@ -21,7 +20,7 @@
  */
 LocationList newLocationList(int capacity)
 {
-    LocationList l;
+    LocationList l = (LocationList)malloc(sizeof(struct locationlist));
     capacity(l) = capacity;
     /**
      * @todo Resolve buffer cuma bisa muat 1 Location instance.
@@ -38,11 +37,9 @@ LocationList newLocationList(int capacity)
  * 
  * @param l LocationList instance.
  */
-void dealocateLocationList(LocationList *l)
+void dealocateLocationList(LocationList l)
 {
-    free(buffer(*l));
-    neff(*l) = 0;
-    capacity(*l) = 0;
+    free(l);
 }
 
 /**
@@ -110,10 +107,10 @@ boolean isLocationListFull(LocationList l)
  * @param l LocationList instance.
  * @param location Location instance.
  */
-void insertLast(LocationList *l, Location location)
+void insertLast(LocationList l, Location location)
 {
-    lElem(*l, length(*l)) = location;
-    neff(*l)++;
+    lElem(l, length(l)) = location;
+    neff(l)++;
 }
 
 /**
@@ -121,12 +118,13 @@ void insertLast(LocationList *l, Location location)
  * di dalam list.
  * 
  * @param l LocaitonList instance.
- * @param[out] location Location instance. 
+ * @return Location instance. 
  */
-void deleteLast(LocationList *l, Location *val)
+Location deleteLast(LocationList l)
 {
-    neff(*l)--;
-    *val = lElem(*l, length(*l));
+
+    neff(l)--;
+    return lElem(l, length(l));
 }
 
 /**
@@ -135,10 +133,10 @@ void deleteLast(LocationList *l, Location *val)
  * @param l LocationList instance.
  * @param num Banyak kapasitas yang akan ditambah.
  */
-void growList(LocationList *l, int num)
+void growList(LocationList l, int num)
 {
-    capacity(*l) += num;
-    buffer(*l) = (Location *)realloc(buffer(*l), capacity(*l) * sizeof(Location));
+    capacity(l) += num;
+    buffer(l) = (Location *)realloc(buffer(l), capacity(l) * sizeof(Location));
 }
 
 /**
@@ -147,14 +145,14 @@ void growList(LocationList *l, int num)
  * @param l LocationList instance.
  * @param num Banyak kapasitas yang akan dikurangi.
  */
-void shrinkList(LocationList *l, int num)
+void shrinkList(LocationList l, int num)
 {
-    capacity(*l) -= num;
-    if (neff(*l) > capacity(*l))
+    capacity(l) -= num;
+    if (neff(l) > capacity(l))
     {
-        neff(*l) = capacity(*l);
+        neff(l) = capacity(l);
     }
-    buffer(*l) = (Location *)realloc(buffer(*l), capacity(*l) * sizeof(Location));
+    buffer(l) = (Location *)realloc(buffer(l), capacity(l) * sizeof(Location));
 }
 
 /**
@@ -162,9 +160,9 @@ void shrinkList(LocationList *l, int num)
  * 
  * @param l LocationList instance.
  */
-void compactList(LocationList *l)
+void compactList(LocationList l)
 {
-    const int diff = capacity(*l) - neff(*l);
+    const int diff = capacity(l) - neff(l);
     shrinkList(l, diff);
 }
 
@@ -174,21 +172,21 @@ void compactList(LocationList *l)
  * @see Location
  * @param l LocationList instance.
  */
-void sortLocationListByCoord(LocationList *l)
+void sortLocationListByCoord(LocationList l)
 {
-    for (int i = 0; i < length(*l) - 1; i++)
+    for (int i = 0; i < length(l) - 1; i++)
     {
         int priorityIndex = i;
-        for (int j = i + 1; j < length(*l); j++)
+        for (int j = i + 1; j < length(l); j++)
         {
-            if (isPointBefore(coord(lElem(*l, j)), coord(lElem(*l, priorityIndex))))
+            if (isPointBefore(coord(lElem(l, j)), coord(lElem(l, priorityIndex))))
             {
                 priorityIndex = j;
             }
         }
-        Location temp = lElem(*l, i);
-        lElem(*l, i) = lElem(*l, priorityIndex);
-        lElem(*l, priorityIndex) = temp;
+        Location temp = lElem(l, i);
+        lElem(l, i) = lElem(l, priorityIndex);
+        lElem(l, priorityIndex) = temp;
     }
 }
 
@@ -214,7 +212,7 @@ Location _getLocationById(LocationList l, int id)
         }
         i++;
     }
-    return NULL_LOCATION;
+    return (Location)NULL;
 }
 
 /**
@@ -239,7 +237,7 @@ Location _getLocationBySymbol(LocationList l, char symbol)
         }
         i++;
     }
-    return NULL_LOCATION;
+    return (Location)NULL;
 }
 
 /**
@@ -264,5 +262,5 @@ Location _getLocationByCoord(LocationList l, Point p)
         }
         i++;
     }
-    return NULL_LOCATION;
+    return (Location)NULL;
 }

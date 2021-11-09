@@ -14,7 +14,7 @@
  * @brief Antrian Item terurut berdasarkan waktu
  * pesanan masuk.
  */
-typedef struct
+struct itemqueue
 {
     /**
      * @brief Indeks terdepan antrian.
@@ -29,7 +29,33 @@ typedef struct
      *        antrian.
      */
     Item buffer[30];
-} ItemQueue;
+};
+
+/**
+ * @brief Tipe data referensi item queue.
+ */
+typedef struct itemqueue *ItemQueue;
+
+/**
+ * @brief Mengambil indeks head pada antrian q.
+ * @param q ItemQueue instance.
+ */
+#define headIndex(q) (q)->headIndex
+/**
+ * @brief Mengambil indeks tail pada antrian q.
+ * @param q ItemQueue instance.
+ */
+#define tailIndex(q) (q)->tailIndex
+/**
+ * @brief Mengambil head Item pada antrian q.
+ * @param q ItemQueue instance.
+ */
+#define head(q) (q)->buffer[(q)->headIndex]
+/**
+ * @brief Mengambil tail Item pada antrian q.
+ * @param q ItemQueue instance.
+ */
+#define tail(q) (q)->buffer[(q)->tailIndex]
 
 /**
  * @brief Constructor untuk membuat ItemQueue baru.
@@ -62,14 +88,14 @@ boolean isEmpty(ItemQueue q);
  * @param q ItemQueue instance.
  * @param item Item instance.
  */
-void enqueue(ItemQueue *q, Item item);
+void enqueue(ItemQueue q, Item item);
 
 /**
  * @brief Mengambil Item terdepan pada antrian q.
  * 
  * @param q ItemQueue instance.
- * @param item Item terdepan pada antrian q.
+ * @return Item terdepan pada antrian q.
  */
-void dequeue(ItemQueue *q, Item *item);
+Item dequeue(ItemQueue q);
 
 #endif

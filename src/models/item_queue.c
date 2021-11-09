@@ -4,9 +4,9 @@
  * Hanya digunakan untuk antrian pesanan masuk. 
  */
 
+#include <stdlib.h>
 #include "item.h"
 #include "item_queue.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemQueue baru.
@@ -15,7 +15,7 @@
  */
 ItemQueue newItemQueue()
 {
-    ItemQueue q;
+    ItemQueue q = (ItemQueue)malloc(sizeof(struct itemqueue));
     headIndex(q) = -1;
     tailIndex(q) = -1;
     return q;
@@ -31,7 +31,7 @@ ItemQueue newItemQueue()
  */
 int peekHeadTime(ItemQueue q)
 {
-    return head(q).orderTime;
+    return orderTime(head(q));
 }
 
 /**
@@ -51,33 +51,33 @@ boolean isEmpty(ItemQueue q)
  * @param q ItemQueue instance.
  * @param item Item instance.
  */
-void enqueue(ItemQueue *q, Item item)
+void enqueue(ItemQueue q, Item item)
 {
-    if (isEmpty(*q))
+    if (isEmpty(q))
     {
-        headIndex(*q) = 0;
-        tailIndex(*q) = 0;
-        tail(*q) = item;
+        headIndex(q) = 0;
+        tailIndex(q) = 0;
+        tail(q) = item;
     }
     else
     {
         // * Insert
-        tailIndex(*q)++;
-        tail(*q) = item;
+        tailIndex(q)++;
+        tail(q) = item;
         // * Sort
-        for (int i = 0; i < tailIndex(*q); i++)
+        for (int i = 0; i < tailIndex(q); i++)
         {
             int priorityIndex = i;
-            for (int j = i + 1; j <= tailIndex(*q); j++)
+            for (int j = i + 1; j <= tailIndex(q); j++)
             {
-                if ((*q).buffer[j].orderTime < (*q).buffer[priorityIndex].orderTime)
+                if (orderTime(q->buffer[j]) < orderTime(q->buffer[priorityIndex]))
                 {
                     priorityIndex = j;
                 }
             }
-            Item temp = (*q).buffer[priorityIndex];
-            (*q).buffer[priorityIndex] = (*q).buffer[i];
-            (*q).buffer[i] = temp;
+            Item temp = q->buffer[priorityIndex];
+            q->buffer[priorityIndex] = q->buffer[i];
+            q->buffer[i] = temp;
         }
     }
 }
@@ -86,18 +86,19 @@ void enqueue(ItemQueue *q, Item item)
  * @brief Mengambil Item terdepan pada antrian q.
  * 
  * @param q ItemQueue instance.
- * @param item Item terdepan pada antrian q.
+ * @return Item terdepan pada antrian q.
  */
-void dequeue(ItemQueue *q, Item *item)
+Item dequeue(ItemQueue q)
 {
-    *item = head(*q);
-    if (headIndex(*q) != tailIndex(*q))
+    Item item = head(q);
+    if (headIndex(q) != tailIndex(q))
     {
-        headIndex(*q)++;
+        headIndex(q)++;
     }
     else
     {
-        headIndex(*q) = -1;
-        tailIndex(*q) = -1;
+        headIndex(q) = -1;
+        tailIndex(q) = -1;
     }
+    return item;
 }

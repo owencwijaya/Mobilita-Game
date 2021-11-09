@@ -14,7 +14,7 @@
  * @struct LocationList
  * @brief List dinamis berisi data Location.
  */
-typedef struct
+struct locationlist
 {
     /**
      * @brief Memory tempat menyimpan elemen list.
@@ -28,9 +28,42 @@ typedef struct
      * @brief Kapasitas list.
      */
     int capacity;
-} LocationList;
+};
 
 /**
+ * @brief Tipe data referensi location list.
+ * 
+ */
+typedef struct locationlist *LocationList;
+
+/**
+ * @brief Mengambil banyak elemen list.
+ * @param l LocationList instance.
+ */
+#define neff(l) (l)->nEff
+/**
+ * @brief Mengambil memory list.
+ * @param l LocationList instance.
+ */
+#define buffer(l) (l)->buffer
+/**
+ * @brief Mengambil elemen list pada indeks tertentu.
+ * @param l LocationList instance.
+ * @param i Indeks elemen yang akan diambil.
+ */
+#define lElem(l, i) (l)->buffer[i]
+
+#ifndef CAPACITY_MACRO
+#define CAPACITY_MACRO
+/**
+ * @brief Mengambil kapasitas location list l.
+ * @param l LocationList instance.
+ */
+#define capacity(l) (l)->capacity
+#endif
+
+/**
+ * 
  * @brief Constructor untuk membuat LocationList baru.
  * 
  * @param capacity Kapasitas list.
@@ -43,7 +76,7 @@ LocationList newLocationList(int capacity);
  * 
  * @param l LocationList instance.
  */
-void dealocateLocationList(LocationList *l);
+void dealocateLocationList(LocationList l);
 
 /**
  * @brief Mengembalikan panjang list l.
@@ -95,16 +128,16 @@ boolean isLocationListFull(LocationList l);
  * @param l LocationList instance.
  * @param location Location instance.
  */
-void insertLast(LocationList *l, Location location);
+void insertLast(LocationList l, Location location);
 
 /**
  * @brief Menghapus & mengambil Location terakhir
  * di dalam list.
  * 
  * @param l LocaitonList instance.
- * @param[out] location Location instance. 
+ * @return Location instance. 
  */
-void deleteLast(LocationList *l, Location *location);
+Location deleteLast(LocationList l);
 
 /**
  * @brief Menambah kapasitas list l sebanyak num.
@@ -112,7 +145,7 @@ void deleteLast(LocationList *l, Location *location);
  * @param l LocationList instance.
  * @param num Banyak kapasitas yang akan ditambah.
  */
-void growList(LocationList *l, int num);
+void growList(LocationList l, int num);
 
 /**
  * @brief Mengurangi kapasitas list l sebanyak num.
@@ -120,14 +153,14 @@ void growList(LocationList *l, int num);
  * @param l LocationList instance.
  * @param num Banyak kapasitas yang akan dikurangi.
  */
-void shrinkList(LocationList *l, int num);
+void shrinkList(LocationList l, int num);
 
 /**
  * @brief Merapatkan list l.
  * 
  * @param l LocationList instance.
  */
-void compactList(LocationList *l);
+void compactList(LocationList l);
 
 /**
  * @brief Mengurutkan Location dalam l berdasarkan
@@ -135,7 +168,7 @@ void compactList(LocationList *l);
  * @see Location
  * @param l LocationList instance.
  */
-void sortLocationListByCoord(LocationList *l);
+void sortLocationListByCoord(LocationList l);
 
 /**
  * @brief Mengambil lokasi dalam list l berdasarkan

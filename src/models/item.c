@@ -5,11 +5,11 @@
  * Todo list dan In Progress list.
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "boolean.h"
 #include "location.h"
 #include "item.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat Item baru.
@@ -24,7 +24,7 @@
  */
 Item newItem(int orderTime, Location pickUpLocation, Location dropOffLocation, ItemType type, int perishTime, int perishTimeReference)
 {
-    Item item;
+    Item item = (Item)malloc(sizeof(struct item));
     orderTime(item) = orderTime;
     pickUpLoc(item) = pickUpLocation;
     dropOffLoc(item) = dropOffLocation;

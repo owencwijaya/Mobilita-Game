@@ -13,7 +13,7 @@
  * @struct ItemStack
  * @brief Tumpukan Item pada tas.
  */
-typedef struct
+struct itemstack
 {
     /**
      * @brief Indeks teratas stack.
@@ -27,7 +27,39 @@ typedef struct
      * @brief Array tempat menyimpan elemen stack.
      */
     Item buffer[100];
-} ItemStack;
+};
+
+/**
+ * @brief Tipe data referensi item stack.
+ * 
+ */
+typedef struct itemstack *ItemStack;
+
+/**
+ * @brief Kapasitas maksimum ItemStack.
+ */
+#define ITEM_STACK_MAX_CAPACITY 100
+/**
+ * @brief Mengambil indeks teratas stack s.
+ * @param s ItemStack instance.
+ */
+#define topIndex(s) (s)->topIndex
+/**
+ * @brief Mengambil Item teratas pada stack s.
+ * @param s ItemStack instance.
+ */
+#define top(s) (s)->buffer[(s)->topIndex]
+
+#ifndef CAPACITY_MACRO
+#define CAPACITY_MACRO
+
+/**
+ * @brief Mengambil kapasitas stack s.
+ * @param s ItemStack instance.
+ */
+#define capacity(s) (s)->capacity
+
+#endif
 
 /**
  * @brief Constructor untuk membuat ItemStack baru.
@@ -59,15 +91,15 @@ boolean isStackFull(ItemStack stack);
  * @param stack ItemStack instance.
  * @param item Item yang akan dimasukkan ke atas stack.
  */
-void push(ItemStack *stack, Item item);
+void push(ItemStack stack, Item item);
 
 /**
  * @brief Mengambil item dari atas stack.
  * 
  * @param stack ItemStack instance.
- * @param[out] item Item yang diambil dari atas stack.
+ * @return Item yang diambil dari atas stack.
  */
-void pop(ItemStack *stack, Item *item);
+Item pop(ItemStack stack);
 
 /**
  * @brief Menambah kapasitas stack sebanyak 1.
@@ -76,7 +108,7 @@ void pop(ItemStack *stack, Item *item);
  * 
  * @param stack ItemStack instance. 
  */
-void incrementCapacity(ItemStack *stack);
+void incrementCapacity(ItemStack stack);
 
 /**
  * @brief Menggandakan kapasitas stack.
@@ -85,7 +117,7 @@ void incrementCapacity(ItemStack *stack);
  * 
  * @param stack ItemStack instance. 
  */
-void doubleCapacity(ItemStack *stack);
+void doubleCapacity(ItemStack stack);
 
 /**
  * @brief Membatasi kapasitas stack jika
@@ -93,6 +125,6 @@ void doubleCapacity(ItemStack *stack);
  * 
  * @param stack ItemStack instance.
  */
-void _clampCapacity(ItemStack *stack);
+void _clampCapacity(ItemStack stack);
 
 #endif

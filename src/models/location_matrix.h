@@ -13,7 +13,7 @@
  * @struct LocationMatrix
  * @brief Matriks berisi data Location.
  */
-typedef struct
+struct locationmatrix
 {
     /**
      * @brief 2D array untuk menyimpan elemen matriks.
@@ -27,7 +27,36 @@ typedef struct
      * @brief Banyak kolom matriks yang terdefinisi.
      */
     int colEff;
-} LocationMatrix;
+};
+
+/**
+ * @brief Tipe data referensi location matrix.
+ * 
+ */
+typedef struct locationmatrix *LocationMatrix;
+
+#ifndef MATRIX_MACRO
+#define MATRIX_MACRO
+
+/**
+ * @brief Mengembalikan banyak baris efektif location matrix.
+ * @param l LocationMatrix instance.
+ */
+#define rows(l) (l)->rowEff
+/**
+ * @brief Mengembalikan banyak kolom efektif location matrix.
+ * @param l LocationMatrix instance.
+ */
+#define cols(l) (l)->colEff
+/**
+ * @brief Mengembalikan elemen matriks pada index (i, j).
+ * @param l LocationMatrix instance.
+ * @param i Index baris elemen yang akan diambil.
+ * @param j Index kolom elemen yang akan diambil.
+ */
+#define elem(l, i, j) (l)->contents[i][j]
+
+#endif
 
 /**
  * @brief Constructor untuk membuat LocationMatrix baru.
@@ -47,6 +76,6 @@ LocationMatrix newLocationMatrix(int rows, int cols);
  * @param colIndex Indeks kolom yang akan di-set.
  * @param value Location instance.
  */
-void lSetElem(LocationMatrix *l, int rowIndex, int colIndex, Location value);
+void lSetElem(LocationMatrix l, int rowIndex, int colIndex, Location value);
 
 #endif

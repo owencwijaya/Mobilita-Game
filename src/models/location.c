@@ -6,17 +6,12 @@
  * @see GameMap
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "boolean.h"
 #include "point.h"
 #include "location.h"
 #include "../modules/colorizer/colorizer.h"
-#include "macros.h"
-
-/**
- * @brief Location yang tidak terdefinisi.
- */
-const Location NULL_LOCATION = {-1, '\0', {-1, -1}, false, false, false};
 
 /**
  * @brief Constructor untuk membuat Location baru.
@@ -28,14 +23,14 @@ const Location NULL_LOCATION = {-1, '\0', {-1, -1}, false, false, false};
  */
 Location newLocation(int id, char symbol, Point coordinate)
 {
-    Location l;
+    Location l = (Location)malloc(sizeof(struct location));
     id(l) = id;
     symbol(l) = symbol;
     coord(l) = coordinate;
-    unsetAsDropOffPlace(&l);
-    unsetAsPickUpPlace(&l);
-    unsetAsPlayerPlace(&l);
-    unsetAsReachable(&l);
+    unsetAsDropOffPlace(l);
+    unsetAsPickUpPlace(l);
+    unsetAsPlayerPlace(l);
+    unsetAsReachable(l);
     return l;
 }
 
@@ -66,18 +61,6 @@ boolean isLocationIdentical(Location l1, Location l2)
 }
 
 /**
- * @brief Mengecek apakah suatu lokasi terdefinisi
- * atau tidak.
- * 
- * @param l Location instance.
- * @return true jika l terdefinisi, false selainnya.
- */
-boolean isLocationDefined(Location l)
-{
-    return !isLocationIdentical(l, NULL_LOCATION);
-}
-
-/**
  * @brief Menuliskan simbol lokasi ke console output
  * dengan formatting (warna) yang sesuai.
  * 
@@ -85,21 +68,21 @@ boolean isLocationDefined(Location l)
  */
 void writeLocationSymbol(Location l)
 {
-    if (isLocationDefined(l))
+    if (l != NULL)
     {
-        if (l.isPlayerPlace)
+        if (l->isPlayerPlace)
         {
             changeToOrangeColor();
         }
-        else if (l.isDropOffPlace && l.isMarkedDropOff)
+        else if (l->isDropOffPlace && l->isMarkedDropOff)
         {
             changeToBlueColor();
         }
-        else if (l.isPickUpPlace && l.isMarkedPickUp)
+        else if (l->isPickUpPlace && l->isMarkedPickUp)
         {
             changeToRedColor();
         }
-        else if (l.isReachable)
+        else if (l->isReachable)
         {
             changeToGreenColor();
         }
@@ -117,7 +100,7 @@ void writeLocationSymbol(Location l)
  * 
  * @param l Location instance.
  */
-void setAsPickUpPlace(Location *l)
+void setAsPickUpPlace(Location l)
 {
     l->isPickUpPlace = true;
 }
@@ -127,7 +110,7 @@ void setAsPickUpPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void unsetAsPickUpPlace(Location *l)
+void unsetAsPickUpPlace(Location l)
 {
     l->isPickUpPlace = false;
 }
@@ -137,7 +120,7 @@ void unsetAsPickUpPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void setAsDropOffPlace(Location *l)
+void setAsDropOffPlace(Location l)
 {
     l->isDropOffPlace = true;
 }
@@ -147,7 +130,7 @@ void setAsDropOffPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void unsetAsDropOffPlace(Location *l)
+void unsetAsDropOffPlace(Location l)
 {
     l->isDropOffPlace = false;
 }
@@ -158,7 +141,7 @@ void unsetAsDropOffPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void setAsReachable(Location *l)
+void setAsReachable(Location l)
 {
     l->isReachable = true;
 }
@@ -169,7 +152,7 @@ void setAsReachable(Location *l)
  * 
  * @param l Location instance.
  */
-void unsetAsReachable(Location *l)
+void unsetAsReachable(Location l)
 {
     l->isReachable = false;
 }
@@ -177,28 +160,32 @@ void unsetAsReachable(Location *l)
  * @brief Set lokasi sebagai lokasi pickup
  * untuk item di atas bag
  */
-void setAsMarkedPickUp(Location *l){
+void setAsMarkedPickUp(Location l)
+{
     l->isMarkedPickUp = true;
 }
 /**
  * @brief Set lokasi sebagai lokasi dropoff
  * untuk item di atas bag
  */
-void setAsMarkedDropOff(Location *l){
+void setAsMarkedDropOff(Location l)
+{
     l->isMarkedDropOff = true;
 }
 /**
  * @brief Unset lokasi pickup
  * di atas bag
  */
-void unsetAsMarkedPickUp(Location *l){
+void unsetAsMarkedPickUp(Location l)
+{
     l->isMarkedPickUp = false;
 }
 /**
  * @brief Unset lokasi dropoff
  * di atas bag
  */
-void unsetAsMarkedDropOff(Location *l){
+void unsetAsMarkedDropOff(Location l)
+{
     l->isMarkedDropOff = false;
 }
 /**
@@ -206,7 +193,7 @@ void unsetAsMarkedDropOff(Location *l){
  * 
  * @param l Location instance.
  */
-void setAsPlayerPlace(Location *l)
+void setAsPlayerPlace(Location l)
 {
     l->isPlayerPlace = true;
 }
@@ -216,7 +203,7 @@ void setAsPlayerPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void unsetAsPlayerPlace(Location *l)
+void unsetAsPlayerPlace(Location l)
 {
     l->isPlayerPlace = false;
 }
@@ -226,7 +213,7 @@ void unsetAsPlayerPlace(Location *l)
  * 
  * @param l Location instance.
  */
-void toggleAsPlayerPlace(Location *l)
+void toggleAsPlayerPlace(Location l)
 {
     l->isPlayerPlace = !(l->isPlayerPlace);
 }
@@ -246,9 +233,9 @@ void _dumpLocation(Location l)
     printf("  coordinate : ");
     displayPoint(coord(l));
     printf("\n");
-    printf("  isPlayerPlace : %s\n", l.isPlayerPlace ? "TRUE" : "FALSE");
-    printf("  isPickUpPlace : %s\n", l.isPickUpPlace ? "TRUE" : "FALSE");
-    printf("  isDropOffPlace : %s\n", l.isDropOffPlace ? "TRUE" : "FALSE");
-    printf("  isReachable : %s\n", l.isReachable ? "TRUE" : "FALSE");
+    printf("  isPlayerPlace : %s\n", l->isPlayerPlace ? "TRUE" : "FALSE");
+    printf("  isPickUpPlace : %s\n", l->isPickUpPlace ? "TRUE" : "FALSE");
+    printf("  isDropOffPlace : %s\n", l->isDropOffPlace ? "TRUE" : "FALSE");
+    printf("  isReachable : %s\n", l->isReachable ? "TRUE" : "FALSE");
     printf("}\n");
 }

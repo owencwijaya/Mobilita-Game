@@ -28,10 +28,10 @@ int main()
     _dumpItem(d);
     printf("\n\n");
 
-    printf("a == a ? %s\n", isItemIdentical(a, a) ? "TRUE" : "FALSE");
-    printf("a == b ? %s\n", isItemIdentical(a, b) ? "TRUE" : "FALSE");
-    printf("a == c ? %s\n", isItemIdentical(a, c) ? "TRUE" : "FALSE");
-    printf("a == d ? %s\n", isItemIdentical(a, d) ? "TRUE" : "FALSE");
+    printf("a == a ? %s\n", a == a ? "TRUE" : "FALSE");
+    printf("a == b ? %s\n", a == b ? "TRUE" : "FALSE");
+    printf("a == c ? %s\n", a == c ? "TRUE" : "FALSE");
+    printf("a == d ? %s\n", a == d ? "TRUE" : "FALSE");
     printf("\n\n");
 
     printf("is a normal item ? %s\n", isNormalItem(a) ? "TRUE" : "FALSE");

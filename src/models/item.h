@@ -39,7 +39,7 @@ typedef int ItemType;
  * @struct Item
  * @brief Struktur tipe data Item dan pesanan.
  */
-typedef struct
+struct item
 {
     /**
      * @brief Waktu pesanan item.
@@ -69,7 +69,48 @@ typedef struct
      * @brief Mengecek apakah item sudah ditambahkan sebelumnya
      */
     boolean addedBefore;
-} Item;
+};
+
+/**
+ * @brief Tipe data referensi item.
+ */
+typedef struct item *Item;
+
+/**
+ * @brief Mengambil lokasi pick up item.
+ * @param item Item instance.
+ */
+#define pickUpLoc(item) (item)->pickUpLocation
+/**
+ * @brief Mengambil lokasi drop off item.
+ * @param item Item instance.
+ */
+#define dropOffLoc(item) (item)->dropOffLocation
+/**
+ * @brief Mengambil tipe item.
+ * @param item Item instance.
+ */
+#define itemType(item) (item)->type
+/**
+ * @brief Mengambil waktu hangus item.
+ * @param item Item instance.
+ */
+#define perishTime(item) (item)->perishTime
+/**
+ * @brief Mengambil waktu hangus item sebagai referensi
+ * @param item Item instance.
+ */
+#define perishTimeReference(item) (item)->perishTimeReference
+/**
+ * @brief Flag untuk mengetahui item sudah ditambahkan atau belum
+ * @param item Item instance.
+ */
+#define addedBefore(item) (item)->addedBefore
+/**
+ * @brief Mengambil waktu order item.
+ * @param item Item instance.
+ */
+#define orderTime(item) (item)->orderTime
 
 /**
  * @brief Constructor untuk membuat Item baru.

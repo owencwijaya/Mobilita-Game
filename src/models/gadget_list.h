@@ -13,13 +13,15 @@
  * @struct GadgetList
  * @brief List statik berisi tepat 5 Gadget.
  */
-typedef struct
+struct gadgetlist
 {
     /**
      * @brief Array statik dengan panjang 5 berisi Gadget. 
      */
     Gadget contents[5];
-} GadgetList;
+};
+
+typedef struct gadgetlist *GadgetList;
 
 /**
  * @brief Constructor untuk membuat GadgetList baru.
@@ -71,7 +73,7 @@ Gadget getGadget(GadgetList gList, int index);
  * @param index Indeks gList yang akan di-set.
  * @param g Gadget instance.
  */
-void setGadget(GadgetList *gList, int index, Gadget g);
+void setGadget(GadgetList gList, int index, Gadget g);
 
 /**
  * @brief Menambahkan gadget pada slot yang kosong.
@@ -79,16 +81,16 @@ void setGadget(GadgetList *gList, int index, Gadget g);
  * @param gList GadgetList instance.
  * @param g Gadget yang ingin ditambahkan
  */
-void insertGadget(GadgetList *gList, Gadget g);
+void insertGadget(GadgetList gList, Gadget g);
 
 /**
  * @brief Mengambil dan menghapus gadget dari GadgetList.
  * 
  * @param gList GadgetList instance.
  * @param index Indeks gadget yang akan diambil & dihapus.
- * @param g Gadget yang dihapus.
+ * @return Gadget yang dihapus.
  */
-void deleteGadget(GadgetList *gList, int index, Gadget *g);
+Gadget deleteGadget(GadgetList gList, int index);
 
 /**
  * @brief Menuliskan list Gadget (inventory) ke console output.

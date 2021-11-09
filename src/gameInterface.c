@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "modules/core/globals.h"
-#include "models/macros.h"
 #include "commands/commands.h"
 #include "modules/io/word_utils.h"
 
@@ -24,7 +23,7 @@ void gameMenu()
         if (isStringEquals(cmd, "MOVE"))
         {
             printf("MOVE selected.\n");
-            move(gameState);
+            move();
         }
         else if (isStringEquals(cmd, "PICK_UP"))
         {
@@ -78,6 +77,7 @@ void gameMenu()
         }
         if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
         {
+            printf("breakpoint");
             playing = false;
         }
     }

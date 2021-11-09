@@ -12,13 +12,13 @@
 /**
  * @brief Alias untuk tipe data ItemListNode.
  */
-typedef struct node *ItemList;
+typedef struct node *ItemListNode;
 
 /**
  * @struct ItemListNode
  * @brief Node dari tipe data linked list ItemList.
  */
-typedef struct node
+struct node
 {
     /**
      * @brief Nilai Item pada ItemListNode ini.
@@ -27,8 +27,21 @@ typedef struct node
     /**
      * @brief Pointer ke ItemListNode selanjutnya.
      */
-    ItemList next;
-} ItemListNode;
+    ItemListNode next;
+};
+
+typedef ItemListNode *ItemList;
+
+/**
+ * @brief Mengambil value dari sebuah ItemListNode.
+ * @param node ItemListNode instance.
+ */
+#define value(node) (node)->value
+/**
+ * @brief Mengambil pointer ke next node dari sebuah ItemListNode.
+ * @param node ItemListNode instance.
+ */
+#define next(node) (node)->next
 
 /**
  * @brief Constructor untuk membuat ItemList baru.
@@ -43,7 +56,7 @@ ItemList newItemList();
  * @param item Value yang di-hold oleh node ini.
  * @return ItemListNode instance berisi item.
  */
-ItemList newItemListNode(Item item);
+ItemListNode newItemListNode(Item item);
 
 /**
  * @brief Mengecek apakah suatu ItemList kosong atau tidak. 
@@ -97,7 +110,7 @@ Item getItem(ItemList iList, int index);
  * @param index Indeks iList yang akan di-set.
  * @param item Item instance.
  */
-void setItem(ItemList *iList, int index, Item item);
+void setItem(ItemList iList, int index, Item item);
 
 /**
  * @brief Insert Item di awal list iList.
@@ -105,7 +118,7 @@ void setItem(ItemList *iList, int index, Item item);
  * @param iList ItemList instance.
  * @param item Item instance.
  */
-void insertItemFirst(ItemList *iList, Item item);
+void insertItemFirst(ItemList iList, Item item);
 
 /**
  * @brief Insert Item di indeks tertentu list iList.
@@ -114,7 +127,7 @@ void insertItemFirst(ItemList *iList, Item item);
  * @param index Indeks yang akan dimasukkan Item.
  * @param item Item instance.
  */
-void insertItemAt(ItemList *iList, int index, Item item);
+void insertItemAt(ItemList iList, int index, Item item);
 
 /**
  * @brief Insert Item di akhir list iList.
@@ -122,31 +135,31 @@ void insertItemAt(ItemList *iList, int index, Item item);
  * @param iList ItemList instance.
  * @param item Item instance.
  */
-void insertItemLast(ItemList *iList, Item item);
+void insertItemLast(ItemList iList, Item item);
 
 /**
  * @brief Mengambil & mengapus Item pertama pada iList.
  * 
  * @param iList ItemList yang akan dihapus nilai pertamanya.
- * @param[out] item Item di posisi pertama iList.
+ * @return Item di posisi pertama iList.
  */
-void deleteItemFirst(ItemList *iList, Item *item);
+Item deleteItemFirst(ItemList iList);
 
 /**
  * @brief Mengambil & menghapus Item pada indeks index iList.
  * 
  * @param iList ItemList yang akan dilakukan penghapusan.
  * @param index Indeks Item yang akan dihapus.
- * @param[out] item Item pada indeks index.
+ * @return Item pada indeks index.
  */
-void deleteItemAt(ItemList *iList, int index, Item *item);
+Item deleteItemAt(ItemList iList, int index);
 
 /**
  * @brief Mengambil & menghapus Item terakhir iList.
  * 
  * @param iList ItemList instance.
- * @param item Item di posisi terakhir iList.
+ * @return Item di posisi terakhir iList.
  */
-void deleteItemLast(ItemList *iList, Item *item);
+Item deleteItemLast(ItemList iList);
 
 #endif

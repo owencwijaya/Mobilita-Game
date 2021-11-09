@@ -4,10 +4,10 @@
  * Hanya digunakan untuk INVENTORY.
  */
 
+#include <stdlib.h>
 #include "boolean.h"
 #include "item.h"
 #include "item_stack.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemStack baru.
@@ -17,7 +17,7 @@
  */
 ItemStack newItemStack(int capacity)
 {
-    ItemStack s;
+    ItemStack s = (ItemStack)malloc(sizeof(struct itemstack));
     topIndex(s) = -1;
     capacity(s) = capacity;
     return s;
@@ -51,22 +51,23 @@ boolean isStackFull(ItemStack stack)
  * @param stack ItemStack instance.
  * @param item Item yang akan dimasukkan ke atas stack.
  */
-void push(ItemStack *stack, Item item)
+void push(ItemStack stack, Item item)
 {
-    topIndex(*stack)++;
-    top(*stack) = item;
+    topIndex(stack)++;
+    top(stack) = item;
 }
 
 /**
  * @brief Mengambil item dari atas stack.
  * 
  * @param stack ItemStack instance.
- * @param[out] item Item yang diambil dari atas stack.
+ * @return Item yang diambil dari atas stack.
  */
-void pop(ItemStack *stack, Item *item)
+Item pop(ItemStack stack)
 {
-    *item = top(*stack);
-    topIndex(*stack)--;
+    Item item = top(stack);
+    topIndex(stack)--;
+    return item;
 }
 
 /**
@@ -76,9 +77,9 @@ void pop(ItemStack *stack, Item *item)
  * 
  * @param stack ItemStack instance. 
  */
-void incrementCapacity(ItemStack *stack)
+void incrementCapacity(ItemStack stack)
 {
-    capacity(*stack)++;
+    capacity(stack)++;
     _clampCapacity(stack);
 }
 
@@ -89,9 +90,9 @@ void incrementCapacity(ItemStack *stack)
  * 
  * @param stack ItemStack instance. 
  */
-void doubleCapacity(ItemStack *stack)
+void doubleCapacity(ItemStack stack)
 {
-    capacity(*stack) *= 2;
+    capacity(stack) *= 2;
     _clampCapacity(stack);
 }
 
@@ -101,10 +102,10 @@ void doubleCapacity(ItemStack *stack)
  * 
  * @param stack ItemStack instance.
  */
-void _clampCapacity(ItemStack *stack)
+void _clampCapacity(ItemStack stack)
 {
-    if (capacity(*stack) > ITEM_STACK_MAX_CAPACITY)
+    if (capacity(stack) > ITEM_STACK_MAX_CAPACITY)
     {
-        capacity(*stack) = ITEM_STACK_MAX_CAPACITY;
+        capacity(stack) = ITEM_STACK_MAX_CAPACITY;
     }
 }

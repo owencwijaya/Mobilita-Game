@@ -8,7 +8,6 @@
 #include "boolean.h"
 #include "item.h"
 #include "item_list.h"
-#include "macros.h"
 
 /**
  * @brief Constructor untuk membuat ItemList baru.
@@ -17,7 +16,9 @@
  */
 ItemList newItemList()
 {
-    return (ItemList)NULL;
+    ItemList list = (ItemList)malloc(sizeof(ItemListNode));
+    *list = NULL;
+    return list;
 }
 
 /**
@@ -26,9 +27,9 @@ ItemList newItemList()
  * @param item Value yang di-hold oleh node ini.
  * @return ItemListNode instance berisi item.
  */
-ItemList newItemListNode(Item item)
+ItemListNode newItemListNode(Item item)
 {
-    ItemList node = (ItemList)malloc(sizeof(ItemListNode));
+    ItemListNode node = (ItemListNode)malloc(sizeof(struct node));
     if (node != NULL)
     {
         value(node) = item;
@@ -45,7 +46,8 @@ ItemList newItemListNode(Item item)
  */
 boolean isItemListEmpty(ItemList iList)
 {
-    return iList == NULL;
+    ItemListNode node = *iList;
+    return node == NULL;
 }
 
 /**
@@ -69,11 +71,11 @@ boolean isItemListIndexValid(ItemList iList, int index)
  */
 int itemListLength(ItemList iList)
 {
-    ItemList list = iList;
+    ItemListNode node = *iList;
     int count = 0;
-    while (list != NULL)
+    while (node != NULL)
     {
-        list = next(list);
+        node = next(node);
         count++;
     }
     return count;
@@ -89,19 +91,19 @@ int itemListLength(ItemList iList)
  */
 int indexOfItem(ItemList iList, Item item)
 {
-    ItemList list = iList;
+    ItemListNode node = *iList;
     int index = 0;
     boolean found = false;
-    while (list != NULL && !found)
+    while (node != NULL && !found)
     {
-        if (isItemIdentical(value(list), item))
+        if (value(node) == item)
         {
             found = true;
         }
         else
         {
             index++;
-            list = next(list);
+            node = next(node);
         }
     }
     return found ? index : -1;
@@ -116,14 +118,14 @@ int indexOfItem(ItemList iList, Item item)
  */
 Item getItem(ItemList iList, int index)
 {
-    ItemList list = iList;
+    ItemListNode node = *iList;
     int i = 0;
     while (i < index)
     {
-        list = next(list);
+        node = next(node);
         i++;
     }
-    return value(list);
+    return value(node);
 }
 
 /**
@@ -133,16 +135,16 @@ Item getItem(ItemList iList, int index)
  * @param index Indeks iList yang akan di-set.
  * @param item Item instance.
  */
-void setItem(ItemList *iList, int index, Item item)
+void setItem(ItemList iList, int index, Item item)
 {
-    ItemList list = *iList;
+    ItemListNode node = *iList;
     int i = 0;
     while (i < index)
     {
-        list = next(list);
+        node = next(node);
         i++;
     }
-    value(list) = item;
+    value(node) = item;
 }
 
 /**
@@ -151,9 +153,9 @@ void setItem(ItemList *iList, int index, Item item)
  * @param iList ItemList instance.
  * @param item Item instance.
  */
-void insertItemFirst(ItemList *iList, Item item)
+void insertItemFirst(ItemList iList, Item item)
 {
-    ItemList node = newItemListNode(item);
+    ItemListNode node = newItemListNode(item);
     if (node != NULL)
     {
         next(node) = *iList;
@@ -168,7 +170,7 @@ void insertItemFirst(ItemList *iList, Item item)
  * @param index Indeks yang akan dimasukkan Item.
  * @param item Item instance.
  */
-void insertItemAt(ItemList *iList, int index, Item item)
+void insertItemAt(ItemList iList, int index, Item item)
 {
     if (index == 0)
     {
@@ -176,11 +178,11 @@ void insertItemAt(ItemList *iList, int index, Item item)
     }
     else
     {
-        ItemList node = newItemListNode(item);
+        ItemListNode node = newItemListNode(item);
         if (node != NULL)
         {
             int i = 0;
-            ItemList subList = *iList;
+            ItemListNode subList = *iList;
             while (i < index - 1)
             {
                 i++;
@@ -198,18 +200,18 @@ void insertItemAt(ItemList *iList, int index, Item item)
  * @param iList ItemList instance.
  * @param item Item instance.
  */
-void insertItemLast(ItemList *iList, Item item)
+void insertItemLast(ItemList iList, Item item)
 {
-    if (isItemListEmpty(*iList))
+    if (isItemListEmpty(iList))
     {
         insertItemFirst(iList, item);
     }
     else
     {
-        ItemList node = newItemListNode(item);
+        ItemListNode node = newItemListNode(item);
         if (node != NULL)
         {
-            ItemList list = *iList;
+            ItemListNode list = *iList;
             while (next(list) != NULL)
             {
                 list = next(list);
@@ -223,14 +225,16 @@ void insertItemLast(ItemList *iList, Item item)
  * @brief Mengambil & mengapus Item pertama pada iList.
  * 
  * @param iList ItemList yang akan dihapus nilai pertamanya.
- * @param[out] item Item di posisi pertama iList.
+ * @return Item di posisi pertama iList.
  */
-void deleteItemFirst(ItemList *iList, Item *item)
+Item deleteItemFirst(ItemList iList)
 {
-    ItemList list = *iList;
-    *item = value(list);
-    *iList = next(list);
-    free(list);
+    Item item;
+    ItemListNode node = *iList;
+    item = value(node);
+    *iList = next(node);
+    free(node);
+    return item;
 }
 
 /**
@@ -238,40 +242,43 @@ void deleteItemFirst(ItemList *iList, Item *item)
  * 
  * @param iList ItemList yang akan dilakukan penghapusan.
  * @param index Indeks Item yang akan dihapus.
- * @param[out] item Item pada indeks index.
+ * @return Item pada indeks index.
  */
-void deleteItemAt(ItemList *iList, int index, Item *item)
+Item deleteItemAt(ItemList iList, int index)
 {
+    Item item;
     if (index == 0)
     {
-        deleteItemFirst(iList, item);
+        item = deleteItemFirst(iList);
     }
     else
     {
-        ItemList node = *iList;
+        ItemListNode node = *iList;
         int i = 0;
         while (i < index - 1)
         {
             node = next(node);
             i++;
         }
-        ItemList nextNode = next(node);
-        *item = value(nextNode);
+        ItemListNode nextNode = next(node);
+        item = value(nextNode);
         next(node) = next(nextNode);
         free(nextNode);
     }
+    return item;
 }
 
 /**
  * @brief Mengambil & menghapus Item terakhir iList.
  * 
  * @param iList ItemList instance.
- * @param item Item di posisi terakhir iList.
+ * @return Item di posisi terakhir iList.
  */
-void deleteItemLast(ItemList *iList, Item *item)
+Item deleteItemLast(ItemList iList)
 {
-    ItemList lastList = *iList;
-    ItemList beforeLastList = NULL;
+    Item item;
+    ItemListNode lastList = *iList;
+    ItemListNode beforeLastList = NULL;
     while (next(lastList) != NULL)
     {
         beforeLastList = lastList;
@@ -285,6 +292,7 @@ void deleteItemLast(ItemList *iList, Item *item)
     {
         next(beforeLastList) = NULL;
     }
-    *item = value(lastList);
+    item = value(lastList);
     free(lastList);
+    return item;
 }

@@ -20,9 +20,9 @@ int main()
     Item x = newItem(1, b, a, HEAVY, UNTIMED, UNTIMED);
     Item y = newItem(5, b, c, PERISHABLE, 10, 10);
     Item z = newItem(10, c, a, VIP, UNTIMED, UNTIMED);
-    insertItemLast(&iList, w);
-    insertItemFirst(&iList, x);
-    insertItemAt(&iList, 1, y);
+    insertItemLast(iList, w);
+    insertItemFirst(iList, x);
+    insertItemAt(iList, 1, y);
     printf("iList = [w, x, y]\n");
     printf("iList[0] = ");
     _dumpItem(getItem(iList, 0));
@@ -35,7 +35,7 @@ int main()
     printf("\n");
 
     printf("Set iList[1] ke z...\n");
-    setItem(&iList, 1, z);
+    setItem(iList, 1, z);
     printf("iList[0] == z ? %s\n", isItemIdentical(getItem(iList, 0), z) ? "TRUE" : "FALSE");
     printf("iList[1] == z ? %s\n", isItemIdentical(getItem(iList, 1), z) ? "TRUE" : "FALSE");
     printf("iList[2] == z ? %s\n", isItemIdentical(getItem(iList, 2), z) ? "TRUE" : "FALSE");
@@ -47,9 +47,9 @@ int main()
     printf("\n");
 
     printf("iList = []\n");
-    deleteItemAt(&iList, 1, &w);
-    deleteItemFirst(&iList, &w);
-    deleteItemLast(&iList, &w);
+    deleteItemAt(iList, 1, w);
+    deleteItemFirst(iList, w);
+    deleteItemLast(iList, w);
     printf("iList is empty ? %s\n", isItemListEmpty(iList) ? "TRUE" : "FALSE");
     printf("is 1 a valid index for iList ? %s\n", isItemListIndexValid(iList, 1) ? "TRUE" : "FALSE");
     printf("length = %d\n", itemListLength(iList));
