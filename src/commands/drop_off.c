@@ -12,6 +12,12 @@ void drop_off()
     }
     else
     {
+        if (gameState.abs.IsSenterPengecilOn){
+            if (gameState.abs.IsHeavyItemOn){
+                gameState.abs.HeavyItemStack++;
+                gameState.abs.IsSenterPengecilOn = false;
+            }
+        }
         Item dump;
         deleteItemFirst(&gameState.inProgressList, &dump);
 

@@ -24,9 +24,10 @@ void inventory()
         if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU))
         {
             //cari perishable item teratas, ini buat inprogress?
-            ItemStack tempStack = newItemStack(topIndex(gameState.bag));
-            ; // untuk penyimpanan sementara
+            ItemStack tempStack = newItemStack(capacity(gameState.bag));
+            // untuk penyimpanan sementara
             Item temp;
+            int i = 0;
             boolean found = false;
             while (!isStackEmpty(gameState.bag) && !found)
             {
@@ -35,12 +36,10 @@ void inventory()
                 {
                     found = true;
                     temp.perishTime = perishTimeReference(temp);
-                    push(&tempStack, temp);
+                    setItem(&gameState.inProgressList, i, temp);
                 }
-                else
-                {
-                    push(&tempStack, temp);
-                }
+                push(&tempStack, temp);
+                i++;
             }
 
             while (!isStackEmpty(tempStack))
@@ -98,7 +97,17 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL))
         {
-            gameState.abs.IsSenterPengecilOn = true;
+            if (gameState.abs.IsHeavyItemOn){
+                gameState.abs.HeavyItemStack -= 1;
+                if (gameState.abs.HeavyItemStack == 0){
+                    gameState.abs.IsHeavyItemOn = false;
+                }
+                gameState.abs.IsSenterPengecilOn = true;
+                printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
+                printf("Beban dari satu heavy item berhasil dikurangi.\n");
+            } else {
+                printf("Tidak ada heavy item yang sedang diantarkan!\n");
+            }
 
             //algo buat senter pengecil
             //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
