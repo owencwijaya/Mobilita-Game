@@ -130,6 +130,7 @@ void setAsPickUpPlace(Location *l)
 void unsetAsPickUpPlace(Location *l)
 {
     l->isPickUpPlace = false;
+    unsetAsMarkedPickUp(l);
 }
 
 /**

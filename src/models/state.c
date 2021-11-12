@@ -87,6 +87,7 @@ void incrementTime(State *state, int diffTime)
         Location dropOff = _getLocationById(state->gameMap._locations, item.dropOffLocation.id);
         setAsPickUpPlace(&(state->gameMap._locationMatrix.contents[pickUp.coordinate.x][pickUp.coordinate.y]));
         setAsDropOffPlace(&(state->gameMap._locationMatrix.contents[dropOff.coordinate.x][dropOff.coordinate.y]));
+        setAsMarkedPickUp(&state->gameMap._locationMatrix.contents[item.pickUpLocation.coordinate.x][item.pickUpLocation.coordinate.y]);
     }
 
     // Decrement perishTime perishable item atau

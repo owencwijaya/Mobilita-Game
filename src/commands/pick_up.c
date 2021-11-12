@@ -89,7 +89,7 @@ void pick_up(){
     //Ada VIP Item di To Do list, sehingga Harus diutamakan terlebih dahulu.
         if(!isStackFull(gameState.bag)){
             int idx = idxVIPItem(gameState.todoList, gameState.currentLocation);
-            if(idx != -1){
+            if(idx != -1 || !gameState.abs.IsVIPItemOn){
                 insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
                 push(&gameState.bag, getItem(gameState.todoList, idx));
                 printf("Pesanan berupa VIP Item berhasil diambil!\n");
@@ -110,18 +110,14 @@ void pick_up(){
                 if(isNormalItem(getItem(gameState.todoList, idx))){
                     insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
                     //insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
-                    unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
-                    setColors(top(gameState.bag));
                     printf("Pesanan berupa Normal Item berhasil diambil!\n");
                     printf("Tujuan Pesanan : %c\n\n", getItem(gameState.todoList, idx).dropOffLocation.symbol);
                     Item temp;
                     deleteItemAt(&gameState.todoList, idx, &temp); //Menghapus item yang di Pick_UP dari To Do
                 }else if (isHeavyItem(getItem(gameState.todoList, idx))){
                     insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
-                    unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
-                    setColors(top(gameState.bag));
                     printf("Pesanan berupa Heavy Item berhasil diambil!\n");
                     printf("Tujuan Pesanan : %c\n\n", getItem(gameState.todoList, idx).dropOffLocation.symbol);
                     Item temp;
@@ -136,13 +132,27 @@ void pick_up(){
                     }
                 }else if(isPerishableItem(getItem(gameState.todoList, idx))){
                     insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
-                    unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
-                    setColors(top(gameState.bag));
                     printf("Pesanan berupa Perishable Item berhasil diambil!\n");
                     printf("Tujuan Pesanan : %c\n\n", getItem(gameState.todoList, idx).dropOffLocation.symbol);
                     Item temp;
                     deleteItemAt(&gameState.todoList, idx, &temp);
+                }
+
+
+                boolean similarLocation = false;
+                int i = 0;
+                while (i < itemListLength(gameState.todoList) && !similarLocation){
+                    if (isLocationIdentical(top(gameState.bag).pickUpLocation, getItem(gameState.todoList, i).pickUpLocation)){
+                        similarLocation = true;
+                    }
+                    i++;
+                }
+                //kalo gada lokasi yang sama lagi, unset as pickup, unset warna pickup
+                if (similarLocation == false){
+                    unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][top(gameState.bag).pickUpLocation.coordinate.y]);
+                    unsetAsMarkedPickUp(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][top(gameState.bag).pickUpLocation.coordinate.y]);
+                    setAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
                 }
             }else{
                 printf("Tas telah penuh\n\n");

@@ -5,7 +5,6 @@ void unsetColors();
 void setColors();
 void drop_off()
 {
-    printf("%c", top(gameState.bag).dropOffLocation.symbol);
     if (isStackEmpty(gameState.bag) || !isLocationIdentical(gameState.currentLocation, top(gameState.bag).dropOffLocation))
     {
         printf("Tidak dapat pesanan yang dapat diantarkan!\n");
@@ -23,13 +22,23 @@ void drop_off()
 
         Item temp;
         pop(&gameState.bag, &temp);
-        unsetColors(temp);
-        unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-        unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+
+        boolean similarLocation = false;
+        int i = 0;
+        while (i < itemListLength(gameState.todoList) && !similarLocation){
+            if (isLocationIdentical(top(gameState.bag).pickUpLocation, getItem(gameState.todoList, i).pickUpLocation)){
+                similarLocation = true;
+            }
+            i++;
+        }
+        unsetAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
+        if (similarLocation == false){
+            unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
+        }
+
         if (!isStackEmpty(gameState.bag)){
-            setColors(top(gameState.bag));
-            setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-            setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+            setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+            setAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
         }
 
         if (isNormalItem(temp))
