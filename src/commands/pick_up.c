@@ -90,7 +90,7 @@ void pick_up(){
         if(!isStackFull(gameState.bag)){
             int idx = idxVIPItem(gameState.todoList, gameState.currentLocation);
             if(idx != -1){
-                insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
+                insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
                 push(&gameState.bag, getItem(gameState.todoList, idx));
                 printf("Pesanan berupa VIP Item berhasil diambil!\n");
                 printf("Tujuan Pesanan : %c\n\n", getItem(gameState.todoList, idx).dropOffLocation.symbol);
@@ -108,7 +108,8 @@ void pick_up(){
             int idx = idxItemInTodo(gameState.todoList);
             if(!isStackFull(gameState.bag)){
                 if(isNormalItem(getItem(gameState.todoList, idx))){
-                    insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
+                    insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
+                    //insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
                     unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
                     setColors(top(gameState.bag));
@@ -117,7 +118,7 @@ void pick_up(){
                     Item temp;
                     deleteItemAt(&gameState.todoList, idx, &temp); //Menghapus item yang di Pick_UP dari To Do
                 }else if (isHeavyItem(getItem(gameState.todoList, idx))){
-                    insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
+                    insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
                     unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
                     setColors(top(gameState.bag));
@@ -134,7 +135,7 @@ void pick_up(){
                         printf("Speed Boost yang didapatkan dimatikan!");
                     }
                 }else if(isPerishableItem(getItem(gameState.todoList, idx))){
-                    insertItem(&gameState.inProgressList, getItem(gameState.todoList, idx));
+                    insertItemLast(&gameState.inProgressList,  getItem(gameState.todoList, idx));
                     unsetColors(top(gameState.bag));
                     push(&gameState.bag, getItem(gameState.todoList, idx));
                     setColors(top(gameState.bag));

@@ -40,7 +40,7 @@ void move()
         {
             gameState.currentLocation = lElem(adjlocation, (ChoiceNumber - 1));
             if (gameState.abs.IsHeavyItemOn && gameState.abs.HeavyItemStack > 0){
-                time = 2 * gameState.abs.HeavyItemStack;
+                time = 1 + gameState.abs.HeavyItemStack;
             } else if (gameState.abs.PintuKemanaSaja){
                 time = 0;
                 gameState.abs.PintuKemanaSaja = false;

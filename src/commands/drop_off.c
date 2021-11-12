@@ -15,11 +15,11 @@ void drop_off()
         if (gameState.abs.IsSenterPengecilOn){
             if (gameState.abs.IsHeavyItemOn){
                 gameState.abs.HeavyItemStack++;
-                gameState.abs.IsSenterPengecilOn = false;
             }
+            gameState.abs.IsSenterPengecilOn = false;
         }
         Item dump;
-        deleteItemFirst(&gameState.inProgressList, &dump);
+        deleteItemLast(&gameState.inProgressList, &dump);
 
         Item temp;
         pop(&gameState.bag, &temp);
@@ -66,6 +66,7 @@ void drop_off()
             gameState.cash += 600;
             printf("Uang yang didapatkan: 600 Yen\n");
             gameState.abs.IsReturnOn = true;
+            gameState.abs.IsVIPItemOn = false;
             gameState.abs.ReturnStack++;
             printf("Efek 'Return to Sender' bertambah menjadi %d.", gameState.abs.ReturnStack);
         }

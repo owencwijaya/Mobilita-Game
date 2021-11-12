@@ -24,11 +24,13 @@ void inventory()
         if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU))
         {
             //cari perishable item teratas, ini buat inprogress?
+            /*
             ItemStack tempStack = newItemStack(capacity(gameState.bag));
             // untuk penyimpanan sementara
             Item temp;
             int i = 0;
             boolean found = false;
+            
             while (!isStackEmpty(gameState.bag) && !found)
             {
                 pop(&gameState.bag, &temp);
@@ -47,16 +49,15 @@ void inventory()
                 pop(&tempStack, &temp);
                 push(&gameState.bag, temp);
             }
+            */
 
-            if (found)
-            {
-                printf("Gadget 'Kain Pembungkus Waktu' berhasil digunakan!\n");
-                setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
-            }
-            else
-            {
-                printf("Perishable item tidak ditemukan!\n");
-            }
+           if (itemType(top(gameState.bag)) == PERISHABLE)
+                {
+                    top(gameState.bag).perishTime = perishTimeReference(top(gameState.bag));
+                    setItem(&gameState.inProgressList, topIndex(gameState.bag), top(gameState.bag));
+                }
+            printf("Gadget 'Kain Pembungkus Waktu' berhasil digunakan!\n");
+            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PEMBESAR))
         {
@@ -76,6 +77,7 @@ void inventory()
             gameState.abs.PintuKemanaSaja = true;
             printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
             printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\n");
+            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
             //nanti pake fungsi move, tapi ga nambahin waktu
         }
         else if (isGadgetIdentical(tempGadget, MESIN_WAKTU))
@@ -97,7 +99,7 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL))
         {
-            if (gameState.abs.IsHeavyItemOn){
+            if (gameState.abs.IsHeavyItemOn && top(gameState.bag).type == HEAVY){
                 gameState.abs.HeavyItemStack -= 1;
                 if (gameState.abs.HeavyItemStack == 0){
                     gameState.abs.IsHeavyItemOn = false;
@@ -105,6 +107,7 @@ void inventory()
                 gameState.abs.IsSenterPengecilOn = true;
                 printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
                 printf("Beban dari satu heavy item berhasil dikurangi.\n");
+                setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
             } else {
                 printf("Tidak ada heavy item yang sedang diantarkan!\n");
             }
