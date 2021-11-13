@@ -12,7 +12,6 @@ void save_file(){
     FILE *file = NULL;
     file = fopen(saveName, "w");
     //ukuran map
-    fprintf(file, "SAVE\n");
     fprintf(file, "%d ", gameState.gameMap.hSize);
     fprintf(file, "%d\n", gameState.gameMap.vSize);
 
@@ -54,7 +53,11 @@ void save_file(){
         } else if (item.type == VIP){
             itemTypeChar = 'V';
         }
-        fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+         if (item.type == PERISHABLE){
+            fprintf(file, "%d %c %c %c %d %d\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar, item.perishTime, item.perishTimeReference);
+        } else {
+            fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+        }
     }
     //inprogress list
     fprintf(file, "%d\n", itemListLength(gameState.inProgressList));
@@ -69,7 +72,11 @@ void save_file(){
         } else if (item.type == VIP){
             itemTypeChar = 'V';
         }
-        fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+        if (item.type == PERISHABLE){
+            fprintf(file, "%d %c %c %c %d %d\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar, item.perishTime, item.perishTimeReference);
+        } else {
+            fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+        }
     }
 
     //bag
@@ -86,7 +93,11 @@ void save_file(){
         } else if (item.type == VIP){
             itemTypeChar = 'V';
         }
-        fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+         if (item.type == PERISHABLE){
+            fprintf(file, "%d %c %c %c %d %d\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar, item.perishTime, item.perishTimeReference);
+        } else {
+            fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+        }
         push(&tempBag, item);
     }
 
@@ -98,6 +109,7 @@ void save_file(){
 
     //order
     ItemQueue tempOrder = newItemQueue();
+    fprintf(file, "%d\n", !isEmpty(gameState.order) ? gameState.order.tailIndex - gameState.order.headIndex + 1 : 0);
     while (!isEmpty(gameState.order)){
         dequeue(&gameState.order, &item);
         if (item.type == NORMAL){
@@ -109,7 +121,11 @@ void save_file(){
         } else if (item.type == VIP){
             itemTypeChar = 'V';
         }
-        fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+         if (item.type == PERISHABLE){
+            fprintf(file, "%d %c %c %c %d %d\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar, item.perishTime, item.perishTimeReference);
+        } else {
+            fprintf(file, "%d %c %c %c\n", item.orderTime, item.pickUpLocation.symbol, item.dropOffLocation.symbol, itemTypeChar);
+        }
         enqueue(&tempOrder, item);
     }
 
@@ -124,7 +140,7 @@ void save_file(){
     //gadgetList
     for (i = 0; i < 5; i++){
         Gadget tempGadget = getGadget(gameState.inventory, i);
-        fprintf(file, "%d %s\n", tempGadget.id, tempGadget.name);
+        fprintf(file, "%d\n", tempGadget.id);
     }
     //currentLocation
     fprintf(file, "%c %d %d\n",gameState.currentLocation.symbol, gameState.currentLocation.coordinate.x, gameState.currentLocation.coordinate.y);
