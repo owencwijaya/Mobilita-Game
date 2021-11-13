@@ -99,19 +99,16 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL))
         {
-            if (gameState.abs.IsHeavyItemOn && top(gameState.bag).type == HEAVY){
+            if (top(gameState.bag).type == HEAVY){
                 gameState.abs.HeavyItemStack -= 1;
                 if (gameState.abs.HeavyItemStack == 0){
                     gameState.abs.IsHeavyItemOn = false;
                 }
-                gameState.abs.IsSenterPengecilOn = true;
-                printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
-                printf("Beban dari satu heavy item berhasil dikurangi.\n");
-                setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
-            } else {
-                printf("Tidak ada heavy item yang sedang diantarkan!\n");
+            gameState.abs.IsSenterPengecilOn = true;
+            printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
+            printf("Beban dari satu heavy item berhasil dikurangi.\n");
+            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
             }
-
             //algo buat senter pengecil
             //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
             //item jika terdapat pada tumpukan teratas tas. Efek dari senter pengecil ini

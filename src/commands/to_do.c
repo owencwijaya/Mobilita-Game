@@ -12,7 +12,7 @@ void to_do()
     }
     else
     {
-        printf("Pesanan pada To Do List: \n");
+        printf("Ada %d pesanan pada To Do List: \n", itemListLength(gameState.todoList));
         int num = 1;
 
         while (loc != NULL)
@@ -37,5 +37,6 @@ void to_do()
             loc = next(loc);
         }
         printf("\n");
+
     }
 }

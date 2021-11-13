@@ -49,18 +49,6 @@ typedef struct
      * ini dapat dituju relatif dari lokasi player.
      */
     boolean isReachable;
-    /**
-     * @brief Flag yang menandakan apakah lokasi diwarnai
-     *  merah (apabila lokasi adalah lokasi pickup dari item
-     * di atas bag)
-     */
-    boolean isMarkedPickUp;
-    /**
-     * @brief Flag yang menandakan apakah lokasi diwarnai
-     * biru (apabila lokasi adalah lokasi dropoff dari item
-     * di atas bag)
-     */
-    boolean isMarkedDropOff;
 } Location;
 
 /**

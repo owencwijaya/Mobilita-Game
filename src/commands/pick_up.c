@@ -3,15 +3,6 @@
 #include "../models/macros.h"
 #include "../models/boolean.h"
 
-void setColors(Item item){
-    setAsMarkedPickUp(&gameState.gameMap._locationMatrix.contents[item.pickUpLocation.coordinate.x][item.pickUpLocation.coordinate.y]);
-    setAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[item.dropOffLocation.coordinate.x][item.dropOffLocation.coordinate.y]);
-}
-
-void unsetColors(Item item){
-    unsetAsMarkedPickUp(&gameState.gameMap._locationMatrix.contents[item.pickUpLocation.coordinate.x][item.pickUpLocation.coordinate.y]);
-    unsetAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[item.dropOffLocation.coordinate.x][item.dropOffLocation.coordinate.y]);
-}
 
 boolean isVIPintodo(ItemList todo){
 /*Mengembalikan True Jika VIP item ada di TO_DO*/
@@ -138,8 +129,7 @@ void pick_up(){
                     Item temp;
                     deleteItemAt(&gameState.todoList, idx, &temp);
                 }
-
-
+                setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
                 boolean similarLocation = false;
                 int i = 0;
                 while (i < itemListLength(gameState.todoList) && !similarLocation){
@@ -151,14 +141,12 @@ void pick_up(){
                 //kalo gada lokasi yang sama lagi, unset as pickup, unset warna pickup
                 if (similarLocation == false){
                     unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][top(gameState.bag).pickUpLocation.coordinate.y]);
-                    unsetAsMarkedPickUp(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][top(gameState.bag).pickUpLocation.coordinate.y]);
-                    setAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
                 }
             }else{
-                printf("Tas telah penuh\n\n");
+                printf("Tas telah penuh!\n\n");
             }
         }else{
-            printf("Tidak ada pesanan yang dapat diambil\n\n");
+            printf("Tidak ada pesanan yang dapat diambil!\n\n");
         }
     }
 }

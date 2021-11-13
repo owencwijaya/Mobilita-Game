@@ -22,23 +22,9 @@ void drop_off()
 
         Item temp;
         pop(&gameState.bag, &temp);
-
-        boolean similarLocation = false;
-        int i = 0;
-        while (i < itemListLength(gameState.todoList) && !similarLocation){
-            if (isLocationIdentical(top(gameState.bag).pickUpLocation, getItem(gameState.todoList, i).pickUpLocation)){
-                similarLocation = true;
-            }
-            i++;
-        }
-        unsetAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-        if (similarLocation == false){
-            unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
-        }
-
+        unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
         if (!isStackEmpty(gameState.bag)){
             setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
-            setAsMarkedDropOff(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
         }
 
         if (isNormalItem(temp))

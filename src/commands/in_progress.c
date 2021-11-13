@@ -8,7 +8,7 @@ void in_progress(){
     if(loc == NULL){
         printf("Tidak ada item yang sedang diantarkan!\n");
     }else{
-        printf("Pesanan yang sedang diantarkan : \n");
+        printf("Ada %d pesanan yang sedang diantarkan : \n", itemListLength(gameState.inProgressList));
         int num = 1;
         while(loc != NULL){
             if(isNormalItem(value(loc))){

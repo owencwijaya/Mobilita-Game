@@ -3,6 +3,7 @@
 #include "../models/macros.h"
 #include "../modules/core/globals.h"
 #include "../modules/io/word_utils.h"
+#include "../modules/colorizer/colorizer.h"
 
 void move()
 {   
@@ -19,6 +20,7 @@ void move()
 
     // terima input dan cek kevalidan input
     int ChoiceNumber;
+    int time = 0;
     boolean ChoiceValid = false;
     while (!ChoiceValid)
     {
@@ -35,7 +37,7 @@ void move()
         readWord();
         char *str = stringify(currentWord);
         ChoiceNumber = parseInt(str);
-        int time = 0;
+        
         if ((ChoiceNumber <= length(adjlocation)) && (ChoiceNumber > 0))
         {
             gameState.currentLocation = lElem(adjlocation, (ChoiceNumber - 1));
@@ -68,18 +70,23 @@ void move()
         }
         else
         {
-            printf("masukan salah!\n");
+            printf("Opsi input salah!\n");
         }
     }
 
     // tampilin hasil
     printf("\n");
-    printf("Mobita sekarang berada di titk %c ", symbol(gameState.currentLocation));
+    printf("Mobita sekarang berada di titik ");
+    changeToOrangeColor();
+    printf("%c", symbol(gameState.currentLocation));
     displayPoint(coord(gameState.currentLocation));
+    resetColor();
     setAsPlayerPlace(&gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y]);
     printf("!\n");
-    printf("Waktu : %d", gameState.time);
-
+    changeToGreenColor();
+    printf("Waktu : %d (+%d)", gameState.time, time);
+    resetColor();
+    
     LocationList newAdjLoc = getAdjacentLocations(locList(gameState.gameMap), gameState.currentLocation, adjMatrix(gameState.gameMap));
     for (int i = 0; i < length(newAdjLoc); i++){
         setAsReachable(&gameState.gameMap._locationMatrix.contents[newAdjLoc.buffer[i].coordinate.x][newAdjLoc.buffer[i].coordinate.y]);

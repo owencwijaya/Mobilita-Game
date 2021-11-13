@@ -10,7 +10,7 @@
 #include "location_matrix.h"
 #include "game_map.h"
 #include "macros.h"
-
+#include "../modules/colorizer/colorizer.h"
 /**
  * @brief Constructor untuk membuat GameMap baru.
  * 
@@ -81,9 +81,19 @@ void displayAdjacentLocation(GameMap m, Location currentLocation)
     LocationList adjLocs = getAdjacentLocations(locList(m), currentLocation, adjMatrix(m));
     for (int i = 0; i < length(adjLocs); i++)
     {
+        if (m._locationMatrix.contents[lElem(adjLocs, i).coordinate.x][lElem(adjLocs, i).coordinate.y].isPickUpPlace){
+            changeToRedColor();
+        }
+        if (m._locationMatrix.contents[lElem(adjLocs, i).coordinate.x][lElem(adjLocs, i).coordinate.y].isDropOffPlace){
+            changeToBlueColor();
+        }
+        if (symbol(lElem(adjLocs, i)) == '8'){
+            changeToOrangeColor();
+        }
         printf("%d. %c ", i + 1, symbol(lElem(adjLocs, i)));
         displayPoint(coord(lElem(adjLocs, i)));
         printf("\n");
+        resetColor();
     }
 }
 
