@@ -29,10 +29,10 @@ AbilityStruct newAbilityStruct()
     abs.SpeedBoostCount = 0;
     abs.SpeedBoostStack = 0;
     abs.IsSenterPengecilOn = false;
+    abs.PintuKemanaSaja = false;
     abs.IsHeavyItemOn = false;
     abs.HeavyItemStack = 0;
     abs.IsVIPItemOn = false;
-    abs.PintuKemanaSaja = false;
     abs.IsReturnOn = false;
     abs.ReturnStack = 0;
     return abs;

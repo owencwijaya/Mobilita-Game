@@ -91,6 +91,10 @@ void gameMenu()
             printf("RETURN selected.\n\n");
             returnToSender();
         }
+        else if (isStringEquals(cmd, "SAVE")){
+            printf("SAVE selected\n");
+            save_file();
+        }
         else if (isStringEquals(cmd, "EXIT"))
         {
             printf("EXIT selected.\n\n");
