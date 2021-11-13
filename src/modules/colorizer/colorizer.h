@@ -6,10 +6,10 @@
 #ifndef COLORIZER_H
 #define COLORIZER_H
 
-#define RED_PREFIX "\033[38;5;196m"
-#define ORANGE_PREFIX "\033[38;5;202m"
-#define BLUE_PREFIX "\033[38;5;21m"
-#define GREEN_PREFIX "\033[38;5;40m"
+#define RED_PREFIX "\x1b[38;5;196m"
+#define ORANGE_PREFIX "\x1b[38;5;202m"
+#define BLUE_PREFIX "\x1b[38;5;21m"
+#define GREEN_PREFIX "\x1b[38;5;40m"
 #define POSTFIX "\033[0m"
 
 /**

@@ -96,8 +96,6 @@ void parseConfig(char *path)
         readNextWord();
         type = stringify(currentWord)[0];
 
-        setAsPickUpPlace(&pickUpLocation);
-        setAsDropOffPlace(&dropOffLocation);
 
         switch (type)
         {
