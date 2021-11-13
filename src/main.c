@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "modules/io/config_parser.h"
+#include "modules/io/loadfile_parser.h"
 #include "modules/core/globals.h"
 #include "gameInterface.h"
 
@@ -19,6 +20,7 @@ int mainMenu()
     title();
     printf("========MENU========\n");
     printf("1. New Game\n");
+    printf("2. Load Game\n");
     printf("0. Exit Game\n");
     printf("Masukkan pilihan: \n>>> ");
 
@@ -33,6 +35,9 @@ int mainMenu()
             char fileName[100];
             scanf("%s", &fileName);*/
         parseConfig("./src/config/dummyConfig.txt");
+        gameMenu();
+    } else if (option == '2'){
+        parseLoad("./src/config/dummySavefile.txt");
         gameMenu();
     }
 }
