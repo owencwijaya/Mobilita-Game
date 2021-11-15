@@ -50,6 +50,13 @@ void gameMenu()
             printf(" Headquarters.\n");
             resetColor();
         }
+        if (gameState.abs.TodoVIP){
+            printf("Ada pesanan ");
+            changeToOrangeColor();
+            printf("VIP");
+            resetColor();
+            printf(" yang harus didahulukan!");
+        }
         printf("\nENTER COMMAND: ");
         changeToGreenColor();
         readConsoleInput();
@@ -124,6 +131,10 @@ void gameMenu()
         }
         if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
         {
+            printf("Semua pesanan telah terantar!\n");
+            printf("Kembalilah ke ");
+            changeToOrangeColor();
+            printf("Headquarters.\n");
             Location hq = getLocationById(gameState.gameMap, 0);
             if (isLocationIdentical(hq, gameState.currentLocation))
             {
@@ -135,7 +146,10 @@ void gameMenu()
     if (win)
     {
         printf("\n\nSelamat! Kamu berhasil membantu Mobilita mengantarkan semua pesanan!");
+        changeToOrangeColor();
         printf("\nWaktu: %d - Uang: %d Yen\n", gameState.time, gameState.cash);
+        resetColor();
+        printf("Terima kasih telah membantu Mobita!\n");
     }
 }
 
