@@ -60,7 +60,7 @@ int mainMenu()
             resetColor();
             char *cfgpath = stringify(currentWord);
             parseLoad(cfgpath);
-            incrementTime(&gameState, gameState.time);
+            incrementTime(&gameState, 0);
             gameMenu();
             end = true;
         }
