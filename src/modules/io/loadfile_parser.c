@@ -323,9 +323,8 @@ void parseLoad(char *path)
     }
     displayGadget(tempGList);
     readNextWord();
-
     char *playerLocSymbol = stringify(currentWord);
-
+    readNextWord();
     int playerAbs = parseInt(stringify(currentWord));
     readNextWord();
     int playerOrd = parseInt(stringify(currentWord));
