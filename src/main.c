@@ -3,6 +3,8 @@
 #include "modules/io/loadfile_parser.h"
 #include "modules/core/globals.h"
 #include "gameInterface.h"
+#include "modules/colorizer/colorizer.h"
+#include "models/boolean.h"
 
 /* prototype fungsi */
 int mainMenu();
@@ -11,6 +13,12 @@ void title();
 /* Fungsi utama yang akan di-run */
 void main()
 {
+    /**
+     * Uncomment the line below to enable ANSI escape
+     * sequence rendering in windows console
+     * @see "./modules/colorizer/colorizer.c"
+     */
+    // enableAnsiRendering();
     mainMenu();
 }
 
@@ -18,27 +26,58 @@ void main()
 int mainMenu()
 {
     title();
-    printf("========MENU========\n");
-    printf("1. New Game\n");
-    printf("2. Load Game\n");
-    printf("0. Exit Game\n");
-    printf("Masukkan pilihan: \n>>> ");
 
-    int option;
-    // printf("bp1");
-    readConsoleInput();
-    option = currentChar;
-    adv();
-    if (option == '1')
+    boolean end = false;
+    while (!end)
     {
-        /* printf("\nMasukkan direktori file konfigurasi:\nmis. .//config/config.txt\n>>>  ");
-            char fileName[100];
-            scanf("%s", &fileName);*/
-        parseConfig("./src/config/dummyConfig.txt");
-        gameMenu();
-    } else if (option == '2'){
-        parseLoad("./src/config/dummySavefile.txt");
-        gameMenu();
+        printf("ENTER COMMAND: ");
+        changeToGreenColor();
+        readConsoleInput();
+        readLine();
+        resetColor();
+        char *cmd = stringify(currentWord);
+        if (isStringEquals(cmd, "NEW GAME"))
+        {
+            printf("Masukkan file konfigurasi\n");
+            printf(">>> ");
+            changeToGreenColor();
+            readConsoleInput();
+            readLine();
+            resetColor();
+            char *cfgpath = stringify(currentWord);
+            parseConfig(cfgpath);
+            gameMenu();
+            end = true;
+        }
+        else if (isStringEquals(cmd, "LOAD GAME"))
+        {
+            printf("Masukkan save file\n");
+            printf(">>> ");
+            changeToGreenColor();
+            readConsoleInput();
+            readLine();
+            resetColor();
+            char *cfgpath = stringify(currentWord);
+            parseConfig(cfgpath);
+            gameMenu();
+            end = true;
+        }
+        else if (isStringEquals(cmd, "EXIT"))
+        {
+            end = true;
+        }
+        else if (isStringEquals(cmd, "HELP"))
+        {
+            printf("NEW GAME -> Memulai permainan baru\n");
+            printf("LOAD GAME -> Memuat data yang tersimpan dalam save file\n");
+            printf("HELP -> Menampilkan pesan bantuan ini\n");
+            printf("EXIT -> Keluar game\n");
+        }
+        else
+        {
+            printf("Command tidak dikenali!\n");
+            printf("Ketik 'HELP' untuk melihat bantuan.\n");
+        }
     }
 }
 

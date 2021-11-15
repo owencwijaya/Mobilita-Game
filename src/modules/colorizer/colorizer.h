@@ -12,6 +12,8 @@
 #define GREEN_PREFIX "\x1b[38;5;40m"
 #define POSTFIX "\033[0m"
 
+void enableAnsiRendering();
+
 /**
  * @brief Mengubah warna console output
  *        menjadi merah.

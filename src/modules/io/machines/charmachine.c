@@ -43,10 +43,7 @@ void adv()
 
     /* Algoritma */
     retval = fscanf(tape, "%c", &currentChar);
-    int x = retval;
-    char c = currentChar;
     eot = isReadingConsole ? (currentChar == NEWLINE) : (retval == EOF);
-    boolean i = eot;
 }
 
 boolean isBlankCharacter(char c)
