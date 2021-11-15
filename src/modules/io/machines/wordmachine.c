@@ -7,7 +7,7 @@ Word currentWord;
 
 void ignoreWBlank()
 {
-    while (isBlankCharacter(currentChar))
+    while (isBlankCharacter(currentChar) && !eot)
     {
         adv();
     }
