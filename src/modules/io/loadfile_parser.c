@@ -82,196 +82,211 @@ void parseLoad(char *path){
     readNextWord();
     ItemList todoList = newItemList();
     itemCount = parseInt(stringify(currentWord));
-    for (int i = 0; i < itemCount; i++){
-        readNextWord();
-        orderTime = parseInt(stringify(currentWord));
-        readNextWord();
-        pickUpLocSymbol = stringify(currentWord)[0];
-        pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
-        readNextWord();
-        dropOffLocSymbol = stringify(currentWord)[0];
-        dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
-        readNextWord();
-        type = stringify(currentWord)[0];
-        switch (type)
-        {
-        case 'N':
-            itemType = NORMAL;
-            break;
-        case 'H':
-            itemType = HEAVY;
-            break;
-        case 'P':
-            itemType = PERISHABLE;
-            break;
-        case 'V':
-            itemType = VIP;
-            break;
-        }
+    printf("%d\n", itemCount);
 
-        if (itemType == PERISHABLE)
-        {
+        for (int i = 0; i < itemCount; i++){
             readNextWord();
-            perishTime = parseInt(stringify(currentWord));
+            orderTime = parseInt(stringify(currentWord));
             readNextWord();
-            perishTimeReference = parseInt(stringify(currentWord));
+            pickUpLocSymbol = stringify(currentWord)[0];
+            pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
+            readNextWord();
+            dropOffLocSymbol = stringify(currentWord)[0];
+            dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
+            readNextWord();
+            type = stringify(currentWord)[0];
+            switch (type)
+            {
+            case 'N':
+                itemType = NORMAL;
+                break;
+            case 'H':
+                itemType = HEAVY;
+                break;
+            case 'P':
+                itemType = PERISHABLE;
+                break;
+            case 'V':
+                itemType = VIP;
+                break;
+            }
+
+            if (itemType == PERISHABLE)
+            {
+                readNextWord();
+                perishTime = parseInt(stringify(currentWord));
+                readNextWord();
+                perishTimeReference = parseInt(stringify(currentWord));
+            }
+            else
+            {
+                perishTime = UNTIMED;
+                perishTimeReference = UNTIMED;
+            }
+            item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
+            insertItemLast(&todoList, item);
         }
-        else
-        {
-            perishTime = UNTIMED;
-            perishTimeReference = UNTIMED;
-        }
-        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
-        insertItemLast(&todoList, item);
-    }
+    
+    
 
     //inprogress
     readNextWord();
     ItemList inProgressList = newItemList();
     itemCount = parseInt(stringify(currentWord));
-    for (int i = 0; i < itemCount; i++){
-        readNextWord();
-        orderTime = parseInt(stringify(currentWord));
-        readNextWord();
-        pickUpLocSymbol = stringify(currentWord)[0];
-        pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
-        readNextWord();
-        dropOffLocSymbol = stringify(currentWord)[0];
-        dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
-        readNextWord();
-        type = stringify(currentWord)[0];
-        switch (type)
-        {
-        case 'N':
-            itemType = NORMAL;
-            break;
-        case 'H':
-            itemType = HEAVY;
-            break;
-        case 'P':
-            itemType = PERISHABLE;
-            break;
-        case 'V':
-            itemType = VIP;
-            break;
-        }
+    printf("%d\n", itemCount);
 
-        if (itemType == PERISHABLE)
-        {
+        for (int i = 0; i < itemCount; i++){
             readNextWord();
-            perishTime = parseInt(stringify(currentWord));
+            orderTime = parseInt(stringify(currentWord));
             readNextWord();
-            perishTimeReference = parseInt(stringify(currentWord));
+            pickUpLocSymbol = stringify(currentWord)[0];
+            pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
+            readNextWord();
+            dropOffLocSymbol = stringify(currentWord)[0];
+            dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
+            readNextWord();
+            type = stringify(currentWord)[0];
+            switch (type)
+            {
+            case 'N':
+                itemType = NORMAL;
+                break;
+            case 'H':
+                itemType = HEAVY;
+                break;
+            case 'P':
+                itemType = PERISHABLE;
+                break;
+            case 'V':
+                itemType = VIP;
+                break;
+            }
+
+            if (itemType == PERISHABLE)
+            {
+                readNextWord();
+                perishTime = parseInt(stringify(currentWord));
+                readNextWord();
+                perishTimeReference = parseInt(stringify(currentWord));
+            }
+            else
+            {
+                perishTime = UNTIMED;
+                perishTimeReference = UNTIMED;
+            }
+            item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
+            insertItemLast(&inProgressList, item);
         }
-        else
-        {
-            perishTime = UNTIMED;
-            perishTimeReference = UNTIMED;
-        }
-        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
-        insertItemLast(&inProgressList, item);
-    }
+    
+    
 
     //bag
     readNextWord();
     itemCount = parseInt(stringify(currentWord));
+    printf("%d\n", itemCount);
     ItemStack bag = newItemStack(itemCount);
-    for (int i = 0; i < itemCount; i++){
-        readNextWord();
-        orderTime = parseInt(stringify(currentWord));
-        readNextWord();
-        pickUpLocSymbol = stringify(currentWord)[0];
-        pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
-        readNextWord();
-        dropOffLocSymbol = stringify(currentWord)[0];
-        dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
-        readNextWord();
-        type = stringify(currentWord)[0];
-        switch (type)
-        {
-        case 'N':
-            itemType = NORMAL;
-            break;
-        case 'H':
-            itemType = HEAVY;
-            break;
-        case 'P':
-            itemType = PERISHABLE;
-            break;
-        case 'V':
-            itemType = VIP;
-            break;
+    ItemStack tempBag;
+        for (int i = 0; i < itemCount; i++){
+            readNextWord();
+            orderTime = parseInt(stringify(currentWord));
+            readNextWord();
+            pickUpLocSymbol = stringify(currentWord)[0];
+            pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
+            readNextWord();
+            dropOffLocSymbol = stringify(currentWord)[0];
+            dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
+            readNextWord();
+            type = stringify(currentWord)[0];
+            switch (type)
+            {
+            case 'N':
+                itemType = NORMAL;
+                break;
+            case 'H':
+                itemType = HEAVY;
+                break;
+            case 'P':
+                itemType = PERISHABLE;
+                break;
+            case 'V':
+                itemType = VIP;
+                break;
+            }
+
+            if (itemType == PERISHABLE)
+            {
+                readNextWord();
+                perishTime = parseInt(stringify(currentWord));
+                readNextWord();
+                perishTimeReference = parseInt(stringify(currentWord));
+            }
+            else
+            {
+                perishTime = UNTIMED;
+                perishTimeReference = UNTIMED;
+            }
+            item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
+            push(&bag, item);
         }
 
-        if (itemType == PERISHABLE)
-        {
-            readNextWord();
-            perishTime = parseInt(stringify(currentWord));
-            readNextWord();
-            perishTimeReference = parseInt(stringify(currentWord));
+        Item tempItem;
+        tempBag = newItemStack(capacity(bag));
+        while (!isStackEmpty(bag)){
+            pop(&bag, &tempItem);
+            push(&tempBag, tempItem);
         }
-        else
-        {
-            perishTime = UNTIMED;
-            perishTimeReference = UNTIMED;
-        }
-        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
-        push(&bag, item);
-    }
-
-    Item tempItem;
-    ItemStack tempBag = newItemStack(capacity(bag));
-    while (!isStackEmpty(bag)){
-        pop(&bag, &tempItem);
-        push(&tempBag, tempItem);
-    }
+    
 
     //order
     readNextWord();
     itemCount = parseInt(stringify(currentWord));
-    ItemQueue order = newItemQueue();
-    for (int i = 0; i < itemCount; i++){
-        readNextWord();
-        orderTime = parseInt(stringify(currentWord));
-        readNextWord();
-        pickUpLocSymbol = stringify(currentWord)[0];
-        pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
-        readNextWord();
-        dropOffLocSymbol = stringify(currentWord)[0];
-        dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
-        readNextWord();
-        type = stringify(currentWord)[0];
-        switch (type)
-        {
-        case 'N':
-            itemType = NORMAL;
-            break;
-        case 'H':
-            itemType = HEAVY;
-            break;
-        case 'P':
-            itemType = PERISHABLE;
-            break;
-        case 'V':
-            itemType = VIP;
-            break;
-        }
 
-        if (itemType == PERISHABLE)
-        {
+    ItemQueue order = newItemQueue();
+
+        for (int i = 0; i < itemCount; i++){
             readNextWord();
-            perishTime = parseInt(stringify(currentWord));
+            orderTime = parseInt(stringify(currentWord));
             readNextWord();
-            perishTimeReference = parseInt(stringify(currentWord));
-        }
-        else
-        {
-            perishTime = UNTIMED;
-            perishTimeReference = UNTIMED;
-        }
-        item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
-        enqueue(&order, item);
+            pickUpLocSymbol = stringify(currentWord)[0];
+            pickUpLocation = _getLocationBySymbol(lList, pickUpLocSymbol);
+            readNextWord();
+            dropOffLocSymbol = stringify(currentWord)[0];
+            dropOffLocation = _getLocationBySymbol(lList, dropOffLocSymbol);
+            readNextWord();
+            type = stringify(currentWord)[0];
+            switch (type)
+            {
+            case 'N':
+                itemType = NORMAL;
+                break;
+            case 'H':
+                itemType = HEAVY;
+                break;
+            case 'P':
+                itemType = PERISHABLE;
+                break;
+            case 'V':
+                itemType = VIP;
+                break;
+            }
+
+            if (itemType == PERISHABLE)
+            {
+                readNextWord();
+                perishTime = parseInt(stringify(currentWord));
+                readNextWord();
+                perishTimeReference = parseInt(stringify(currentWord));
+            }
+            else
+            {
+                perishTime = UNTIMED;
+                perishTimeReference = UNTIMED;
+            }
+            item = newItem(orderTime, pickUpLocation, dropOffLocation, itemType, perishTime, perishTimeReference);
+            enqueue(&order, item);
+        
     }
+    
     GameMap g = newGameMap(mapLength, mapWidth, adjMatrix, lList);
     gameState = newState(g, todoList, inProgressList, tempBag, order);
     readNextWord();
@@ -279,10 +294,13 @@ void parseLoad(char *path){
     readNextWord();
     gameState.cash = parseInt(stringify(currentWord));
     int gadgetID;
+
     GadgetList tempGList = newGadgetList();
     for (int i = 0; i < 5; i++){
         readNextWord();
+        printf("%c\n", stringify(currentWord));
         gadgetID = parseInt(stringify(currentWord));
+
         switch(gadgetID){
             case 0:
                 setGadget(&tempGList, i, KAIN_PEMBUNGKUS_WAKTU);
@@ -300,9 +318,11 @@ void parseLoad(char *path){
                 break;
         }
     }
+    displayGadget(tempGList);
     readNextWord();
+
     char *playerLocSymbol = stringify(currentWord);
-    readNextWord();
+
     int playerAbs = parseInt(stringify(currentWord));
     readNextWord();
     int playerOrd = parseInt(stringify(currentWord));
@@ -310,10 +330,11 @@ void parseLoad(char *path){
     setAsPlayerPlace(&gameState.gameMap._locationMatrix.contents[playerAbs][playerOrd]);
     gameState.currentLocation = gameState.gameMap._locationMatrix.contents[playerAbs][playerOrd];
     readNextWord();
+
     int sbFlag = parseInt(stringify(currentWord));
     if (sbFlag){
         gameState.abs.SpeedBoost = true;
-    }
+    } 
     readNextWord();
     int sbCount = parseInt(stringify(currentWord));
     gameState.abs.SpeedBoostCount = sbCount;
@@ -325,7 +346,7 @@ void parseLoad(char *path){
     int spOn = parseInt(stringify(currentWord));
     if (spOn){
         gameState.abs.IsSenterPengecilOn = true;
-    }
+    } 
 
     readNextWord();
     int pintu = parseInt(stringify(currentWord));
@@ -338,15 +359,29 @@ void parseLoad(char *path){
     if (heavyFlag){
         gameState.abs.IsHeavyItemOn = true;
     }
+
     readNextWord();
     int heavyStack = parseInt(stringify(currentWord));
-    gameState.abs.HeavyItemStack = heavyStack;
+    if (heavyFlag){
+        gameState.abs.HeavyItemStack = heavyStack;
+    }
+    
 
     readNextWord();
     int vipFlag = parseInt(stringify(currentWord));
     if (vipFlag){
         gameState.abs.IsVIPItemOn = true;
     }
+
+    readNextWord();
+    int vipStack = parseInt(stringify(currentWord));
+    if (vipFlag){
+        gameState.abs.VIPItemStack = vipStack;
+    }
+
+    readNextWord();
+    int todoVIP = parseInt(stringify(currentWord));
+    gameState.abs.TodoVIP = todoVIP;
 
     readNextWord();
     int returnFlag = parseInt(stringify(currentWord));

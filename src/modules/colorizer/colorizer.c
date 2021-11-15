@@ -13,7 +13,7 @@
  * @see https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
  */
 
-// #ifdef _WIN32
+// #ifndef _WIN32
 // #include <windows.h>
 
 // void enableAnsiRendering()
