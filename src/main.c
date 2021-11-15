@@ -9,7 +9,7 @@
 /* prototype fungsi */
 int mainMenu();
 void title();
-
+void option();
 /* Fungsi utama yang akan di-run */
 void main()
 {
@@ -18,7 +18,7 @@ void main()
      * sequence rendering in windows console
      * @see "./modules/colorizer/colorizer.c"
      */
-    // enableAnsiRendering();
+    //enableAnsiRendering();
     mainMenu();
 }
 
@@ -26,7 +26,7 @@ void main()
 int mainMenu()
 {
     title();
-
+    option();
     boolean end = false;
     while (!end)
     {
@@ -59,7 +59,8 @@ int mainMenu()
             readLine();
             resetColor();
             char *cfgpath = stringify(currentWord);
-            parseConfig(cfgpath);
+            parseLoad(cfgpath);
+            incrementTime(&gameState, gameState.time);
             gameMenu();
             end = true;
         }
@@ -88,4 +89,13 @@ void title()
     printf("|  `.'  |/  {}  \\| {}  }| || |   | |{_   _}/ {} \\ \n");
     printf("| |\\ /| |\\      /| {}  }| || `--.| |  | | /  /\\  \\ \n");
     printf("`-' ` `-' `----' `----' `-'`----'`-'  `-' `-'  `-'\n");
+}
+
+void option(){
+    printf("==============================================\n");
+    printf("Selamat datang di MOBILITA!\n\n");
+    printf("Ketikkan NEW GAME untuk memulai permainan baru!\n");
+    printf("Ketikkan LOAD GAME untuk membuka file penyimpanan!\n");
+    printf("Ketikkan EXIT untuk keluar dari game!\n");
+    printf("===============================================\n");
 }
