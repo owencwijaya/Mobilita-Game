@@ -46,9 +46,19 @@ typedef struct{
      * @brief Mengecek apakah Mobita mempunyai efek VIP item
      */
     boolean IsVIPItemOn;
+    /** 
+     * @brief Mengecek jumlah VIP item
+     */
+    int VIPItemStack;
+    /**
+     * @brief Mengecek jumlah vip item di todo
+     * 
+     */
+    int TodoVIP;
     /**
      * @brief Mengecek apakah Mobita mempunyai efek pintu kemana saja
      */
+    
     boolean PintuKemanaSaja;
     /**
      * @brief Mengecek apakah item bisa dikembalikan ke 

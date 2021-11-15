@@ -33,6 +33,8 @@ AbilityStruct newAbilityStruct()
     abs.IsHeavyItemOn = false;
     abs.HeavyItemStack = 0;
     abs.IsVIPItemOn = false;
+    abs.VIPItemStack = 0;
+    abs.TodoVIP = 0;
     abs.IsReturnOn = false;
     abs.ReturnStack = 0;
     return abs;
@@ -82,7 +84,9 @@ void incrementTime(State *state, int diffTime)
     {
         dequeue(&(state->order), &item);
         insertItemLast(&(state->todoList), item);
-
+        if (item.type == VIP){
+            state->abs.TodoVIP++;
+        }
         Location pickUp = _getLocationById(state->gameMap._locations, item.pickUpLocation.id);
         setAsPickUpPlace(&(state->gameMap._locationMatrix.contents[pickUp.coordinate.x][pickUp.coordinate.y]));
     }
