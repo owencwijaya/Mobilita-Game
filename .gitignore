@@ -5,6 +5,9 @@
 # Build scripts
 # **.ts
 
+# Configs
+*.txt
+
 # Distribution
 dist/**
 **.exe
