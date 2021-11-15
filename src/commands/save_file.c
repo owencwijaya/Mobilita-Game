@@ -81,7 +81,11 @@ void save_file(){
 
     //bag
     ItemStack tempBag = newItemStack(capacity(gameState.bag));
-    fprintf(file, "%d\n", capacity(gameState.bag));
+    int bagcap = 0;
+    if (!isStackEmpty(gameState.bag)){
+        bagcap = capacity(gameState.bag);
+    }
+    fprintf(file, "%d\n", bagcap);
     while (!isStackEmpty(gameState.bag)){
         pop(&gameState.bag, &item);
         if (item.type == NORMAL){
@@ -100,7 +104,6 @@ void save_file(){
         }
         push(&tempBag, item);
     }
-
     //balikin lagi isi bag
     while (!isStackEmpty(tempBag)){
         pop(&tempBag, &item);
@@ -109,7 +112,11 @@ void save_file(){
 
     //order
     ItemQueue tempOrder = newItemQueue();
-    fprintf(file, "%d\n", !isEmpty(gameState.order) ? gameState.order.tailIndex - gameState.order.headIndex + 1 : 0);
+    int qLength = 0;
+    if (!isEmpty(gameState.order)){
+        qLength = gameState.order.tailIndex - gameState.order.headIndex + 1;
+    } 
+    fprintf(file, "%d\n", qLength); 
     while (!isEmpty(gameState.order)){
         dequeue(&gameState.order, &item);
         if (item.type == NORMAL){
@@ -149,7 +156,7 @@ void save_file(){
     fprintf(file, "%d %d %d\n", gameState.abs.SpeedBoost, gameState.abs.SpeedBoostCount, gameState.abs.SpeedBoostStack);
     fprintf(file, "%d %d\n", gameState.abs.IsSenterPengecilOn, gameState.abs.PintuKemanaSaja);
     fprintf(file, "%d %d\n", gameState.abs.IsHeavyItemOn, gameState.abs.HeavyItemStack);
-    fprintf(file, "%d %d %d\n", gameState.abs.IsVIPItemOn, gameState.abs.IsReturnOn, gameState.abs.ReturnStack);
+    fprintf(file, "%d %d %d %d %d\n", gameState.abs.IsVIPItemOn, gameState.abs.VIPItemStack, gameState.abs.TodoVIP, gameState.abs.IsReturnOn, gameState.abs.ReturnStack);
     fclose(file);
     printf("File berhasil disimpan!");
 }

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "../modules/core/globals.h"
 #include "../models/macros.h"
-void unsetColors();
-void setColors();
+
+
 void drop_off()
 {
     if (isStackEmpty(gameState.bag) || !isLocationIdentical(gameState.currentLocation, top(gameState.bag).dropOffLocation))
@@ -17,6 +17,7 @@ void drop_off()
             }
             gameState.abs.IsSenterPengecilOn = false;
         }
+        
         Item dump;
         deleteItemLast(&gameState.inProgressList, &dump);
 
@@ -39,7 +40,9 @@ void drop_off()
             gameState.cash += 400;
             printf("Uang yang didapatkan: 400 Yen\n");
             gameState.abs.HeavyItemStack--;
-
+            if (gameState.abs.HeavyItemStack == 0){
+                gameState.abs.IsHeavyItemOn = false;
+            }
             // Jika tidak membawa HeavyItem lain, Speed Boost akan aktif
 
             printf("Speed Boost activated!\n");
@@ -61,8 +64,13 @@ void drop_off()
             gameState.cash += 600;
             printf("Uang yang didapatkan: 600 Yen\n");
             gameState.abs.IsReturnOn = true;
-            gameState.abs.IsVIPItemOn = false;
             gameState.abs.ReturnStack++;
+
+            gameState.abs.VIPItemStack--;
+            if (gameState.abs.VIPItemStack == 0){
+                gameState.abs.IsVIPItemOn = false;
+            }
+            
             printf("Efek 'Return to Sender' bertambah menjadi %d.", gameState.abs.ReturnStack);
         }
     }

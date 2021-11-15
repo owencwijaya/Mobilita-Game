@@ -41,9 +41,7 @@ void move()
         if ((ChoiceNumber <= length(adjlocation)) && (ChoiceNumber > 0))
         {
             gameState.currentLocation = lElem(adjlocation, (ChoiceNumber - 1));
-            if (gameState.abs.IsHeavyItemOn && gameState.abs.HeavyItemStack > 0){
-                time = 1 + gameState.abs.HeavyItemStack;
-            } else if (gameState.abs.PintuKemanaSaja){
+             if (gameState.abs.PintuKemanaSaja){
                 time = 0;
                 gameState.abs.PintuKemanaSaja = false;
             } else if (gameState.abs.SpeedBoost) {
@@ -58,6 +56,8 @@ void move()
                         gameState.abs.SpeedBoost = false;
                     }
                 } 
+            }else if (gameState.abs.IsHeavyItemOn && gameState.abs.HeavyItemStack > 0){
+                time = 1 + gameState.abs.HeavyItemStack;
             } else { 
                 time = 1;
             }

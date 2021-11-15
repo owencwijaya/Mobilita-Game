@@ -104,20 +104,42 @@ void pick_up()
         //Ada VIP Item di To Do list, sehingga Harus diutamakan terlebih dahulu.
         if (!isStackFull(gameState.bag))
         {
+            
             int idx = idxVIPItem(gameState.todoList, gameState.currentLocation);
-            if (idx != -1 || !gameState.abs.IsVIPItemOn)
+            if (idx != -1)
             {
+                if (!isStackEmpty(gameState.bag)){
+                    unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+                }
                 Item item = getItem(gameState.todoList, idx);
                 insertItemLast(&gameState.inProgressList, item);
                 push(&gameState.bag, getItem(gameState.todoList, idx));
+                gameState.abs.TodoVIP--;
                 printf("Pesanan berupa VIP Item berhasil diambil!\n");
                 printf("Tujuan Pesanan : %c\n\n", item.dropOffLocation.symbol);
                 gameState.abs.IsVIPItemOn = true;
+                gameState.abs.VIPItemStack++;
                 Location dropOffLocation = dropOffLoc(item);
                 Point coordinate = coord(dropOffLocation);
                 setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[x(coordinate)][y(coordinate)]);
                 Item temp;
                 deleteItemAt(&gameState.todoList, idx, &temp); //Menghapus VIP item dari ToDo List
+                 setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+                boolean similarLocation = false;
+                int i = 0;
+                while (i < itemListLength(gameState.todoList) && !similarLocation)
+                {
+                    if (isLocationIdentical(top(gameState.bag).pickUpLocation, getItem(gameState.todoList, i).pickUpLocation))
+                    {
+                        similarLocation = true;
+                    }
+                    i++;
+                }
+                //kalo gada lokasi yang sama lagi, unset as pickup, unset warna pickup
+                if (similarLocation == false)
+                {
+                    unsetAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).pickUpLocation.coordinate.x][top(gameState.bag).pickUpLocation.coordinate.y]);
+                }
             }
             else
             {
@@ -135,7 +157,11 @@ void pick_up()
         {
             int idx = idxItemInTodo(gameState.todoList);
             if (!isStackFull(gameState.bag))
-            {
+            {   
+                if (!isStackEmpty(gameState.bag)){
+                    unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+                }
+        
                 if (isNormalItem(getItem(gameState.todoList, idx)))
                 {
                     insertItemLast(&gameState.inProgressList, getItem(gameState.todoList, idx));
