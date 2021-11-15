@@ -91,7 +91,8 @@ void title()
     printf("`-' ` `-' `----' `----' `-'`----'`-'  `-' `-'  `-'\n");
 }
 
-void option(){
+void option()
+{
     printf("==============================================\n");
     printf("Selamat datang di MOBILITA!\n\n");
     printf("Ketikkan NEW GAME untuk memulai permainan baru!\n");

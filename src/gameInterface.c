@@ -10,10 +10,10 @@ void gameMenu()
 {
     boolean playing = true;
     boolean win = false;
+    printf("\n\n");
     while (playing)
     {
-
-        printf("\n\nLokasi Mobita: ");
+        printf("Lokasi Mobita: ");
         changeToOrangeColor();
         printf("%c ", symbol(gameState.currentLocation));
         displayPoint(coord(gameState.currentLocation));
@@ -50,7 +50,8 @@ void gameMenu()
             printf(" Headquarters.\n");
             resetColor();
         }
-        if (gameState.abs.TodoVIP){
+        if (gameState.abs.TodoVIP)
+        {
             printf("Ada pesanan ");
             changeToOrangeColor();
             printf("VIP");
@@ -124,6 +125,10 @@ void gameMenu()
             printf("EXIT selected.\n\n");
             playing = false;
         }
+        else if (isStringEquals(cmd, "CHEAT"))
+        {
+            gameState.cash += 100000;
+        }
         else
         {
             printf("Command tidak dikenali!\n");
@@ -134,7 +139,9 @@ void gameMenu()
             printf("Semua pesanan telah terantar!\n");
             printf("Kembalilah ke ");
             changeToOrangeColor();
-            printf("Headquarters.\n");
+            printf("Headquarters");
+            resetColor();
+            printf(".\n");
             Location hq = getLocationById(gameState.gameMap, 0);
             if (isLocationIdentical(hq, gameState.currentLocation))
             {

@@ -46,7 +46,7 @@ void buy()
                 if (gameState.cash >= 800)
                 {
                     gameState.cash -= 800;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), KAIN_PEMBUNGKUS_WAKTU);
+                    insertGadget(&gameState.inventory, KAIN_PEMBUNGKUS_WAKTU);
                     printf("Gadget 'Kain Pembungkus Waktu' berhasil dibeli!\n");
                 }
                 else
@@ -59,7 +59,7 @@ void buy()
                 if (gameState.cash >= 1200)
                 {
                     gameState.cash -= 1200;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), SENTER_PEMBESAR);
+                    insertGadget(&gameState.inventory, SENTER_PEMBESAR);
                     printf("Gadget 'Senter Pembesar' berhasil dibeli!\n");
                 }
                 else
@@ -72,7 +72,7 @@ void buy()
                 if (gameState.cash >= 1500)
                 {
                     gameState.cash -= 1500;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), PINTU_KEMANA_SAJA);
+                    insertGadget(&gameState.inventory, PINTU_KEMANA_SAJA);
                     printf("Gadget 'Pintu Kemana Saja' berhasil dibeli!\n");
                 }
                 else
@@ -85,7 +85,7 @@ void buy()
                 if (gameState.cash >= 3000)
                 {
                     gameState.cash -= 3000;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), MESIN_WAKTU);
+                    insertGadget(&gameState.inventory, MESIN_WAKTU);
                     printf("Gadget 'Mesin Waktu' berhasil dibeli!\n");
                 }
                 else
@@ -98,7 +98,7 @@ void buy()
                 if (gameState.cash >= 800)
                 {
                     gameState.cash -= 800;
-                    setGadget(&gameState.inventory, gListLength(gameState.inventory), SENTER_PENGECIL);
+                    insertGadget(&gameState.inventory, SENTER_PENGECIL);
                     printf("Gadget 'Senter Pengecil' berhasil dibeli!\n");
                 }
                 else
