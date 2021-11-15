@@ -9,30 +9,46 @@ void help();
 void gameMenu()
 {
     boolean playing = true;
+    boolean win = false;
     while (playing)
     {
 
         printf("\n\nLokasi Mobita: ");
-        changeToOrangeColor();printf("%c ", symbol(gameState.currentLocation));
-        displayPoint(coord(gameState.currentLocation));resetColor();
+        changeToOrangeColor();
+        printf("%c ", symbol(gameState.currentLocation));
+        displayPoint(coord(gameState.currentLocation));
+        resetColor();
         printf("\n");
         printf("Waktu: ");
-        changeToGreenColor();printf("%d\n", gameState.time);resetColor();
+        changeToGreenColor();
+        printf("%d\n", gameState.time);
+        resetColor();
         printf("Uang: ");
-        changeToGreenColor();printf("%d\n", gameState.cash);resetColor();
-        if (gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isPickUpPlace){
+        changeToGreenColor();
+        printf("%d\n", gameState.cash);
+        resetColor();
+        if (gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isPickUpPlace)
+        {
             printf("Ada pesanan yang dapat");
-            changeToRedColor();printf(" di-pickup ");resetColor();
+            changeToRedColor();
+            printf(" di-pickup ");
+            resetColor();
             printf("di sini!\n");
         }
-        if (gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isDropOffPlace){
+        if (gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isDropOffPlace)
+        {
             printf("Ada pesanan yang dapat");
-            changeToBlueColor();printf(" di-dropoff ");resetColor();
+            changeToBlueColor();
+            printf(" di-dropoff ");
+            resetColor();
             printf("di sini!\n");
         }
-        if (gameState.currentLocation.symbol == '8'){
+        if (gameState.currentLocation.symbol == '8')
+        {
             printf("Anda sedang berada di");
-            changeToOrangeColor();printf(" Headquarters.\n");resetColor();
+            changeToOrangeColor();
+            printf(" Headquarters.\n");
+            resetColor();
         }
         printf("\nENTER COMMAND: ");
         changeToGreenColor();
@@ -91,7 +107,8 @@ void gameMenu()
             printf("RETURN selected.\n\n");
             returnToSender();
         }
-        else if (isStringEquals(cmd, "SAVE")){
+        else if (isStringEquals(cmd, "SAVE"))
+        {
             printf("SAVE selected\n");
             save_file();
         }
@@ -107,14 +124,18 @@ void gameMenu()
         }
         if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
         {
-            playing = false;
+            Location hq = getLocationById(gameState.gameMap, 0);
+            if (isLocationIdentical(hq, gameState.currentLocation))
+            {
+                playing = false;
+                win = true;
+            }
         }
     }
-    if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList)))
+    if (win)
     {
         printf("\n\nSelamat! Kamu berhasil membantu Mobilita mengantarkan semua pesanan!");
         printf("\nWaktu: %d - Uang: %d Yen\n", gameState.time, gameState.cash);
-        printf("now go sleep idontknow");
     }
 }
 
