@@ -46,6 +46,7 @@ int mainMenu()
             resetColor();
             char *cfgpath = stringify(currentWord);
             parseConfig(cfgpath);
+            incrementTime(&gameState, 0);
             gameMenu();
             end = true;
         }
