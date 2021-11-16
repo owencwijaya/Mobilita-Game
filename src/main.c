@@ -18,7 +18,7 @@ void main()
      * sequence rendering in windows console
      * @see "./modules/colorizer/colorizer.c"
      */
-    //enableAnsiRendering();
+    enableAnsiRendering();
     mainMenu();
 }
 
@@ -36,7 +36,7 @@ int mainMenu()
         readLine();
         resetColor();
         char *cmd = stringify(currentWord);
-        if (isStringEquals(cmd, "NEW"))
+        if (isStringEquals(cmd, "NEW GAME"))
         {
             printf("Masukkan file konfigurasi (0 jika ingin kembali)\n");
             printf(">>> ");
@@ -52,7 +52,7 @@ int mainMenu()
                 end = true;
             }
         }
-        else if (isStringEquals(cmd, "LOAD"))
+        else if (isStringEquals(cmd, "LOAD GAME"))
         {
             printf("Masukkan save file (0 jika ingin kembali)\n");
             printf(">>> ");
@@ -101,8 +101,8 @@ void option()
     printf("==============================================\n");
     printf("Selamat datang di MOBILITA!\n\n");
     printf("Ketikkan:\n");
-    printf("1. NEW untuk memulai permainan baru!\n");
-    printf("2. LOAD untuk membuka file penyimpanan!\n");
+    printf("1. NEW GAME untuk memulai permainan baru!\n");
+    printf("2. LOAD GAME untuk membuka file penyimpanan!\n");
     printf("3. HELP untuk menampilkan menu bantuan\n");
     printf("4. EXIT untuk keluar dari game!\n");
     printf("===============================================\n");
