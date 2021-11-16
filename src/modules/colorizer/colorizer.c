@@ -13,28 +13,29 @@
  * @see https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
  */
 
-// #ifndef _WIN32
-// #include <windows.h>
+#ifdef _WIN32
+#include <windows.h>
 
-// void enableAnsiRendering()
-// {
-//     HANDLE outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-//     DWORD mode;
-//     GetConsoleMode(outputHandle, &mode);
-//     mode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-//     if (!SetConsoleMode(outputHandle, mode))
-//     {
-//         exit(1);
-//     }
-// }
+void enableAnsiRendering()
+{
+    HANDLE outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD mode;
+    GetConsoleMode(outputHandle, &mode);
+    mode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    if (!SetConsoleMode(outputHandle, mode))
+      {
+     exit(1);
+  }
+}
+ 
 
-// #else
+#else
 
-// void enableAnsiRendering()
-// {
-// }
+void enableAnsiRendering()
+{
+}
 
-// #endif
+#endif
 
 /**
  * @brief Mengubah warna console output
