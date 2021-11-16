@@ -180,10 +180,12 @@ void parseLoad(char *path)
 
     //bag
     readNextWord();
-    itemCount = parseInt(stringify(currentWord));
+    int bagCapacity = parseInt(stringify(currentWord));
 
-    ItemStack bag = newItemStack(itemCount);
+    ItemStack bag = newItemStack(bagCapacity);
     ItemStack tempBag;
+    readNextWord();
+    itemCount = parseInt(stringify(currentWord));
     for (int i = 0; i < itemCount; i++)
     {
         readNextWord();

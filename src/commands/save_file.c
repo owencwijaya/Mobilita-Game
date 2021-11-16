@@ -115,9 +115,9 @@ void save_file()
     int bagcap = 0;
     if (!isStackEmpty(gameState.bag))
     {
-        bagcap = capacity(gameState.bag);
+        bagcap = topIndex(gameState.bag) + 1;
     }
-    fprintf(file, "%d\n", bagcap);
+    fprintf(file, "%d %d\n", capacity(gameState.bag), bagcap);
     while (!isStackEmpty(gameState.bag))
     {
         pop(&gameState.bag, &item);
