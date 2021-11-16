@@ -83,7 +83,6 @@ void parseLoad(char *path)
     readNextWord();
     ItemList todoList = newItemList();
     itemCount = parseInt(stringify(currentWord));
-    printf("%d\n", itemCount);
 
     for (int i = 0; i < itemCount; i++)
     {
@@ -133,7 +132,7 @@ void parseLoad(char *path)
     readNextWord();
     ItemList inProgressList = newItemList();
     itemCount = parseInt(stringify(currentWord));
-    printf("%d\n", itemCount);
+
 
     for (int i = 0; i < itemCount; i++)
     {
@@ -182,7 +181,7 @@ void parseLoad(char *path)
     //bag
     readNextWord();
     itemCount = parseInt(stringify(currentWord));
-    printf("%d\n", itemCount);
+
     ItemStack bag = newItemStack(itemCount);
     ItemStack tempBag;
     for (int i = 0; i < itemCount; i++)
@@ -236,6 +235,7 @@ void parseLoad(char *path)
         pop(&bag, &tempItem);
         push(&tempBag, tempItem);
     }
+    
 
     //order
     readNextWord();
@@ -299,9 +299,7 @@ void parseLoad(char *path)
     for (int i = 0; i < 5; i++)
     {
         readNextWord();
-        printf("%s\n", stringify(currentWord));
         gadgetID = parseInt(stringify(currentWord));
-        printf("Gadget id : %d\n", gadgetID);
 
         switch (gadgetID)
         {
@@ -321,7 +319,7 @@ void parseLoad(char *path)
             break;
         }
     }
-    displayGadget(tempGList);
+
     readNextWord();
     char *playerLocSymbol = stringify(currentWord);
     readNextWord();
@@ -404,6 +402,13 @@ void parseLoad(char *path)
     {
         gameState.abs.ReturnStack = returnStack;
     }
+    printf("%d\n", gameState.abs.ReturnStack);
 
     printf("File save berhasil diload!\n");
+
+    setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+    for(int i = 0; i < itemListLength(gameState.todoList); i++){
+        Item temp = getItem(gameState.todoList, i);
+        setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
+    }
 }

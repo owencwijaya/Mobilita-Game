@@ -20,15 +20,16 @@ void returnToSender(){
                 if (gameState.abs.ReturnStack == 0){
                     gameState.abs.IsReturnOn = false;
                 }
+                setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
                 printf("Sisa penggunaan: %d kali\n", gameState.abs.ReturnStack);
             } else {
-                printf("Efek 'Return to Sender' tidak dapat digunakan pada item VIP!\n");
+                printf("Efek 'Return to Sender' tidak dapat digunakan pada item VIP!\n\n");
             }
         } else {
-            printf("Tidak ada item yang sedang diantarkan!");
+            printf("Tidak ada item yang sedang diantarkan!\n\n");
         }
     } else {
-        printf("Efek 'Return to Sender' sedang tidak aktif!\n");
+        printf("Efek 'Return to Sender' sedang tidak aktif!\n\n");
     }
 }
 

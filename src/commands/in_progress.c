@@ -5,6 +5,7 @@
 
 void in_progress(){
     ItemList loc = gameState.inProgressList;
+    printf("Kapasitas tas: %d\n", gameState.bag.capacity);
     if(loc == NULL){
         printf("Tidak ada item yang sedang diantarkan!\n");
     }else{
@@ -25,4 +26,5 @@ void in_progress(){
         }
         printf("\n");
     }
+    printf("\n");
 }

@@ -13,7 +13,7 @@ void gameMenu()
     printf("\n\n");
     while (playing)
     {
-        printf("Lokasi Mobita: ");
+        printf("\nLokasi Mobita: ");
         changeToOrangeColor();
         printf("%c ", symbol(gameState.currentLocation));
         displayPoint(coord(gameState.currentLocation));
@@ -132,7 +132,7 @@ void gameMenu()
         else
         {
             printf("Command tidak dikenali!\n");
-            printf("Ketik 'HELP' untuk bantuan.\n");
+            printf("Ketik 'HELP' untuk bantuan.\n\n");
         }
         if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
         {

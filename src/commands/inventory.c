@@ -57,6 +57,7 @@ void inventory()
                     setItem(&gameState.inProgressList, topIndex(gameState.bag), top(gameState.bag));
                 }
             printf("Gadget 'Kain Pembungkus Waktu' berhasil digunakan!\n");
+            printf("Waktu perishable dari item teratas di tas diubah menjadi default...\n");
             setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PEMBESAR))
@@ -65,7 +66,7 @@ void inventory()
             //Senter pembesar dapat digunakan untuk meningkatkan kapasitas tas
             //sebesar dua kali lipat, namun tidak melebihi batas maksimum kapasitas tas.
             doubleCapacity(&gameState.bag);
-            printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
+            printf("Gadget 'Senter Pembesar' berhasil digunakan!\n");
             printf("Kapasitas tas Mobita membesar menjadi dua kali lipat...\n");
             setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
         }
@@ -120,5 +121,6 @@ void inventory()
             printf("Tidak ada gadget yang dipilih.\n");
             printf("Mengembalikan ke main menu...\n\n");
         }
+        printf("\n");
     }
 }

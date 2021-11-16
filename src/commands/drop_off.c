@@ -71,7 +71,8 @@ void drop_off()
                 gameState.abs.IsVIPItemOn = false;
             }
             
-            printf("Efek 'Return to Sender' bertambah menjadi %d.", gameState.abs.ReturnStack);
+            printf("Efek 'Return to Sender' bertambah menjadi %d.\n", gameState.abs.ReturnStack);
         }
     }
+    printf("\n");
 }
