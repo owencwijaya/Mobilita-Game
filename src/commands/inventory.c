@@ -23,34 +23,6 @@ void inventory()
 
         if (isGadgetIdentical(tempGadget, KAIN_PEMBUNGKUS_WAKTU))
         {
-            //cari perishable item teratas, ini buat inprogress?
-            /*
-            ItemStack tempStack = newItemStack(capacity(gameState.bag));
-            // untuk penyimpanan sementara
-            Item temp;
-            int i = 0;
-            boolean found = false;
-            
-            while (!isStackEmpty(gameState.bag) && !found)
-            {
-                pop(&gameState.bag, &temp);
-                if (itemType(temp) == PERISHABLE)
-                {
-                    found = true;
-                    temp.perishTime = perishTimeReference(temp);
-                    setItem(&gameState.inProgressList, i, temp);
-                }
-                push(&tempStack, temp);
-                i++;
-            }
-
-            while (!isStackEmpty(tempStack))
-            {
-                pop(&tempStack, &temp);
-                push(&gameState.bag, temp);
-            }
-            */
-
            if (itemType(top(gameState.bag)) == PERISHABLE)
                 {
                     top(gameState.bag).perishTime = perishTimeReference(top(gameState.bag));
@@ -62,9 +34,6 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PEMBESAR))
         {
-            //algo buat senter pembesar
-            //Senter pembesar dapat digunakan untuk meningkatkan kapasitas tas
-            //sebesar dua kali lipat, namun tidak melebihi batas maksimum kapasitas tas.
             doubleCapacity(&gameState.bag);
             printf("Gadget 'Senter Pembesar' berhasil digunakan!\n");
             printf("Kapasitas tas Mobita membesar menjadi dua kali lipat...\n");
@@ -72,20 +41,13 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, PINTU_KEMANA_SAJA))
         {
-            //algo buat pintu kemana saja
-            //Pintu Kemana Saja dapat digunakan sekali untuk berpindah ke lokasi yang
-            //diinginkan tanpa menambahkan unit waktu.
             gameState.abs.PintuKemanaSaja = true;
             printf("Gadget 'Pintu Kemana Saja' berhasil digunakan!\n");
             printf("Gunakan perintah 'MOVE' untuk berpindah tanpa menambah waktu!\n");
             setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
-            //nanti pake fungsi move, tapi ga nambahin waktu
         }
         else if (isGadgetIdentical(tempGadget, MESIN_WAKTU))
         {
-            //algo buat mesin waktu
-            //Mesin waktu dapat digunakan untuk mengurangi waktu sebanyak 50 unit.
-            //(jika waktu kurang dari 50 unit, maka waktu menjadi 0 unit).
             if (gameState.time < 50)
             {
                 gameState.time = 0;
@@ -110,11 +72,6 @@ void inventory()
             printf("Beban dari satu heavy item berhasil dikurangi.\n");
             setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
             }
-            //algo buat senter pengecil
-            //Senter pengecil dapat digunakan untuk menghilangkan efek dari satu heavy
-            //item jika terdapat pada tumpukan teratas tas. Efek dari senter pengecil ini
-            //akan berlangsung sampai melakukan drop off / return pertama kali setelah
-            //penggunaan gadget ini.
         }
         else
         {

@@ -43,7 +43,6 @@ void drop_off()
             if (gameState.abs.HeavyItemStack == 0){
                 gameState.abs.IsHeavyItemOn = false;
             }
-            // Jika tidak membawa HeavyItem lain, Speed Boost akan aktif
 
             printf("Speed Boost activated!\n");
             gameState.abs.IsHeavyItemOn = false;
@@ -59,7 +58,7 @@ void drop_off()
             incrementCapacity(&gameState.bag);
         }
         else
-        { // Kalau gak jadi pake bonus VIP item, hapus aja ini (WIP)
+        { 
             printf("Pesanan VIP Item berhasil diantarkan!\n");
             gameState.cash += 600;
             printf("Uang yang didapatkan: 600 Yen\n");

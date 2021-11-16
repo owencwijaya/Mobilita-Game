@@ -216,5 +216,5 @@ void save_file()
     fprintf(file, "%d %d\n", gameState.abs.IsHeavyItemOn, gameState.abs.HeavyItemStack);
     fprintf(file, "%d %d %d %d %d\n", gameState.abs.IsVIPItemOn, gameState.abs.VIPItemStack, gameState.abs.TodoVIP, gameState.abs.IsReturnOn, gameState.abs.ReturnStack);
     fclose(file);
-    printf("File berhasil disimpan!");
+    printf("File berhasil disimpan!\n");
 }

@@ -27,7 +27,7 @@ void buy()
         printf("3. Pintu Kemana Saja (1500 Yen) \n");
         printf("4. Mesin Waktu (3000 Yen) \n");
         printf("5. Senter Pengecil (800 Yen) \n");
-        printf("Gadget mana yang ingin kau beli? \n");
+        printf("Gadget mana yang ingin dibeli? \n");
         printf("(Ketik 0 jika ingin kembali)\n\n");
 
         int option;

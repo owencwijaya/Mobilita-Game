@@ -36,33 +36,38 @@ int mainMenu()
         readLine();
         resetColor();
         char *cmd = stringify(currentWord);
-        if (isStringEquals(cmd, "NEW GAME"))
+        if (isStringEquals(cmd, "NEW"))
         {
-            printf("Masukkan file konfigurasi\n");
+            printf("Masukkan file konfigurasi (0 jika ingin kembali)\n");
             printf(">>> ");
             changeToGreenColor();
             readConsoleInput();
             readLine();
             resetColor();
             char *cfgpath = stringify(currentWord);
-            parseConfig(cfgpath);
-            incrementTime(&gameState, 0);
-            gameMenu();
-            end = true;
+            if (!isStringEquals(cfgpath, "0")){
+                parseConfig(cfgpath);
+                incrementTime(&gameState, 0);
+                gameMenu();
+                end = true;
+            }
         }
-        else if (isStringEquals(cmd, "LOAD GAME"))
+        else if (isStringEquals(cmd, "LOAD"))
         {
-            printf("Masukkan save file\n");
+            printf("Masukkan save file (0 jika ingin kembali)\n");
             printf(">>> ");
             changeToGreenColor();
             readConsoleInput();
             readLine();
             resetColor();
             char *cfgpath = stringify(currentWord);
-            parseLoad(cfgpath);
-            incrementTime(&gameState, 0);
-            gameMenu();
-            end = true;
+            if (!isStringEquals(cfgpath, "0")){
+                parseLoad(cfgpath);
+                incrementTime(&gameState, 0);
+                gameMenu();
+                end = true;
+            }
+            
         }
         else if (isStringEquals(cmd, "EXIT"))
         {
@@ -70,10 +75,10 @@ int mainMenu()
         }
         else if (isStringEquals(cmd, "HELP"))
         {
-            printf("NEW GAME -> Memulai permainan baru\n");
-            printf("LOAD GAME -> Memuat data yang tersimpan dalam save file\n");
-            printf("HELP -> Menampilkan pesan bantuan ini\n");
-            printf("EXIT -> Keluar game\n");
+            printf("1. NEW -> Memulai permainan baru\n");
+            printf("2. LOAD -> Memuat data yang tersimpan dalam save file\n");
+            printf("3. HELP -> Menampilkan pesan bantuan ini\n");
+            printf("4. EXIT -> Keluar game\n");
         }
         else
         {
@@ -95,8 +100,10 @@ void option()
 {
     printf("==============================================\n");
     printf("Selamat datang di MOBILITA!\n\n");
-    printf("Ketikkan NEW GAME untuk memulai permainan baru!\n");
-    printf("Ketikkan LOAD GAME untuk membuka file penyimpanan!\n");
-    printf("Ketikkan EXIT untuk keluar dari game!\n");
+    printf("Ketikkan:\n");
+    printf("1. NEW untuk memulai permainan baru!\n");
+    printf("2. LOAD untuk membuka file penyimpanan!\n");
+    printf("3. HELP untuk menampilkan menu bantuan\n");
+    printf("4. EXIT untuk keluar dari game!\n");
     printf("===============================================\n");
 }
