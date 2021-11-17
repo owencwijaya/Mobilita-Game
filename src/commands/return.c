@@ -9,19 +9,37 @@ void returnToSender(){
                 Item temp;
                 Item temp2;
                 pop(&gameState.bag, &temp);
-                deleteItemFirst(&gameState.inProgressList, &temp2);
+                deleteItemLast(&gameState.inProgressList, &temp2);
+                
+                unsetAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[temp.dropOffLocation.coordinate.x][temp.dropOffLocation.coordinate.y]);
+                if (!isStackEmpty(gameState.bag)){
+                    setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+                }
+                
                 if (temp.type == PERISHABLE){
                     temp.perishTime = temp.perishTimeReference;
                 }
-
+                if (temp.type == HEAVY && gameState.abs.IsSenterPengecilOn){
+                    gameState.abs.IsSenterPengecilOn = false;
+                } else {
+                    gameState.abs.HeavyItemStack--;
+                }
             
                 insertItemLast(&gameState.todoList, temp);
                 printf("Efek 'Return to Sender' digunakan!\n");
-                printf("Item teratas pada bag telah dikembalikan ke pengirim\n");
+                printf("Item teratas pada bag telah dikembalikan ke pengirim!\n");
+                if (isNormalItem(temp)){
+                    printf("(Normal Item (%c -> %c))\n\n", temp.pickUpLocation.symbol, temp.dropOffLocation.symbol);
+                } else if (isHeavyItem(temp)){
+                    printf("(Heavy Item (%c -> %c))\n\n", temp.pickUpLocation.symbol, temp.dropOffLocation.symbol);
+                } else if (isPerishableItem(temp)){
+                    printf("(Perishable Item (%c -> %c))\n\n", temp.pickUpLocation.symbol, temp.dropOffLocation.symbol);
+                }
                 gameState.abs.ReturnStack--;
                 if (gameState.abs.ReturnStack == 0){
                     gameState.abs.IsReturnOn = false;
                 }
+                
                 setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
                 printf("Sisa penggunaan: %d kali\n", gameState.abs.ReturnStack);
                 } else {

@@ -7,16 +7,11 @@ void drop_off()
 {
     if (isStackEmpty(gameState.bag) || !isLocationIdentical(gameState.currentLocation, top(gameState.bag).dropOffLocation))
     {
-        printf("Tidak dapat pesanan yang dapat diantarkan!\n");
+        printf("Tidak ada pesanan yang dapat diantarkan!\n");
     }
     else
     {
-        if (gameState.abs.IsSenterPengecilOn){
-            if (gameState.abs.IsHeavyItemOn){
-                gameState.abs.HeavyItemStack++;
-            }
-            gameState.abs.IsSenterPengecilOn = false;
-        }
+        
         
         Item dump;
         deleteItemLast(&gameState.inProgressList, &dump);
@@ -39,7 +34,12 @@ void drop_off()
             printf("Pesanan Heavy Item berhasil diantarkan!\n");
             gameState.cash += 400;
             printf("Uang yang didapatkan: 400 Yen\n");
-            gameState.abs.HeavyItemStack--;
+            if (gameState.abs.IsSenterPengecilOn){
+                gameState.abs.IsSenterPengecilOn = false;
+            } else {
+                gameState.abs.HeavyItemStack--;
+            }
+            
             if (gameState.abs.HeavyItemStack == 0){
                 gameState.abs.IsHeavyItemOn = false;
             }

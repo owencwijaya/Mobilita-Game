@@ -12,7 +12,7 @@ void buy()
     }
     else if (isGadgetListFull(gameState.inventory))
     {
-        printf("Inventory penuh!");
+        printf("Inventory penuh!\n");
     }
     else if (symbol(gameState.currentLocation) != '8')
     {

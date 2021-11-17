@@ -19,6 +19,7 @@ void parseLoad(char *path)
     // * Set map size
     int mapLength, mapWidth;
     readWord();
+    readNextWord();
     mapLength = parseInt(stringify(currentWord));
     readNextWord();
     mapWidth = parseInt(stringify(currentWord));
@@ -302,25 +303,22 @@ void parseLoad(char *path)
     {
         readNextWord();
         gadgetID = parseInt(stringify(currentWord));
-
-        switch (gadgetID)
-        {
-        case 0:
-            setGadget(&tempGList, i, KAIN_PEMBUNGKUS_WAKTU);
-        case 1:
-            setGadget(&tempGList, i, SENTER_PEMBESAR);
-        case 2:
-            setGadget(&tempGList, i, PINTU_KEMANA_SAJA);
-        case 3:
-            setGadget(&tempGList, i, MESIN_WAKTU);
-        case 4:
-            setGadget(&tempGList, i, SENTER_PENGECIL);
-        case -1:
-            setGadget(&tempGList, i, NULL_GADGET);
-        default:
-            break;
+        if (gadgetID == 0){
+            insertGadget(&tempGList, KAIN_PEMBUNGKUS_WAKTU);
+        } else if (gadgetID == 1){
+            insertGadget(&tempGList, SENTER_PEMBESAR);
+        } else if (gadgetID == 2){
+            insertGadget(&tempGList, PINTU_KEMANA_SAJA);
+        } else if (gadgetID == 3){
+            insertGadget(&tempGList, MESIN_WAKTU);
+        } else if (gadgetID == 4){
+            insertGadget(&tempGList, SENTER_PENGECIL);
+        } else if (gadgetID == -1){
+            insertGadget(&tempGList, SENTER_PENGECIL);
         }
     }
+
+    gameState.inventory = tempGList;
 
     readNextWord();
     char *playerLocSymbol = stringify(currentWord);
@@ -404,7 +402,6 @@ void parseLoad(char *path)
     {
         gameState.abs.ReturnStack = returnStack;
     }
-    printf("%d\n", gameState.abs.ReturnStack);
 
     printf("File save berhasil diload!\n");
 

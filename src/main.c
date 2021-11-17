@@ -46,10 +46,22 @@ int mainMenu()
             resetColor();
             char *cfgpath = stringify(currentWord);
             if (!isStringEquals(cfgpath, "0")){
-                parseConfig(cfgpath);
-                incrementTime(&gameState, 0);
-                gameMenu();
-                end = true;
+                FILE *file;
+                if ((file = fopen(cfgpath, "r"))){
+                    fclose(file);
+                    readFile(cfgpath);
+                    readWord();
+                    if (!isStringEquals(stringify(currentWord), "SAVE")){
+                        parseConfig(cfgpath);
+                        incrementTime(&gameState, 0);
+                        gameMenu();
+                        end = true;
+                    } else {
+                        printf("File config invalid! (File yang dimasukkan adalah file SAVE)\n");
+                    }                    
+                } else {
+                    printf("Nama / direktori file tidak sesuai!\n");
+                }
             }
         }
         else if (isStringEquals(cmd, "LOAD GAME"))
@@ -62,12 +74,23 @@ int mainMenu()
             resetColor();
             char *cfgpath = stringify(currentWord);
             if (!isStringEquals(cfgpath, "0")){
-                parseLoad(cfgpath);
-                incrementTime(&gameState, 0);
-                gameMenu();
-                end = true;
+                FILE *file;
+                if ((file = fopen(cfgpath, "r"))){
+                    fclose(file);
+                    readFile(cfgpath);
+                    readWord();
+                    if (isStringEquals(stringify(currentWord), "SAVE")){
+                        parseLoad(cfgpath);
+                        incrementTime(&gameState, 0);
+                        gameMenu();
+                        end = true;
+                    } else {
+                        printf("File save invalid! (File yang dimasukkan bukan file save)\n");
+                    }                    
+                } else {
+                    printf("Nama / direktori file tidak sesuai!\n");
+                }
             }
-            
         }
         else if (isStringEquals(cmd, "EXIT"))
         {

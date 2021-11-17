@@ -4,8 +4,8 @@
 #include "../models/macros.h"
 void save_file()
 {
-    printf("Masukkan nama file untuk di-save: \n");
-    printf("(pastikan file berakhiran .txt) >>> ");
+    printf("Masukkan nama file / direktori untuk di-save: \n");
+    printf("(pastikan file berakhiran .txt)\n >>> ");
     readConsoleInput();
     readWord();
     char *saveName = stringify(currentWord);
@@ -13,6 +13,7 @@ void save_file()
     FILE *file = NULL;
     file = fopen(saveName, "w");
     //ukuran map
+    fprintf(file, "SAVE\n");
     fprintf(file, "%d ", gameState.gameMap.hSize);
     fprintf(file, "%d\n", gameState.gameMap.vSize);
 
@@ -214,7 +215,7 @@ void save_file()
     fprintf(file, "%d %d %d\n", gameState.abs.SpeedBoost, gameState.abs.SpeedBoostCount, gameState.abs.SpeedBoostStack);
     fprintf(file, "%d %d\n", gameState.abs.IsSenterPengecilOn, gameState.abs.PintuKemanaSaja);
     fprintf(file, "%d %d\n", gameState.abs.IsHeavyItemOn, gameState.abs.HeavyItemStack);
-    fprintf(file, "%d %d %d %d %d\n", gameState.abs.IsVIPItemOn, gameState.abs.VIPItemStack, gameState.abs.TodoVIP, gameState.abs.IsReturnOn, gameState.abs.ReturnStack);
+    fprintf(file, "%d %d %d %d %d", gameState.abs.IsVIPItemOn, gameState.abs.VIPItemStack, gameState.abs.TodoVIP, gameState.abs.IsReturnOn, gameState.abs.ReturnStack);
     fclose(file);
     printf("File berhasil disimpan!\n");
 }

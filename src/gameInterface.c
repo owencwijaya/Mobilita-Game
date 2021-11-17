@@ -8,7 +8,12 @@ void help();
 
 void gameMenu()
 {
-    printf("\nKetikkan perintah HELP untuk melihat daftar perintah!");
+    LocationList adjlocation = getAdjacentLocations(locList(gameState.gameMap), gameState.currentLocation, adjMatrix(gameState.gameMap));
+    for (int i = 0; i < length(adjlocation); i++)
+    {
+        setAsReachable(&gameState.gameMap._locationMatrix.contents[adjlocation.buffer[i].coordinate.x][adjlocation.buffer[i].coordinate.y]);
+    }
+    printf("Ketikkan perintah HELP untuk melihat daftar perintah!");
     boolean playing = true;
     boolean win = false;
     printf("\n\n");
@@ -183,7 +188,7 @@ void help()
     printf("7. BUY -> Untuk membeli item (hanya bisa dipanggil di HQ)\n");
     printf("8. INVENTORY -> Untuk melihat isi inventory\n");
     printf("9. HELP -> Untuk menampilkan bantuan\n"); 
-    printf("10. SAVE -> Untuk menyimpan file permainan");
+    printf("10. SAVE -> Untuk menyimpan file permainan\n");
     printf("11. RETURN -> Untuk mengembalikan item ke to-do list (hanya saat efek aktif)\n");
     printf("12. EXIT -> Untuk keluar dari game\n");
 }

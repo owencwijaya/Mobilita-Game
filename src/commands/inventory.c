@@ -62,21 +62,26 @@ void inventory()
         }
         else if (isGadgetIdentical(tempGadget, SENTER_PENGECIL))
         {
-            if (top(gameState.bag).type == HEAVY){
+            if (gameState.abs.IsSenterPengecilOn == false){
+                if (top(gameState.bag).type == HEAVY){
                 gameState.abs.HeavyItemStack -= 1;
                 if (gameState.abs.HeavyItemStack == 0){
                     gameState.abs.IsHeavyItemOn = false;
                 }
-            gameState.abs.IsSenterPengecilOn = true;
-            printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
-            printf("Beban dari satu heavy item berhasil dikurangi.\n");
-            setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+                gameState.abs.IsSenterPengecilOn = true;
+                printf("Gadget 'Senter Pengecil' berhasil digunakan!\n");
+                printf("Beban dari satu heavy item berhasil dikurangi.\n");
+                setGadget(&gameState.inventory, (int)(option - '0') - 1, NULL_GADGET);
+                }
+            } else {
+                printf("Gadget 'Senter Pengecil' sedang digunakan!");
             }
+            
         }
         else
         {
             printf("Tidak ada gadget yang dipilih.\n");
-            printf("Mengembalikan ke main menu...\n\n");
+            printf("Mengembalikan ke main menu...\n");
         }
         printf("\n");
     }
