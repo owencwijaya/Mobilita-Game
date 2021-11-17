@@ -4,7 +4,7 @@
 #ifndef CHAR_ENGINE_H
 #define CHAR_ENGINE_H
 
-#include "../../../models/boolean.h"
+#include "../../models/shared/boolean.h"
 
 #define WHITESPACE ' '
 #define NEWLINE '\n'

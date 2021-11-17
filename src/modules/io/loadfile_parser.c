@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "../../models/location.h"
-#include "../../models/location_list.h"
-#include "../../models/point.h"
-#include "../../models/boolean_matrix.h"
-#include "../../models/item_queue.h"
-#include "../../models/item.h"
-#include "../../models/game_map.h"
-#include "../../models/macros.h"
+#include "../models/map/location/location.h"
+#include "../models/map/location/location_list.h"
+#include "../models/map/location/point.h"
+#include "../models/map/boolean_matrix.h"
+#include "../models/item/item_queue.h"
+#include "../models/item/item.h"
+#include "../models/map/game_map.h"
+#include "../models/shared/macros.h"
 #include "../core/globals.h"
 #include "./machines/wordmachine.h"
 #include "word_utils.h"
@@ -134,7 +134,6 @@ void parseLoad(char *path)
     ItemList inProgressList = newItemList();
     itemCount = parseInt(stringify(currentWord));
 
-
     for (int i = 0; i < itemCount; i++)
     {
         readNextWord();
@@ -238,7 +237,6 @@ void parseLoad(char *path)
         pop(&bag, &tempItem);
         push(&tempBag, tempItem);
     }
-    
 
     //order
     readNextWord();
@@ -303,17 +301,28 @@ void parseLoad(char *path)
     {
         readNextWord();
         gadgetID = parseInt(stringify(currentWord));
-        if (gadgetID == 0){
+        if (gadgetID == 0)
+        {
             insertGadget(&tempGList, KAIN_PEMBUNGKUS_WAKTU);
-        } else if (gadgetID == 1){
+        }
+        else if (gadgetID == 1)
+        {
             insertGadget(&tempGList, SENTER_PEMBESAR);
-        } else if (gadgetID == 2){
+        }
+        else if (gadgetID == 2)
+        {
             insertGadget(&tempGList, PINTU_KEMANA_SAJA);
-        } else if (gadgetID == 3){
+        }
+        else if (gadgetID == 3)
+        {
             insertGadget(&tempGList, MESIN_WAKTU);
-        } else if (gadgetID == 4){
+        }
+        else if (gadgetID == 4)
+        {
             insertGadget(&tempGList, SENTER_PENGECIL);
-        } else if (gadgetID == -1){
+        }
+        else if (gadgetID == -1)
+        {
             insertGadget(&tempGList, SENTER_PENGECIL);
         }
     }
@@ -406,7 +415,8 @@ void parseLoad(char *path)
     printf("File save berhasil diload!\n");
 
     setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
-    for(int i = 0; i < itemListLength(gameState.todoList); i++){
+    for (int i = 0; i < itemListLength(gameState.todoList); i++)
+    {
         Item temp = getItem(gameState.todoList, i);
         setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
     }

@@ -4,7 +4,7 @@
 #ifndef WORD_ENGINE_H
 #define WORD_ENGINE_H
 
-#include "../../../models/boolean.h"
+#include "../../models/shared/boolean.h"
 #include "charmachine.h"
 
 #define CAPACITY 50

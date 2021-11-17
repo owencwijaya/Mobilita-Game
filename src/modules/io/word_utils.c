@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "./machines/charmachine.h"
 #include "./machines/wordmachine.h"
-#include "../../models/boolean.h"
+#include "../models/shared/boolean.h"
 #include "word_utils.h"
 
 char *stringify(Word w)

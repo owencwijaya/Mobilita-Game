@@ -2,9 +2,9 @@
 #include "modules/io/config_parser.h"
 #include "modules/io/loadfile_parser.h"
 #include "modules/core/globals.h"
-#include "gameInterface.h"
 #include "modules/colorizer/colorizer.h"
-#include "models/boolean.h"
+#include "modules/models/shared/boolean.h"
+#include "modules/core/gameInterface.h"
 
 /* prototype fungsi */
 int mainMenu();
@@ -45,21 +45,28 @@ int mainMenu()
             readLine();
             resetColor();
             char *cfgpath = stringify(currentWord);
-            if (!isStringEquals(cfgpath, "0")){
+            if (!isStringEquals(cfgpath, "0"))
+            {
                 FILE *file;
-                if ((file = fopen(cfgpath, "r"))){
+                if ((file = fopen(cfgpath, "r")))
+                {
                     fclose(file);
                     readFile(cfgpath);
                     readWord();
-                    if (!isStringEquals(stringify(currentWord), "SAVE")){
+                    if (!isStringEquals(stringify(currentWord), "SAVE"))
+                    {
                         parseConfig(cfgpath);
                         incrementTime(&gameState, 0);
                         gameMenu();
                         end = true;
-                    } else {
+                    }
+                    else
+                    {
                         printf("File config invalid! (File yang dimasukkan adalah file SAVE)\n");
-                    }                    
-                } else {
+                    }
+                }
+                else
+                {
                     printf("Nama / direktori file tidak sesuai!\n");
                 }
             }
@@ -73,21 +80,28 @@ int mainMenu()
             readLine();
             resetColor();
             char *cfgpath = stringify(currentWord);
-            if (!isStringEquals(cfgpath, "0")){
+            if (!isStringEquals(cfgpath, "0"))
+            {
                 FILE *file;
-                if ((file = fopen(cfgpath, "r"))){
+                if ((file = fopen(cfgpath, "r")))
+                {
                     fclose(file);
                     readFile(cfgpath);
                     readWord();
-                    if (isStringEquals(stringify(currentWord), "SAVE")){
+                    if (isStringEquals(stringify(currentWord), "SAVE"))
+                    {
                         parseLoad(cfgpath);
                         incrementTime(&gameState, 0);
                         gameMenu();
                         end = true;
-                    } else {
+                    }
+                    else
+                    {
                         printf("File save invalid! (File yang dimasukkan bukan file save)\n");
-                    }                    
-                } else {
+                    }
+                }
+                else
+                {
                     printf("Nama / direktori file tidak sesuai!\n");
                 }
             }
