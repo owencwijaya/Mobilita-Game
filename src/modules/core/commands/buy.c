@@ -5,7 +5,6 @@
 
 void buy()
 {
-    gameState.cash = 3000;
     if (gameState.cash == 0)
     {
         printf("Anda tidak mempunyai uang!\n");
