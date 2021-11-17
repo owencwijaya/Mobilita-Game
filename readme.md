@@ -30,6 +30,7 @@ Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompila
 
 Isi dari file:
 * `build`: folder konfigurasi kompilasi
+* `docs`: folder dokumen
 * `dist`: folder untuk _executable_ (akan muncul setelah kompilasi)
 * `src`: folder berisi _source code_
   * `commands`: folder berisi algoritma-algoritma untuk perintah pada permainan
