@@ -34,12 +34,19 @@ Isi dari file:
 * `src`: folder berisi _source code_
   * `commands`: folder berisi algoritma-algoritma untuk perintah pada permainan
   * `config`: folder berisi file konfigurasi permainan (sampel dari spesifikasi)
-  * `models`: folder berisi ADT yang digunakan beserta _driver code_
-    * `colorizer`: module pewarnaan
-    * `core`: module berisi file _global state_
-    * `io`: module berisi loadfile/config parser dan mesin kata (I/O)
   * `modules`: folder berisi modul-modul penting di permainan
-  * `gameInterface.c`: file menu utama untuk bermain
+    * `colorizer`: module pewarnaan
+    * `core`: module inti dari keseluruhan program permainan
+      * `commands`: submodule yang menangani alur permainan
+    * `io`: module berisi loadfile/config parser dan mesin kata (I/O)
+      * `machines`: submodule yang menangani masukan pengguna
+    * `models`: module ADT yang digunakan beserta _driver code_
+      * `inventory`: koleksi tipe data inventory permainan
+      * `item`: koleksi tipe data item dan pesanan dalam permainan
+      * `map`: koleksi tipe data map permainan
+        * `location`: koleksi tipe data lokasi (gedung) dalam permainan
+      * `shared`: koleksi tipe data yang digunakan tipe data lain
+      * `state`: tipe data state permainan
   * `main.c`: file utama permainan
   
 ## Cara Kompilasi
