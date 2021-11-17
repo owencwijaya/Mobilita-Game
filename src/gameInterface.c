@@ -4,7 +4,10 @@
 #include "commands/commands.h"
 #include "modules/io/word_utils.h"
 #include "modules/colorizer/colorizer.h"
+
 void help();
+void stats();
+int mainMenu();
 
 void gameMenu()
 {
@@ -31,7 +34,7 @@ void gameMenu()
         resetColor();
         printf("Uang: ");
         changeToGreenColor();
-        printf("%d\n", gameState.cash);
+        printf("%d Yen\n", gameState.cash);
         resetColor();
         if (gameState.gameMap._locationMatrix.contents[gameState.currentLocation.coordinate.x][gameState.currentLocation.coordinate.y].isPickUpPlace)
         {
@@ -66,7 +69,7 @@ void gameMenu()
             printf(" Headquarters.\n");
             resetColor();
         }
-
+        printf("Banyak pesanan tersisa: %d\n", itemListLength(gameState.todoList));
         printf("\nENTER COMMAND: ");
         changeToGreenColor();
         readConsoleInput();
@@ -74,84 +77,96 @@ void gameMenu()
 
         char *cmd = stringify(currentWord);
         resetColor();
-        if (isStringEquals(cmd, "MOVE") || isStringEquals(cmd, "move"))
+        if (isStringEquals(cmd, "MOVE"))
         {
             printf("MOVE selected.\n\n");
             move(gameState);
         }
-        else if (isStringEquals(cmd, "PICK_UP") || isStringEquals(cmd, "pick_up"))
+        else if (isStringEquals(cmd, "PICK_UP"))
         {
             printf("PICK_UP selected.\n\n");
             pick_up();
         }
-        else if (isStringEquals(cmd, "DROP_OFF") || isStringEquals(cmd, "drop_off"))
+        else if (isStringEquals(cmd, "DROP_OFF"))
         {
             printf("DROP_OFF selected.\n\n");
             drop_off();
         }
-        else if (isStringEquals(cmd, "MAP") || isStringEquals(cmd, "map"))
+        else if (isStringEquals(cmd, "MAP"))
         {
             printf("MAP selected.\n\n");
             displayGameMap(gameState.gameMap);
         }
-        else if (isStringEquals(cmd, "TO_DO") || isStringEquals(cmd, "to_do"))
+        else if (isStringEquals(cmd, "TO_DO"))
         {
             printf("TO_DO selected.\n\n");
             to_do();
         }
-        else if (isStringEquals(cmd, "IN_PROGRESS") || isStringEquals(cmd, "in_progress"))
+        else if (isStringEquals(cmd, "IN_PROGRESS"))
         {
             printf("IN_PROGRESS selected.\n\n");
             in_progress();
         }
-        else if (isStringEquals(cmd, "BUY") || isStringEquals(cmd, "buy"))
+        else if (isStringEquals(cmd, "BUY"))
         {
             printf("BUY selected.\n\n");
             buy();
         }
-        else if (isStringEquals(cmd, "INVENTORY") || isStringEquals(cmd, "inventory"))
+        else if (isStringEquals(cmd, "INVENTORY"))
         {
             printf("INVENTORY selected.\n\n");
             inventory();
         }
-        else if (isStringEquals(cmd, "HELP") || isStringEquals(cmd, "help"))
+        else if (isStringEquals(cmd, "HELP"))
         {
             printf("HELP selected.\n\n");
             help();
         }
-        else if (isStringEquals(cmd, "RETURN") || isStringEquals(cmd, "return"))
+        else if (isStringEquals(cmd, "RETURN"))
         {
             printf("RETURN selected.\n\n");
             returnToSender();
         }
-        else if (isStringEquals(cmd, "SAVE") || isStringEquals(cmd, "save"))
+        else if (isStringEquals(cmd, "SAVE"))
         {
-            printf("SAVE selected\n");
+            printf("SAVE selected.\n\n");
             save_file();
         }
-        else if (isStringEquals(cmd, "EXIT") || isStringEquals(cmd, "exit"))
+        else if (isStringEquals(cmd, "STATS")){
+            printf("STATS selected.\n\n");
+            stats();
+        } 
+        else if (isStringEquals(cmd, "MENU")){
+            printf("Apakah Anda ingin menyimpan save file? (Y/N)\n");
+            readConsoleInput();
+            readWord();
+            char *option = stringify(currentWord);
+            if (isStringEquals(option, "Y")){
+                save_file();
+            } else {
+                printf("MENU selected.\n\n");
+                mainMenu();
+            }
+        }
+        else if (isStringEquals(cmd, "EXIT"))
         {
             printf("Apakah Anda ingin menyimpan save file? (Y/N)\n");
             readConsoleInput();
             readWord();
             char *option = stringify(currentWord);
-            if (isStringEquals(option, "Y") || isStringEquals(option, "y")){
+            if (isStringEquals(option, "Y")){
                 save_file();
             } else {
                 printf("EXIT selected.\n\n");
                 playing = false;
             }
         }
-        else if (isStringEquals(cmd, "CHEAT"))
-        {
-            gameState.cash += 100000;
-        }
         else
         {
             printf("Command tidak dikenali!\n");
             printf("Ketik 'HELP' untuk bantuan.\n\n");
         }
-        if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0))
+        if ((isItemListEmpty(gameState.todoList) && isItemListEmpty(gameState.inProgressList) && gameState.time > 0 && isEmpty(gameState.order)))
         {
             printf("Semua pesanan telah terantar!\n");
             printf("Kembalilah ke ");
@@ -173,7 +188,9 @@ void gameMenu()
         changeToOrangeColor();
         printf("\nWaktu: %d - Uang: %d Yen\n", gameState.time, gameState.cash);
         resetColor();
-        printf("Terima kasih telah membantu Mobita!\n");
+        printf("Terima kasih telah membantu Mobita!\n\n");
+        printf("Ketik tombol apapun untuk menutup program...");
+        readConsoleInput();
     }
 }
 
@@ -189,6 +206,23 @@ void help()
     printf("8. INVENTORY -> Untuk melihat isi inventory\n");
     printf("9. HELP -> Untuk menampilkan bantuan\n"); 
     printf("10. SAVE -> Untuk menyimpan file permainan\n");
-    printf("11. RETURN -> Untuk mengembalikan item ke to-do list (hanya saat efek aktif)\n");
-    printf("12. EXIT -> Untuk keluar dari game\n");
+    printf("11. STATS -> Untuk menampilkan efek dari item yang sedang aktif\n");
+    printf("12. MENU -> Untuk kembali ke menu utama\n");
+    printf("13. RETURN -> Untuk mengembalikan item ke to-do list (hanya saat efek aktif)\n");
+    printf("14. EXIT -> Untuk keluar dari game\n");
+}
+
+void stats(){
+    printf("=============== Efek Drop-Off ===============\n\n");
+    printf("Efek Speedboost:");
+    gameState.abs.SpeedBoost ? printf(" AKTIF, Sisa pemakaian: %d\n", gameState.abs.SpeedBoostStack) : printf(" TIDAK AKTIF\n");
+    printf("Efek Return:");
+    gameState.abs.IsReturnOn ? printf(" AKTIF, sisa pemakaian: %d\n", gameState.abs.ReturnStack) : printf(" TIDAK AKTIF\n");
+    printf("\n");
+    printf("=============== Efek Gadget ===============\n");
+    printf("(Berlaku untuk gadget yang tidak langsung dipakai)\n\n");
+    printf("Senter Pengecil:");
+    gameState.abs.IsSenterPengecilOn ? printf(" AKTIF\n") : printf(" TIDAK AKTIF\n");
+    printf("Pintu Kemana Saja:");
+    gameState.abs.PintuKemanaSaja ? printf(" AKTIF\n") : printf(" TIDAK AKTIF\n");
 }
