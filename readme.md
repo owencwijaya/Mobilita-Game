@@ -25,9 +25,11 @@
 * ADT Peta: untuk mewakili peta
 * ADT State: sebagai _global state_ yang merupakan gabungan dari ADT-ADT sebelumnya
 
+Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompilasi file)
+
 ## Structure
 * `build`: folder konfigurasi kompilasi
-* `dist`: folder untuk _executable_
+* `dist`: folder untuk _executable_ (akan muncul setelah kompilasi)
 * `src`: folder berisi _source code_
   * `commands`: folder berisi algoritma-algoritma untuk perintah pada permainan
   * `config`: folder berisi file konfigurasi permainan (sampel dari spesifikasi)
@@ -38,25 +40,29 @@
   * `modules`: folder berisi modul-modul penting di permainan
   * `gameInterface.c`: file menu utama untuk bermain
   * `main.c`: file utama permainan
+  
 ## Setup
-- Dari _VSCode/Terminal_
-* Pastikan anda berada di folder `root` (`../IF2110_TB_10_03`)
-* Jalankan perintah `py build/all.py` untuk melakukan kompilasi terhadap file-file yang ada
-* Setelah kompilasi selesai, ketikkan perintah `./dist/mobilita` untuk memulai _executable_
-
+* Dari _VSCode/Terminal_
+  * Pastikan anda berada di folder `root` (`../IF2110_TB_10_03`)
+  * Jalankan perintah `py build/all.py` untuk melakukan kompilasi terhadap file-file yang ada
+  * Setelah kompilasi selesai, ketikkan perintah `./dist/mobilita` untuk memulai _executable_
+* Secara otomatis
+  * Jalankan `run.bat` untuk memulai _executable_ dari `root` (`run.ps1` untuk menjalankan di PowerShell)
+  
 ## Usage
 * Saat _executable_ dimulai, akan ada empat opsi:
   * NEW: untuk memulai permainan baru
   * LOAD: untuk memulai permainan dari _save file_ sebelumnya
   * HELP: untuk menampilkan menu awal
   * EXIT: keluar dari program
-* **[IMPORTANT]** Pastikan direktori file konfigurasi/savefile relatif terhadap folder di mana program dijalankan
+  * 
+* **[IMPORTANT]** Pastikan direktori file konfigurasi/savefile relatif terhadap folder di mana program dijalankan. Apabila program dijalankan di `root`:
   * Apabila file berada di folder `src/config`, maka input file `src/config/<nama_file>.txt`
-  * Apabila file berada di folder `root`, maka input `<nama_file>`.txt
+  * Apabila file berada di `root`, maka input `<nama_file>`.txt
 * Pemain akan masuk ke menu utama dan permainan akan dimulai.
 * Pemain harus mengantarkan semua pesanan hingga tidak ada pesanan lagi. Setelah permainan selesai, pemain harus kembali ke posisi awal.
 
-## Contacts (GitHub)
+## Contacts
 * [13520166 Raden Rifqi Rahman](https://github.com/Radenz)
 * [13520124 Owen Christian Wijaya](https://github.com/clumsyyyy)
 * [13520121 Nicholas Budiono](https://github.com/nicholass25)
