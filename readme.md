@@ -3,11 +3,12 @@
 > sebagai Tugas Besar mata kuliah IF2110 Algoritma dan Struktur data
 > Program Studi Teknik Informatika ITB 2020/2021
 
-## Table of Contents
-* [General Information](#general-information)
-* [Setup](#setup)
-* [Usage](#usage)
-* [Contacts](#contacts)
+## Daftar Isi
+* [Penjelasan Ringkas](#penjelasan-ringkas)
+* [Cara Kompilasi](#cara-kompilasi)
+* [Cara Menjalankan Program](#cara-menjalankan-program)
+* [Fitur](#fitur)
+* [Anggota](#anggota)
 
 
 ## General Information
@@ -27,7 +28,7 @@
 
 Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompilasi file)
 
-## Structure
+Isi dari file:
 * `build`: folder konfigurasi kompilasi
 * `dist`: folder untuk _executable_ (akan muncul setelah kompilasi)
 * `src`: folder berisi _source code_
@@ -41,7 +42,7 @@ Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompila
   * `gameInterface.c`: file menu utama untuk bermain
   * `main.c`: file utama permainan
   
-## Setup
+## Cara Kompilasi
 * Dari _VSCode/Terminal_
   * Pastikan anda berada di folder `root` (`../IF2110_TB_10_03`)
   * Jalankan perintah `py build/all.py` untuk melakukan kompilasi terhadap file-file yang ada
@@ -49,7 +50,7 @@ Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompila
 * Secara otomatis
   * Jalankan `run.bat` untuk memulai _executable_ dari `root` (`run.ps1` untuk menjalankan di PowerShell)
   
-## Usage
+## Cara Menjalankan Program
 * Saat _executable_ dimulai, akan ada empat opsi:
   * NEW: untuk memulai permainan baru
   * LOAD: untuk memulai permainan dari _save file_ sebelumnya
@@ -62,9 +63,36 @@ Bahasa yang digunakan: C (implementasi permainan dan ADT), Python (untuk kompila
 * Pemain akan masuk ke menu utama dan permainan akan dimulai.
 * Pemain harus mengantarkan semua pesanan hingga tidak ada pesanan lagi. Setelah permainan selesai, pemain harus kembali ke posisi awal.
 
-## Contacts
+## Fitur
+Status pengerjaan: **[SELESAI]**
+* Fitur _save file_ dan _load gameplay_ dari _save file_
+* Pewarnaan di _gameplay_
+* Dapat dikompilasi dan dijalankan baik dari _code editor_ maupun _terminal `cmd`_ atau _PowerShell_
+* Implementasi ADT yang dimodifikasi dalam permainan
+* Simulasi pengantaran dan pengiriman barang berbasis lokasi dan CLI dengan akses lokasi dan informasi berbasis pewarnaan
+
+## Anggota
 * [13520166 Raden Rifqi Rahman](https://github.com/Radenz)
+  * Pembuatan ADT dasar + driver ADT
+  * Pembuatan script kompilasi
+  * Pembuatan groundwork pengerjaan dan state algoritma
+  * Pengecekan ulang algoritma
+  * Debugging dan update source code
 * [13520124 Owen Christian Wijaya](https://github.com/clumsyyyy)
+  * Integrasi algoritma ke program utama
+  * Algoritma fungsi buy dan inventory
+  * Debugging dan update source code
+  * Konfigurasi loading awal dan save file
+  * Pembagian tugas awal
 * [13520121 Nicholas Budiono](https://github.com/nicholass25)
+  * Algoritma move
+  * Petanggungjawab laporan
+  * Pengecekan ulang algoritma
 * [13520120 Afrizal Sebastian](https://github.com/afrizalsebastian)
+  * Algoritma in-progress dan pick-up 
+  * Debugging dan update source code
+  * Pengecekan ulang algoritma
 * [13520127 Adzka Ahmadetya Zaidan](https://github.com/Voguelish)
+  * Algoritma  to-do dan drop-off
+  * Notulis asistensi
+  * Pengecekan ulang algoritma
