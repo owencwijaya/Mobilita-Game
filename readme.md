@@ -51,11 +51,11 @@ Isi dari file:
   * `main.c`: file utama permainan
   
 ## Cara Kompilasi
-* Dari _VSCode/Terminal_
-  * Pastikan anda berada di folder `root` (`../IF2110_TB_10_03`)
+* Dari _Terminal Visual Studio Code_
+  * Pastikan anda berada di folder `root` (`../IF2110_TB_03_10`)
   * Jalankan perintah `py build/all.py` untuk melakukan kompilasi terhadap file-file yang ada
   * Setelah kompilasi selesai, ketikkan perintah `./dist/mobilita` untuk memulai _executable_
-* Secara otomatis
+* Secara otomatis (dari _command prompt_ atau _PowerShell_)
   * Jalankan `run.bat` untuk memulai _executable_ dari `root` (`run.ps1` untuk menjalankan di PowerShell)
   * **[IMPORTANT]** Supaya pewarnaan dapat dilihat dari _command prompt_, nilai dari Registry harus diubah melalui Regedit
     * Buka Registry Editor (`regedit`) di komputer Anda  
@@ -65,17 +65,22 @@ Isi dari file:
       * Nama kunci: `VirtualTerminalLevel`
       * Nilai kunci: `1`
     * Simpan hasil pengubahan kunci. Apabila program dijalankan di *command prompt* , pewarnaan seharusnya berjalan.
-  
+* Dari Linux (diuji di WSL2, Ubuntu 20.04)
+  * Pastikan anda berada di folder `root` (`..IF2110/TB_03/10`)
+  * Jalankan perintah `python3 build/all.py` untuk melakukan kompilasi terhadap file-file yang ada 
+  * Setelah kompilasi selesai, ketikkan perintah `./dist/mobilita` untuk memulai _executable_
+ 
 ## Cara Menjalankan Program
 * Saat _executable_ dimulai, akan ada empat opsi:
   * NEW: untuk memulai permainan baru
   * LOAD: untuk memulai permainan dari _save file_ sebelumnya
   * HELP: untuk menampilkan menu awal
   * EXIT: keluar dari program
-  * 
+   
 * **[IMPORTANT]** Pastikan direktori file konfigurasi/savefile relatif terhadap folder di mana program dijalankan. Apabila program dijalankan di `root`:
   * Apabila file berada di folder `src/config`, maka input file `src/config/<nama_file>.txt`
   * Apabila file berada di `root`, maka input `<nama_file>`.txt
+  * Pastikan juga **tipe _newline_ di file save sudah sesuai dengan _platform_** (CR/LF untuk Windows, LF untuk Linux), karena apabila file CR/LF dijalankan di Linux, maka akan muncul error _segmentation fault_ atau file tidak terbaca.
 * Pemain akan masuk ke menu utama dan permainan akan dimulai.
 * Pemain harus mengantarkan semua pesanan hingga tidak ada pesanan lagi. Setelah permainan selesai, pemain harus kembali ke posisi awal.
 
