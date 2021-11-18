@@ -7,7 +7,7 @@ base = path.basename(os.getcwd())
 if (base != "build"):
     os.chdir("build")
 
-excluded: list[str] = []
+excluded = []
 paths = list(Path("../").rglob("*.c"))
 
 for p in paths:
