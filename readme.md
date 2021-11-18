@@ -57,6 +57,14 @@ Isi dari file:
   * Setelah kompilasi selesai, ketikkan perintah `./dist/mobilita` untuk memulai _executable_
 * Secara otomatis
   * Jalankan `run.bat` untuk memulai _executable_ dari `root` (`run.ps1` untuk menjalankan di PowerShell)
+  * **[IMPORTANT]** Supaya pewarnaan dapat dilihat dari _command prompt_, nilai dari Registry harus diubah melalui Regedit
+    * Buka Registry Editor (`regedit`) di komputer Anda  
+    * Navigasikan ke `HKEY_CURRENT_USER -> Console`
+    * Klik kanan di folder `Console`, lalu gunakan opsi `New -> DWORD (32-bit Value)`
+    * Tambahkan kunci baru dengan spesifikasi:
+      * Nama kunci: `VirtualTerminalLevel`
+      * Nilai kunci: `1`
+    * Simpan hasil pengubahan kunci. Apabila program dijalankan di *command prompt* , pewarnaan seharusnya berjalan.
   
 ## Cara Menjalankan Program
 * Saat _executable_ dimulai, akan ada empat opsi:
