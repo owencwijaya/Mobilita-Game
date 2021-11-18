@@ -413,11 +413,14 @@ void parseLoad(char *path)
     }
 
     printf("File save berhasil diload!\n");
-
-    setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+    if (!isStackEmpty(gameState.bag)){
+        setAsDropOffPlace(&gameState.gameMap._locationMatrix.contents[top(gameState.bag).dropOffLocation.coordinate.x][top(gameState.bag).dropOffLocation.coordinate.y]);
+    }
+    
     for (int i = 0; i < itemListLength(gameState.todoList); i++)
     {
         Item temp = getItem(gameState.todoList, i);
         setAsPickUpPlace(&gameState.gameMap._locationMatrix.contents[temp.pickUpLocation.coordinate.x][temp.pickUpLocation.coordinate.y]);
     }
+
 }

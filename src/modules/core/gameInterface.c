@@ -148,10 +148,13 @@ void gameMenu()
             if (isStringEquals(option, "Y"))
             {
                 save_file();
+                playing = false;
+                mainMenu();
             }
             else
             {
                 printf("MENU selected.\n\n");
+                playing = false;
                 mainMenu();
             }
         }

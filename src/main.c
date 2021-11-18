@@ -13,12 +13,6 @@ void option();
 /* Fungsi utama yang akan di-run */
 void main()
 {
-    /**
-     * Uncomment the line below to enable ANSI escape
-     * sequence rendering in windows console
-     * @see "./modules/colorizer/colorizer.c"
-     */
-    enableAnsiRendering();
     mainMenu();
 }
 
