@@ -48,5 +48,5 @@ void adv()
 
 boolean isBlankCharacter(char c)
 {
-    return (c == WHITESPACE) || (!isReadingConsole && c == NEWLINE);
+    return (c == WHITESPACE) || (c == CR) || (!isReadingConsole && c == NEWLINE);
 }

@@ -7,6 +7,7 @@
 #include "../../models/shared/boolean.h"
 
 #define WHITESPACE ' '
+#define CR '\r'
 #define NEWLINE '\n'
 #define NULL_CHAR '\0'
 
